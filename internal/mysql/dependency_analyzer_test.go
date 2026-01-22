@@ -1,9 +1,9 @@
 package mysql
 
 import (
-	"sql-parser/analyzer"
 	"testing"
 
+	"github.com/Edsuns/sql-parser/analyzer"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -275,7 +275,7 @@ func TestMySQLDependencyAnalyzer(t *testing.T) {
 			result, err := mysqlAnalyzer.Analyze(&analyzer.DependencyAnalyzeReq{
 				DefaultCluster:  "cl",
 				DefaultDatabase: "db",
-				Type:            analyzer.SQLTypeMySQL,
+				Type:            analyzer.EngineMySQL,
 				SQL:             tt.sql,
 			})
 			assert.NoError(t, err)

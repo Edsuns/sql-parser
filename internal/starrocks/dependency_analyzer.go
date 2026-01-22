@@ -2,9 +2,9 @@ package starrocks
 
 import (
 	"errors"
-	"sql-parser/analyzer"
 	"strings"
 
+	"github.com/Edsuns/sql-parser/analyzer"
 	"github.com/antlr4-go/antlr/v4"
 )
 

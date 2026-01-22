@@ -1,10 +1,10 @@
 package parser
 
 import (
-	"sql-parser/analyzer"
-	"sql-parser/internal/hive"
-	"sql-parser/internal/spark"
-	"sql-parser/internal/tidb"
+	"github.com/Edsuns/sql-parser/analyzer"
+	"github.com/Edsuns/sql-parser/internal/hive"
+	"github.com/Edsuns/sql-parser/internal/spark"
+	"github.com/Edsuns/sql-parser/internal/tidb"
 )
 
 func NewHiveDependencyAnalyzer() analyzer.DependencyAnalyzer {

@@ -1,8 +1,7 @@
 package hive
 
 import (
-	"sql-parser/internal/hive/parser"
-
+	"github.com/Edsuns/sql-parser/internal/hive/parser"
 	"github.com/antlr4-go/antlr/v4"
 )
 

@@ -1,9 +1,9 @@
 package starrocks
 
 import (
-	"sql-parser/analyzer"
 	"testing"
 
+	"github.com/Edsuns/sql-parser/analyzer"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -243,7 +243,7 @@ func TestStarRocksDependencyAnalyzer(t *testing.T) {
 			result, err := starRocksAnalyzer.Analyze(&analyzer.DependencyAnalyzeReq{
 				DefaultCluster:  "default_cluster",
 				DefaultDatabase: "default_db",
-				Type:            analyzer.SQLTypeStarRocks,
+				Type:            analyzer.EngineStarRocks,
 				SQL:             tt.sql,
 			})
 			assert.NoError(t, err)

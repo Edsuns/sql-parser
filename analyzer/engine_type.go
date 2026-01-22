@@ -3,9 +3,9 @@ package analyzer
 type EngineType string
 
 const (
-	SQLTypeMySQL     EngineType = "mysql"
-	SQLTypeTiDB      EngineType = "tidb"
-	SQLTypeSpark     EngineType = "spark"
-	SQLTypeHive      EngineType = "hive"
-	SQLTypeStarRocks EngineType = "starrocks"
+	EngineMySQL     EngineType = "mysql"
+	EngineTiDB      EngineType = "tidb"
+	EngineSpark     EngineType = "spark"
+	EngineHive      EngineType = "hive"
+	EngineStarRocks EngineType = "starrocks"
 )

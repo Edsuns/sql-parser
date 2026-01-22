@@ -1,8 +1,9 @@
 package tidb
 
 import (
-	"sql-parser/analyzer"
 	"testing"
+
+	"github.com/Edsuns/sql-parser/analyzer"
 )
 
 func TestDependencyAnalyzer(t *testing.T) {
@@ -136,6 +137,7 @@ func TestDependencyAnalyzer(t *testing.T) {
 			req := &analyzer.DependencyAnalyzeReq{
 				DefaultCluster:  tt.cluster,
 				DefaultDatabase: tt.database,
+				Type:            analyzer.EngineTiDB,
 				SQL:             tt.sql,
 			}
 
@@ -340,6 +342,7 @@ func TestDependencyAnalyzerComprehensive(t *testing.T) {
 			req := &analyzer.DependencyAnalyzeReq{
 				DefaultCluster:  "default_cluster",
 				DefaultDatabase: "default_db",
+				Type:            analyzer.EngineTiDB,
 				SQL:             tc.sql,
 			}
 

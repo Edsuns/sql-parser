@@ -1,9 +1,9 @@
 package tidb
 
 import (
-	"sql-parser/analyzer"
 	"strings"
 
+	"github.com/Edsuns/sql-parser/analyzer"
 	"github.com/pingcap/tidb/pkg/parser"
 	"github.com/pingcap/tidb/pkg/parser/ast"
 	_ "github.com/pingcap/tidb/pkg/parser/test_driver"

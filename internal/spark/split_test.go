@@ -1,8 +1,9 @@
 package spark
 
 import (
-	"sql-parser/analyzer"
 	"testing"
+
+	"github.com/Edsuns/sql-parser/analyzer"
 )
 
 func TestSplitSQL(t *testing.T) {

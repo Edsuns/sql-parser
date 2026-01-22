@@ -1,8 +1,8 @@
 package tidb
 
 import (
+	"github.com/Edsuns/sql-parser/analyzer"
 	"github.com/pingcap/tidb/pkg/parser/ast"
-	"sql-parser/analyzer"
 )
 
 // dependencyVisitor 用于遍历TiDB语法树，分析依赖

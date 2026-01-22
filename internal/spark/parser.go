@@ -1,9 +1,8 @@
 package spark
 
 import (
-	"sql-parser/analyzer"
-	"sql-parser/internal/spark/parser"
-
+	"github.com/Edsuns/sql-parser/analyzer"
+	"github.com/Edsuns/sql-parser/internal/spark/parser"
 	"github.com/antlr4-go/antlr/v4"
 )
 

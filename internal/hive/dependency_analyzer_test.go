@@ -1,9 +1,9 @@
 package hive
 
 import (
-	"sql-parser/analyzer"
 	"testing"
 
+	"github.com/Edsuns/sql-parser/analyzer"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -349,7 +349,7 @@ func TestHiveDependencyAnalyzer(t *testing.T) {
 			result, err := hiveAnalyzer.Analyze(&analyzer.DependencyAnalyzeReq{
 				DefaultCluster:  "default_cluster",
 				DefaultDatabase: "default_db",
-				Type:            analyzer.SQLTypeHive,
+				Type:            analyzer.EngineHive,
 				SQL:             tt.sql,
 			})
 			assert.NoError(t, err)

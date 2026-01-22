@@ -1,5 +1,7 @@
 package analyzer
 
+import "fmt"
+
 type (
 	DependencyAnalyzeReq struct {
 		DefaultCluster  string     `json:"defaultCluster"`
@@ -22,6 +24,10 @@ type (
 		Write    []*DependencyTable `json:"write"`
 	}
 )
+
+func (d *DependencyTable) String() string {
+	return fmt.Sprintf("%s.%s.%s", d.Cluster, d.Database, d.Table)
+}
 
 type DependencyAnalyzer interface {
 	// Analyze 分析SQL读写表和语句类型 StmtType

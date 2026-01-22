@@ -1,4 +1,4 @@
-module sql-parser
+module github.com/Edsuns/sql-parser
 
 go 1.24.10
 

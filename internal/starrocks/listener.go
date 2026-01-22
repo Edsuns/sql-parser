@@ -2,10 +2,10 @@ package starrocks
 
 import (
 	"fmt"
-	"sql-parser/analyzer"
-	"sql-parser/internal/starrocks/parser"
 	"strings"
 
+	"github.com/Edsuns/sql-parser/analyzer"
+	"github.com/Edsuns/sql-parser/internal/starrocks/parser"
 	"github.com/antlr4-go/antlr/v4"
 )
 

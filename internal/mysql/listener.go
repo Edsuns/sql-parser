@@ -2,10 +2,10 @@ package mysql
 
 import (
 	"fmt"
-	"sql-parser/analyzer"
-	"sql-parser/internal/mysql/parser"
 	"strings"
 
+	"github.com/Edsuns/sql-parser/analyzer"
+	"github.com/Edsuns/sql-parser/internal/mysql/parser"
 	"github.com/antlr4-go/antlr/v4"
 )
 

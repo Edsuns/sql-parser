@@ -2,9 +2,10 @@ package spark
 
 import (
 	"fmt"
-	"sql-parser/analyzer"
 	"strings"
 	"testing"
+
+	"github.com/Edsuns/sql-parser/analyzer"
 )
 
 func TestAnalyze(t *testing.T) {
@@ -17,7 +18,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL:             "SELECT * from table1;",
 		},
 		expected: 1,
@@ -26,7 +27,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL:             "SELECT * FROM table1;",
 		},
 		expected: 1,
@@ -35,7 +36,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL:             "INSERT INTO table2 VALUES (1, 'a');",
 		},
 		expected: 1,
@@ -44,7 +45,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL:             "SELECT * FROM table1; INSERT INTO table2 VALUES (1, 'a');",
 		},
 		expected: 2,
@@ -53,7 +54,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL:             "-- This is a comment\nSELECT * FROM table1; -- Another comment",
 		},
 		expected: 1,
@@ -62,7 +63,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL:             "-- This is a comment\n/* This is another comment */",
 		},
 		expected: 0,
@@ -71,7 +72,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL:             "SELECT t1.col1, t2.col2 FROM table1 t1 JOIN table2 t2 ON t1.id = t2.id;",
 		},
 		expected: 1,
@@ -80,7 +81,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL:             "UPDATE table1 SET col1 = 'new_value' WHERE id = 1;",
 		},
 		expected: 1,
@@ -89,7 +90,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL:             "DELETE FROM table1 WHERE id = 1;",
 		},
 		expected: 1,
@@ -98,7 +99,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL:             "CREATE TABLE table3 (id INT, name STRING);",
 		},
 		expected: 1,
@@ -107,7 +108,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL:             "SELECT * FROM db1.table1;",
 		},
 		expected: 1,
@@ -116,7 +117,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL:             "SELECT * FROM cluster1.db1.table1;",
 		},
 		expected: 1,
@@ -125,7 +126,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL:             "INSERT INTO db2.table2 VALUES (1, 'a');",
 		},
 		expected: 1,
@@ -134,7 +135,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL:             "SELECT * FROM table1, table2, table3;",
 		},
 		expected: 1,
@@ -143,7 +144,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL:             "FROM table1 INSERT INTO table2 SELECT * INSERT INTO table3 SELECT *;",
 		},
 		expected: 1,
@@ -152,7 +153,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL:             "INSERT INTO table2 SELECT * FROM table1;",
 		},
 		expected: 1,
@@ -161,7 +162,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL:             "SELECT * FROM (SELECT * FROM table1 WHERE id > 10) t;",
 		},
 		expected: 1,
@@ -170,7 +171,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL:             "SELECT * FROM db1.table1 t1 JOIN db2.table2 t2 ON t1.id = t2.id;",
 		},
 		expected: 1,
@@ -179,7 +180,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL:             "INSERT INTO table3 SELECT t1.id, t2.name FROM table1 t1 JOIN table2 t2 ON t1.id = t2.id;",
 		},
 		expected: 1,
@@ -188,7 +189,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL:             "CREATE TABLE table4 (id INT, name STRING);",
 		},
 		expected: 1,
@@ -197,7 +198,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL:             "CREATE TABLE table5 AS SELECT t1.id, t2.name FROM table1 t1 JOIN table2 t2 ON t1.id = t2.id;",
 		},
 		expected: 1,
@@ -206,7 +207,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL:             "CREATE VIEW view1 AS SELECT * FROM table1;",
 		},
 		expected: 1,
@@ -215,7 +216,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL:             "CREATE VIEW view2 AS SELECT t1.id, t2.name FROM table1 t1 JOIN table2 t2 ON t1.id = t2.id;",
 		},
 		expected: 1,
@@ -224,7 +225,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL:             "ALTER TABLE table1 ADD COLUMN age INT;",
 		},
 		expected: 1,
@@ -233,7 +234,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL:             "REPLACE TABLE table1 (id INT, name STRING, age INT);",
 		},
 		expected: 1,
@@ -242,7 +243,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL:             "REPLACE TABLE table6 AS SELECT t1.id, t2.name FROM table1 t1 JOIN table2 t2 ON t1.id = t2.id;",
 		},
 		expected: 1,
@@ -251,7 +252,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL:             "DROP TABLE table1;",
 		},
 		expected: 1,
@@ -260,7 +261,7 @@ func TestAnalyze(t *testing.T) {
 		req: &analyzer.DependencyAnalyzeReq{
 			DefaultCluster:  "default_cluster",
 			DefaultDatabase: "default_db",
-			Type:            analyzer.SQLTypeSpark,
+			Type:            analyzer.EngineSpark,
 			SQL: `WITH 
    -- 第一个CTE：过滤出2023年的订单 
    orders_2023 AS ( 
@@ -331,7 +332,7 @@ func TestSyntaxErrorListener_SyntaxError(t *testing.T) {
 	req := &analyzer.DependencyAnalyzeReq{
 		DefaultCluster:  "default_cluster",
 		DefaultDatabase: "default_db",
-		Type:            analyzer.SQLTypeSpark,
+		Type:            analyzer.EngineSpark,
 		SQL:             "MERGE INTO table1 t1 USING table2 t2 ON t1.id = t2.id WHEN MATCHED THEN UPDATE SET t1.name = t2.name WHEN NOT MATCHED THEN INSERT VALUES (t2.id, t2.name);",
 	}
 	a := NewDependencyAnalyzer()
@@ -343,7 +344,7 @@ func TestSyntaxErrorListener_SyntaxError(t *testing.T) {
 	req = &analyzer.DependencyAnalyzeReq{
 		DefaultCluster:  "default_cluster",
 		DefaultDatabase: "default_db",
-		Type:            analyzer.SQLTypeSpark,
+		Type:            analyzer.EngineSpark,
 		SQL:             "CREATE TABLE IF NOT EXISTS sl_dw_sp_preview.adv_dwv_sp_flow_delivery_detail_flow_v2_fht (\n  platform STRING COMMENT '@pk 平台标识，枚举：ec1(2)、ec2(4)、shopify(1)、others(8)',\n  --task_type STRING COMMENT '任务类型，枚举：flow 自动化 / market 营销活动',\n  bulk_id STRING COMMENT '@pk bulkId',\n  user_id STRING COMMENT '@pk 用户id',\n  store_id STRING COMMENT '店铺ID',\n  task_id STRING COMMENT 'flowId/活动id',\n  object_type STRING COMMENT '对象类型，枚举：sms 短信 /email 邮件',\n  event_time BIGINT COMMENT '事件时间戳(毫秒)',\n  delivery_status STRING COMMENT '送达状态',\n  is_onboarding tinyint COMMENT '是否是onboarding数据,false不是/true是',\n  is_offline tinyint COMMENT '是否是离线,false不是/true是',\n  update_time STRING COMMENT '更新时间',\n  send_time BIGINT COMMENT '活动开始时间',\n  node_id STRING COMMENT '节点id',\n  recipient_domain string comment '收信域名',\n  sender_domain string comment '发信域名',\n  email_provider string comment '邮件服务商',\n  id string comment 'mongo对应的业务主键id',\n  recipient string comment '收信人邮箱/手机号',\n  error_name string comment '错误名称',\n  dt string COMMENT '发送时间对应的分区，YYYY-MM-DD'\n) COMMENT 'sp送达事件终态表' PARTITIONED BY (index_dt comment '分区日期，YYYY-MM-DD')",
 	}
 	_, err = a.Analyze(req)
@@ -354,7 +355,7 @@ func TestSyntaxErrorListener_SyntaxError(t *testing.T) {
 	req = &analyzer.DependencyAnalyzeReq{
 		DefaultCluster:  "default_cluster",
 		DefaultDatabase: "default_db",
-		Type:            analyzer.SQLTypeSpark,
+		Type:            analyzer.EngineSpark,
 		SQL:             "CREATE TABLE IF NOT EXISTS sl_dw_sp_preview.adv_dwv_sp_flow_delivery_detail_flow_v2_fht (\n  platform STRING COMMENT '@pk 平台标识，枚举：ec1(2)、ec2(4)、shopify(1)、others(8)',\n  --task_type STRING COMMENT '任务类型，枚举：flow 自动化 / market 营销活动',\n  bulk_id STRING COMMENT '@pk bulkId',\n  user_id STRING COMMENT '@pk 用户id',\n  store_id STRING COMMENT '店铺ID',\n  task_id STRING COMMENT 'flowId/活动id',\n  object_type STRING COMMENT '对象类型，枚举：sms 短信 /email 邮件',\n  event_time BIGINT COMMENT '事件时间戳(毫秒)',\n  delivery_status STRING COMMENT '送达状态',\n  is_onboarding tinyint COMMENT '是否是onboarding数据,false不是/true是',\n  is_offline tinyint COMMENT '是否是离线,false不是/true是',\n  update_time STRING COMMENT '更新时间',\n  send_time BIGINT COMMENT '活动开始时间',\n  node_id STRING COMMENT '节点id',\n  recipient_domain string comment '收信域名',\n  sender_domain string comment '发信域名',\n  email_provider string comment '邮件服务商',\n  id string comment 'mongo对应的业务主键id',\n  recipient string comment '收信人邮箱/手机号',\n  error_name string comment '错误名称',\n  dt string COMMENT '发送时间对应的分区，YYYY-MM-DD'\n) COMMENT 'sp送达事件终态表' PARTITIONED BY (index_dt) comment '分区日期，YYYY-MM-DD'",
 	}
 	_, err = a.Analyze(req)
@@ -368,7 +369,7 @@ func TestAnalyzeWithBasicTableExtraction(t *testing.T) {
 	req := &analyzer.DependencyAnalyzeReq{
 		DefaultCluster:  "test_cluster",
 		DefaultDatabase: "test_db",
-		Type:            analyzer.SQLTypeSpark,
+		Type:            analyzer.EngineSpark,
 		SQL:             "SELECT * FROM table1; INSERT INTO table2 SELECT * FROM table3;",
 	}
 
@@ -434,7 +435,7 @@ func TestAnalyzeWithSpecifiedDatabase(t *testing.T) {
 	req := &analyzer.DependencyAnalyzeReq{
 		DefaultCluster:  "test_cluster",
 		DefaultDatabase: "test_db",
-		Type:            analyzer.SQLTypeSpark,
+		Type:            analyzer.EngineSpark,
 		SQL:             "SELECT * FROM db1.table1; INSERT INTO db2.table2 VALUES (1, 'a');",
 	}
 
@@ -486,7 +487,7 @@ func TestAnalyzeWithMultipleReadTables(t *testing.T) {
 	req := &analyzer.DependencyAnalyzeReq{
 		DefaultCluster:  "test_cluster",
 		DefaultDatabase: "test_db",
-		Type:            analyzer.SQLTypeSpark,
+		Type:            analyzer.EngineSpark,
 		SQL:             "SELECT * FROM table1, table2, table3;",
 	}
 
@@ -524,7 +525,7 @@ func TestAnalyzeWithDdlOperations(t *testing.T) {
 	req := &analyzer.DependencyAnalyzeReq{
 		DefaultCluster:  "test_cluster",
 		DefaultDatabase: "test_db",
-		Type:            analyzer.SQLTypeSpark,
+		Type:            analyzer.EngineSpark,
 		SQL: "CREATE TABLE table1 (id INT, name STRING); " +
 			"CREATE VIEW view1 AS SELECT * FROM table1; " +
 			"ALTER TABLE table1 ADD COLUMN age INT; " +
@@ -643,7 +644,7 @@ func TestAnalyzeWithJoin(t *testing.T) {
 	req := &analyzer.DependencyAnalyzeReq{
 		DefaultCluster:  "test_cluster",
 		DefaultDatabase: "test_db",
-		Type:            analyzer.SQLTypeSpark,
+		Type:            analyzer.EngineSpark,
 		SQL:             "SELECT * FROM db1.table1 t1 JOIN db2.table2 t2 ON t1.id = t2.id;",
 	}
 
@@ -684,7 +685,7 @@ func TestAnalyzeWithPartitionedTables(t *testing.T) {
 	req := &analyzer.DependencyAnalyzeReq{
 		DefaultCluster:  "test_cluster",
 		DefaultDatabase: "test_db",
-		Type:            analyzer.SQLTypeSpark,
+		Type:            analyzer.EngineSpark,
 		SQL: "CREATE TABLE hive_partitioned (id INT, data MAP<INT, ARRAY<INT>>) PARTITIONED BY (dt STRING, country STRING) STORED AS PARQUET; " +
 			"CREATE TABLE spark_partitioned (id INT, name STRING) USING parquet PARTITIONED BY (dt, country);",
 	}
@@ -743,7 +744,7 @@ func TestAnalyzeWithSemicolonAndCommentInString(t *testing.T) {
 	req := &analyzer.DependencyAnalyzeReq{
 		DefaultCluster:  "test_cluster",
 		DefaultDatabase: "test_db",
-		Type:            analyzer.SQLTypeSpark,
+		Type:            analyzer.EngineSpark,
 		SQL: "SELECT * FROM table1 WHERE name = 'test;string' AND comment = 'line1 -- comment in string'; " +
 			"INSERT INTO table2 VALUES (1, 'value;with;semicolons', 'comment--with-dashes'); " +
 			"CREATE TABLE table3 (id INT, content STRING COMMENT 'table with -- comment in comment'); " +
@@ -834,7 +835,7 @@ func TestCTEWithMultipleTables(t *testing.T) {
 	req := &analyzer.DependencyAnalyzeReq{
 		DefaultCluster:  "test_cluster",
 		DefaultDatabase: "test_db",
-		Type:            analyzer.SQLTypeSpark,
+		Type:            analyzer.EngineSpark,
 		SQL:             sql,
 	}
 

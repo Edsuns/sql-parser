@@ -56,8 +56,6 @@ sql-parser/
 
 - 支持多种SQL语句类型的解析
 - 自动提取数据库名和表名
-- 基于ANTLR的强大解析能力
-- 分层设计，易于扩展到其他数据库
 - 支持SQL语句依赖分析
 - 支持SQL语句拆分
 - 简洁易用的API
@@ -66,11 +64,19 @@ sql-parser/
 
 ### 1. 安装依赖
 
+最新版本号请看[Releases](https://github.com/Edsuns/sql-parser/releases)
+
+```bash
+go get github.com/Edsuns/sql-parser@0.1
+```
+
 ```bash
 go mod tidy
 ```
 
 ### 2. 生成解析器
+
+生成代码使用到[ANTLR](https://www.antlr.org)，确保已经安装Java环境
 
 ```bash
 go generate ./...
@@ -83,13 +89,14 @@ package main
 
 import (
 	"fmt"
-	"sql-parser/analyzer"
-	"sql-parser/parser"
+
+	parser "github.com/Edsuns/sql-parser"
+	"github.com/Edsuns/sql-parser/analyzer"
 )
 
 func main() {
 	// 创建Spark SQL依赖分析器
-	analyzer := parser.NewSparkDependencyAnalyzer()
+	a := parser.NewSparkDependencyAnalyzer()
 
 	// 准备SQL语句
 	sql := `SELECT * FROM my_db.my_table WHERE id > 100;
@@ -97,13 +104,13 @@ func main() {
 
 	// 分析SQL依赖
 	req := &analyzer.DependencyAnalyzeReq{
-		DefaultCluster:  "default_cluster",
-		DefaultDatabase: "default_db",
-		Type:            analyzer.EngineTypeSpark,
+		DefaultCluster:  "cluster1",
+		DefaultDatabase: "db1",
+		Type:            analyzer.EngineSpark,
 		SQL:             sql,
 	}
 
-	results, err := analyzer.Analyze(req)
+	results, err := a.Analyze(req)
 	if err != nil {
 		fmt.Printf("分析失败: %v\n", err)
 		return
@@ -123,10 +130,4 @@ func main() {
 ## 技术栈
 
 - Go 1.24.10
-- ANTLR 4.13.1
-
-## 注意事项
-
-1. 确保系统已安装Go 1.24或更高版本
-2. 首次使用前请运行`go mod tidy`下载依赖
-3. 如需重新生成解析器，请确保已安装Java环境
+- ANTLR 4.13.2

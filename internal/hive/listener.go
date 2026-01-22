@@ -2,10 +2,10 @@ package hive
 
 import (
 	"fmt"
-	"sql-parser/analyzer"
-	"sql-parser/internal/hive/parser"
 	"strings"
 
+	"github.com/Edsuns/sql-parser/analyzer"
+	"github.com/Edsuns/sql-parser/internal/hive/parser"
 	"github.com/antlr4-go/antlr/v4"
 )
 

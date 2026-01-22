@@ -1,10 +1,11 @@
 package tidb
 
 import (
-	"github.com/pingcap/tidb/pkg/parser"
-	"sql-parser/analyzer"
 	"strings"
 	"testing"
+
+	"github.com/Edsuns/sql-parser/analyzer"
+	"github.com/pingcap/tidb/pkg/parser"
 )
 
 func TestSplit(t *testing.T) {
