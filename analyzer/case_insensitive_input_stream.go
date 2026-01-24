@@ -5,6 +5,7 @@ import (
 	"unicode"
 )
 
+// caseInsensitiveInputStream adaptation of: https://github.com/StarRocks/starrocks/blob/3.5.11/fe/fe-core/src/main/java/com/starrocks/sql/parser/CaseInsensitiveStream.java
 type caseInsensitiveInputStream struct {
 	antlr.CharStream
 }
@@ -16,6 +17,11 @@ func NewCaseInsensitiveInputStream(input string) antlr.CharStream {
 }
 
 func (is *caseInsensitiveInputStream) LA(offset int) int {
-	data := is.CharStream.LA(offset)
-	return int(unicode.ToUpper(rune(data)))
+	result := is.CharStream.LA(offset)
+	switch result {
+	case 0, antlr.TokenEOF:
+		return result
+	default:
+		return int(unicode.ToUpper(rune(result)))
+	}
 }
