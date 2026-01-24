@@ -4,224 +4,99 @@ import (
 	"testing"
 
 	"github.com/Edsuns/sql-parser/analyzer"
+	"github.com/stretchr/testify/assert"
 )
 
-func TestDependencyAnalyzer(t *testing.T) {
+func TestTiDBDependencyAnalyzer(t *testing.T) {
 	tests := []struct {
-		name     string
-		sql      string
-		cluster  string
-		database string
-		readLen  int
-		writeLen int
-		stmtType analyzer.StmtType
-	}{
-		// 基本查询语句
-		{
-			name:     "SELECT statement",
-			sql:      "SELECT * FROM test_table WHERE id = 1",
-			cluster:  "default",
-			database: "test_db",
-			readLen:  1,
-			writeLen: 0,
-			stmtType: analyzer.StmtTypeSelect,
-		},
-		{
-			name:     "SELECT with JOIN",
-			sql:      "SELECT t1.id, t2.name FROM table1 t1 JOIN table2 t2 ON t1.id = t2.table1_id",
-			cluster:  "default",
-			database: "test_db",
-			readLen:  2,
-			writeLen: 0,
-			stmtType: analyzer.StmtTypeSelect,
-		},
-		{
-			name:     "SELECT with subquery",
-			sql:      "SELECT * FROM table1 WHERE id IN (SELECT table1_id FROM table2 WHERE status = 'active')",
-			cluster:  "default",
-			database: "test_db",
-			readLen:  1, // TiDB当前实现只识别主查询中的表
-			writeLen: 0,
-			stmtType: analyzer.StmtTypeSelect,
-		},
-		// 数据修改语句
-		{
-			name:     "INSERT statement",
-			sql:      "INSERT INTO table1 (id, name) VALUES (1, 'test')",
-			cluster:  "default",
-			database: "test_db",
-			readLen:  0,
-			writeLen: 1,
-			stmtType: analyzer.StmtTypeInsert,
-		},
-		{
-			name:     "INSERT SELECT statement",
-			sql:      "INSERT INTO table1 (id, name) SELECT id, name FROM table2 WHERE status = 'active'",
-			cluster:  "default",
-			database: "test_db",
-			readLen:  0, // TiDB当前实现不识别INSERT SELECT中的读表
-			writeLen: 1,
-			stmtType: analyzer.StmtTypeInsert,
-		},
-		{
-			name:     "UPDATE statement",
-			sql:      "UPDATE table1 SET name = 'new' WHERE id = 1",
-			cluster:  "default",
-			database: "test_db",
-			readLen:  0,
-			writeLen: 1,
-			stmtType: analyzer.StmtTypeUpdate,
-		},
-		{
-			name:     "DELETE statement",
-			sql:      "DELETE FROM table1 WHERE id = 1",
-			cluster:  "default",
-			database: "test_db",
-			readLen:  0,
-			writeLen: 1,
-			stmtType: analyzer.StmtTypeDelete,
-		},
-		// DDL语句
-		{
-			name:     "CREATE TABLE statement",
-			sql:      "CREATE TABLE new_table (id INT PRIMARY KEY, name VARCHAR(50))",
-			cluster:  "default",
-			database: "test_db",
-			readLen:  0,
-			writeLen: 1,
-			stmtType: analyzer.StmtTypeCreateTable,
-		},
-		{
-			name:     "ALTER TABLE statement",
-			sql:      "ALTER TABLE table1 ADD COLUMN new_column VARCHAR(100)",
-			cluster:  "default",
-			database: "test_db",
-			readLen:  0,
-			writeLen: 1,
-			stmtType: analyzer.StmtTypeAlterTable,
-		},
-		{
-			name:     "DROP TABLE statement",
-			sql:      "DROP TABLE IF EXISTS old_table",
-			cluster:  "default",
-			database: "test_db",
-			readLen:  0,
-			writeLen: 1,
-			stmtType: analyzer.StmtTypeDropTable,
-		},
-		// 其他常用语句
-		{
-			name:     "TRUNCATE TABLE statement",
-			sql:      "TRUNCATE TABLE table1",
-			cluster:  "default",
-			database: "test_db",
-			readLen:  0,
-			writeLen: 1,
-			stmtType: analyzer.StmtTypeDropTable, // TiDB将TRUNCATE映射为DROP_TABLE
-		},
-		{
-			name:     "REPLACE statement",
-			sql:      "REPLACE INTO table1 (id, name) VALUES (1, 'replaced')",
-			cluster:  "default",
-			database: "test_db",
-			readLen:  0,
-			writeLen: 1,
-			stmtType: analyzer.StmtTypeInsert, // TiDB将REPLACE映射为INSERT
-		},
-	}
-
-	a := NewDependencyAnalyzer()
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			req := &analyzer.DependencyAnalyzeReq{
-				DefaultCluster:  tt.cluster,
-				DefaultDatabase: tt.database,
-				Type:            analyzer.EngineTiDB,
-				SQL:             tt.sql,
-			}
-
-			results, err := a.Analyze(req)
-			if err != nil {
-				t.Fatalf("Analyze failed: %v", err)
-			}
-
-			if len(results) != 1 {
-				t.Fatalf("Expected 1 result, got %d", len(results))
-			}
-
-			result := results[0]
-			if result.StmtType != tt.stmtType {
-				t.Errorf("Expected StmtType %s, got %s", tt.stmtType, result.StmtType)
-			}
-
-			if len(result.Read) != tt.readLen {
-				t.Fatalf("Expected %d read table(s), got %d", tt.readLen, len(result.Read))
-			}
-
-			if len(result.Write) != tt.writeLen {
-				t.Fatalf("Expected %d write table(s), got %d", tt.writeLen, len(result.Write))
-			}
-		})
-	}
-}
-
-func TestDependencyAnalyzerComprehensive(t *testing.T) {
-	a := NewDependencyAnalyzer()
-
-	// Test cases with various SQL statements
-	testCases := []struct {
 		name     string
 		sql      string
 		expected []*analyzer.DependencyResult
 	}{
+		// 基本查询语句
 		{
-			name: "SELECT from single table",
+			name: "SELECT statement",
 			sql:  "SELECT * FROM test_table WHERE id = 1",
 			expected: []*analyzer.DependencyResult{{
 				StmtType: analyzer.StmtTypeSelect,
 				Read: []*analyzer.DependencyTable{
 					{Cluster: "default_cluster", Database: "default_db", Table: "test_table"},
 				},
-				Write: []*analyzer.DependencyTable{}},
-			},
+				Write: []*analyzer.DependencyTable{},
+			}},
 		},
 		{
-			name: "INSERT with values",
-			sql:  "INSERT INTO test_table (id, name) VALUES (1, 'test')",
+			name: "SELECT with JOIN",
+			sql:  "SELECT t1.id, t2.name FROM table1 t1 JOIN table2 t2 ON t1.id = t2.table1_id",
+			expected: []*analyzer.DependencyResult{{
+				StmtType: analyzer.StmtTypeSelect,
+				Read: []*analyzer.DependencyTable{
+					{Cluster: "default_cluster", Database: "default_db", Table: "table1"},
+					{Cluster: "default_cluster", Database: "default_db", Table: "table2"},
+				},
+				Write: []*analyzer.DependencyTable{},
+			}},
+		},
+		{
+			name: "SELECT with subquery",
+			sql:  "SELECT * FROM table1 WHERE id IN (SELECT table1_id FROM table2 WHERE status = 'active')",
+			expected: []*analyzer.DependencyResult{{
+				StmtType: analyzer.StmtTypeSelect,
+				Read: []*analyzer.DependencyTable{
+					{Cluster: "default_cluster", Database: "default_db", Table: "table1"},
+				},
+				Write: []*analyzer.DependencyTable{},
+			}},
+		},
+		// 数据修改语句
+		{
+			name: "INSERT statement",
+			sql:  "INSERT INTO table1 (id, name) VALUES (1, 'test')",
 			expected: []*analyzer.DependencyResult{{
 				StmtType: analyzer.StmtTypeInsert,
 				Read:     []*analyzer.DependencyTable{},
 				Write: []*analyzer.DependencyTable{
-					{Cluster: "default_cluster", Database: "default_db", Table: "test_table"},
-				}},
-			},
+					{Cluster: "default_cluster", Database: "default_db", Table: "table1"},
+				},
+			}},
 		},
 		{
-			name: "UPDATE single table",
-			sql:  "UPDATE test_table SET name = 'updated' WHERE id = 1",
+			name: "INSERT SELECT statement",
+			sql:  "INSERT INTO table1 (id, name) SELECT id, name FROM table2 WHERE status = 'active'",
+			expected: []*analyzer.DependencyResult{{
+				StmtType: analyzer.StmtTypeInsert,
+				Read:     []*analyzer.DependencyTable{},
+				Write: []*analyzer.DependencyTable{
+					{Cluster: "default_cluster", Database: "default_db", Table: "table1"},
+				},
+			}},
+		},
+		{
+			name: "UPDATE statement",
+			sql:  "UPDATE table1 SET name = 'new' WHERE id = 1",
 			expected: []*analyzer.DependencyResult{{
 				StmtType: analyzer.StmtTypeUpdate,
 				Read:     []*analyzer.DependencyTable{},
 				Write: []*analyzer.DependencyTable{
-					{Cluster: "default_cluster", Database: "default_db", Table: "test_table"},
-				}},
-			},
+					{Cluster: "default_cluster", Database: "default_db", Table: "table1"},
+				},
+			}},
 		},
 		{
-			name: "DELETE from table",
-			sql:  "DELETE FROM test_table WHERE id = 1",
+			name: "DELETE statement",
+			sql:  "DELETE FROM table1 WHERE id = 1",
 			expected: []*analyzer.DependencyResult{{
 				StmtType: analyzer.StmtTypeDelete,
 				Read:     []*analyzer.DependencyTable{},
 				Write: []*analyzer.DependencyTable{
-					{Cluster: "default_cluster", Database: "default_db", Table: "test_table"},
-				}},
-			},
+					{Cluster: "default_cluster", Database: "default_db", Table: "table1"},
+				},
+			}},
 		},
+		// DDL语句
 		{
-			name: "CREATE TABLE",
-			sql:  "CREATE TABLE new_table (id INT, name VARCHAR(255))",
+			name: "CREATE TABLE statement",
+			sql:  "CREATE TABLE new_table (id INT PRIMARY KEY, name VARCHAR(50))",
 			expected: []*analyzer.DependencyResult{{
 				StmtType: analyzer.StmtTypeCreateTable,
 				Read:     []*analyzer.DependencyTable{},
@@ -231,15 +106,26 @@ func TestDependencyAnalyzerComprehensive(t *testing.T) {
 			}},
 		},
 		{
-			name: "ALTER TABLE",
-			sql:  "ALTER TABLE test_table ADD COLUMN email VARCHAR(255)",
+			name: "ALTER TABLE statement",
+			sql:  "ALTER TABLE table1 ADD COLUMN new_column VARCHAR(100)",
 			expected: []*analyzer.DependencyResult{{
 				StmtType: analyzer.StmtTypeAlterTable,
 				Read:     []*analyzer.DependencyTable{},
 				Write: []*analyzer.DependencyTable{
-					{Cluster: "default_cluster", Database: "default_db", Table: "test_table"},
-				}},
-			},
+					{Cluster: "default_cluster", Database: "default_db", Table: "table1"},
+				},
+			}},
+		},
+		{
+			name: "DROP TABLE statement",
+			sql:  "DROP TABLE IF EXISTS old_table",
+			expected: []*analyzer.DependencyResult{{
+				StmtType: analyzer.StmtTypeDropTable,
+				Read:     []*analyzer.DependencyTable{},
+				Write: []*analyzer.DependencyTable{
+					{Cluster: "default_cluster", Database: "default_db", Table: "old_table"},
+				},
+			}},
 		},
 		{
 			name: "DROP TABLE",
@@ -249,8 +135,31 @@ func TestDependencyAnalyzerComprehensive(t *testing.T) {
 				Read:     []*analyzer.DependencyTable{},
 				Write: []*analyzer.DependencyTable{
 					{Cluster: "default_cluster", Database: "default_db", Table: "test_table"},
-				}},
-			},
+				},
+			}},
+		},
+		// 其他常用语句
+		{
+			name: "TRUNCATE TABLE statement",
+			sql:  "TRUNCATE TABLE table1",
+			expected: []*analyzer.DependencyResult{{
+				StmtType: analyzer.StmtTypeDropTable, // TiDB将TRUNCATE映射为DROP_TABLE
+				Read:     []*analyzer.DependencyTable{},
+				Write: []*analyzer.DependencyTable{
+					{Cluster: "default_cluster", Database: "default_db", Table: "table1"},
+				},
+			}},
+		},
+		{
+			name: "REPLACE statement",
+			sql:  "REPLACE INTO table1 (id, name) VALUES (1, 'replaced')",
+			expected: []*analyzer.DependencyResult{{
+				StmtType: analyzer.StmtTypeInsert, // TiDB将REPLACE映射为INSERT
+				Read:     []*analyzer.DependencyTable{},
+				Write: []*analyzer.DependencyTable{
+					{Cluster: "default_cluster", Database: "default_db", Table: "table1"},
+				},
+			}},
 		},
 		{
 			name: "CREATE VIEW",
@@ -262,8 +171,8 @@ func TestDependencyAnalyzerComprehensive(t *testing.T) {
 				},
 				Write: []*analyzer.DependencyTable{
 					{Cluster: "default_cluster", Database: "default_db", Table: "test_view"},
-				}},
-			},
+				},
+			}},
 		},
 		{
 			name: "Single statement with semicolon in string",
@@ -301,13 +210,14 @@ func TestDependencyAnalyzerComprehensive(t *testing.T) {
 				Read: []*analyzer.DependencyTable{
 					{Cluster: "default_cluster", Database: "default_db", Table: "t1"},
 				},
-				Write: []*analyzer.DependencyTable{}}, {
+				Write: []*analyzer.DependencyTable{},
+			}, {
 				StmtType: analyzer.StmtTypeInsert,
 				Read:     []*analyzer.DependencyTable{},
 				Write: []*analyzer.DependencyTable{
 					{Cluster: "default_cluster", Database: "default_db", Table: "t2"},
-				}},
-			},
+				},
+			}},
 		},
 		{
 			name: "Multiple statements with comments at the end",
@@ -317,13 +227,14 @@ func TestDependencyAnalyzerComprehensive(t *testing.T) {
 				Read: []*analyzer.DependencyTable{
 					{Cluster: "default_cluster", Database: "default_db", Table: "t1"},
 				},
-				Write: []*analyzer.DependencyTable{}}, {
+				Write: []*analyzer.DependencyTable{},
+			}, {
 				StmtType: analyzer.StmtTypeInsert,
 				Read:     []*analyzer.DependencyTable{},
 				Write: []*analyzer.DependencyTable{
 					{Cluster: "default_cluster", Database: "default_db", Table: "t2"},
-				}},
-			},
+				},
+			}},
 		},
 		{
 			name: "Statement with block comment containing semicolon",
@@ -333,39 +244,55 @@ func TestDependencyAnalyzerComprehensive(t *testing.T) {
 				Read: []*analyzer.DependencyTable{
 					{Cluster: "default_cluster", Database: "default_db", Table: "t1"},
 				},
-				Write: []*analyzer.DependencyTable{}}},
+				Write: []*analyzer.DependencyTable{},
+			}},
+		},
+		// USE语句测试
+		{
+			name: "USE database statement",
+			sql:  "USE test_db",
+			expected: []*analyzer.DependencyResult{{
+				StmtType: analyzer.StmtTypeUseDatabase,
+				Read:     []*analyzer.DependencyTable{},
+				Write:    []*analyzer.DependencyTable{},
+			}},
 		},
 	}
 
-	for _, tc := range testCases {
-		t.Run(tc.name, func(t *testing.T) {
+	tidbAnalyzer := NewDependencyAnalyzer()
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
 			req := &analyzer.DependencyAnalyzeReq{
 				DefaultCluster:  "default_cluster",
 				DefaultDatabase: "default_db",
 				Type:            analyzer.EngineTiDB,
-				SQL:             tc.sql,
+				SQL:             tt.sql,
 			}
 
-			results, err := a.Analyze(req)
-			if err != nil {
-				t.Fatalf("Analyze failed: %v", err)
-			}
-
-			if len(results) != len(tc.expected) {
-				t.Fatalf("Expected %d result, got %d", len(tc.expected), len(results))
-			} else {
+			results, err := tidbAnalyzer.Analyze(req)
+			assert.NoError(t, err)
+			if assert.Equal(t, len(tt.expected), len(results)) {
 				for i, result := range results {
-					expected := tc.expected[i]
-					if result.StmtType != expected.StmtType {
-						t.Errorf("Expected StmtType %s, got %s", expected.StmtType, result.StmtType)
+					expected := tt.expected[i]
+					assert.Equal(t, expected.StmtType, result.StmtType)
+					assert.Equal(t, len(expected.Read), len(result.Read))
+					assert.Equal(t, len(expected.Write), len(result.Write))
+
+					// 验证读表
+					for j, readTable := range result.Read {
+						expectedRead := expected.Read[j]
+						assert.Equal(t, expectedRead.Cluster, readTable.Cluster)
+						assert.Equal(t, expectedRead.Database, readTable.Database)
+						assert.Equal(t, expectedRead.Table, readTable.Table)
 					}
 
-					if len(result.Read) != len(expected.Read) {
-						t.Errorf("Expected %d read tables, got %d", len(expected.Read), len(result.Read))
-					}
-
-					if len(result.Write) != len(expected.Write) {
-						t.Errorf("Expected %d write tables, got %d", len(expected.Write), len(result.Write))
+					// 验证写表
+					for j, writeTable := range result.Write {
+						expectedWrite := expected.Write[j]
+						assert.Equal(t, expectedWrite.Cluster, writeTable.Cluster)
+						assert.Equal(t, expectedWrite.Database, writeTable.Database)
+						assert.Equal(t, expectedWrite.Table, writeTable.Table)
 					}
 				}
 			}

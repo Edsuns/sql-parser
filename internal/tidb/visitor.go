@@ -107,6 +107,10 @@ func (v *dependencyVisitor) Enter(in ast.Node) (out ast.Node, skipChildren bool)
 			n.Select.Accept(v)
 		}
 
+	// USE语句
+	case *ast.UseStmt:
+		v.deps.StmtType = analyzer.StmtTypeUseDatabase
+
 	// 表名 - 直接处理表名节点
 	case *ast.TableName:
 		// 根据语句类型判断是读表还是写表

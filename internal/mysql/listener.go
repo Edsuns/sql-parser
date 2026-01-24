@@ -105,6 +105,15 @@ func (l *dependencyListener) EnterReplaceStatement(ctx *parser.ReplaceStatementC
 	l.onWriteStmt()
 }
 
+// EnterUseCommand 进入USE语句时调用
+func (l *dependencyListener) EnterUseCommand(ctx *parser.UseCommandContext) {
+	l.curOpType = analyzer.StmtTypeUseDatabase
+	l.isOnlyComment = false
+	if l.firstOpType == "" {
+		l.firstOpType = analyzer.StmtTypeUseDatabase
+	}
+}
+
 // EnterTableRef 进入表引用时调用，用于提取数据库名和表名
 func (l *dependencyListener) EnterTableRef(ctx *parser.TableRefContext) {
 	// 简单处理，直接获取文本并分割

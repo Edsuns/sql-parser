@@ -259,6 +259,12 @@ func (l *dependencyListener) EnterTruncateTableStatement(ctx *parser.TruncateTab
 	l.firstOpType = analyzer.StmtTypeTruncate
 }
 
+// 监听进入USE语句
+func (l *dependencyListener) EnterSwitchDatabaseStatement(ctx *parser.SwitchDatabaseStatementContext) {
+	l.isOnlyComment = false
+	l.firstOpType = analyzer.StmtTypeUseDatabase
+}
+
 // 监听进入表名
 func (l *dependencyListener) EnterTableName(ctx *parser.TableNameContext) {
 	l.isOnlyComment = false

@@ -267,6 +267,18 @@ func TestMySQLDependencyAnalyzer(t *testing.T) {
 				},
 			},
 		},
+		{
+			name: "USE statement",
+			sql:  "USE db1",
+			expected: []*analyzer.DependencyResult{
+				{
+					Stmt:     "USE db1",
+					StmtType: analyzer.StmtTypeUseDatabase,
+					Read:     []*analyzer.DependencyTable{},
+					Write:    []*analyzer.DependencyTable{},
+				},
+			},
+		},
 	}
 
 	mysqlAnalyzer := NewDependencyAnalyzer()
@@ -279,25 +291,30 @@ func TestMySQLDependencyAnalyzer(t *testing.T) {
 				SQL:             tt.sql,
 			})
 			assert.NoError(t, err)
-			// 打印调试信息
-			t.Logf("SQL: %s", tt.sql)
-			t.Logf("Expected result count: %d, Actual: %d", len(tt.expected), len(result))
-			for i, r := range result {
-				t.Logf("Result %d: Stmt=%s, StmtType=%s, Read=%d tables, Write=%d tables",
-					i, r.Stmt, r.StmtType, len(r.Read), len(r.Write))
-				for j, tbl := range r.Read {
-					t.Logf("  Read table %d: %s.%s.%s", j, tbl.Cluster, tbl.Database, tbl.Table)
+			if assert.Equal(t, len(tt.expected), len(result)) {
+				for i, r := range result {
+					expected := tt.expected[i]
+					assert.Equal(t, expected.Stmt, r.Stmt)
+					assert.Equal(t, expected.StmtType, r.StmtType)
+					assert.Equal(t, len(expected.Read), len(r.Read))
+					assert.Equal(t, len(expected.Write), len(r.Write))
+
+					// 验证读表
+					for j, readTable := range r.Read {
+						expectedRead := expected.Read[j]
+						assert.Equal(t, expectedRead.Cluster, readTable.Cluster)
+						assert.Equal(t, expectedRead.Database, readTable.Database)
+						assert.Equal(t, expectedRead.Table, readTable.Table)
+					}
+
+					// 验证写表
+					for j, writeTable := range r.Write {
+						expectedWrite := expected.Write[j]
+						assert.Equal(t, expectedWrite.Cluster, writeTable.Cluster)
+						assert.Equal(t, expectedWrite.Database, writeTable.Database)
+						assert.Equal(t, expectedWrite.Table, writeTable.Table)
+					}
 				}
-				for j, tbl := range r.Write {
-					t.Logf("  Write table %d: %s.%s.%s", j, tbl.Cluster, tbl.Database, tbl.Table)
-				}
-			}
-			assert.Equal(t, len(tt.expected), len(result))
-			if len(result) > 0 {
-				assert.Equal(t, tt.expected[0].Stmt, result[0].Stmt)
-				assert.Equal(t, tt.expected[0].StmtType, result[0].StmtType)
-				assert.Equal(t, len(tt.expected[0].Read), len(result[0].Read))
-				assert.Equal(t, len(tt.expected[0].Write), len(result[0].Write))
 			}
 		})
 	}

@@ -15,4 +15,6 @@ const (
 	StmtTypeDropTable    StmtType = "DROP_TABLE"
 	StmtTypeCreateLike   StmtType = "CREATE_LIKE"
 	StmtTypeTruncate     StmtType = "TRUNCATE"
+	StmtTypeUseDatabase  StmtType = "USE_DATABASE"
+	StmtTypeUseCatalog   StmtType = "USE_CATALOG"
 )

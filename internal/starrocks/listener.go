@@ -97,9 +97,29 @@ func (l *dependencyListener) EnterQueryStatement(ctx *parser.QueryStatementConte
 	}
 }
 
+// EnterUseDatabaseStatement 进入USE DATABASE语句时调用
+func (l *dependencyListener) EnterUseDatabaseStatement(ctx *parser.UseDatabaseStatementContext) {
+	l.curOpType = analyzer.StmtTypeUseDatabase
+	l.isOnlyComment = false
+	// 设置为firstOpType，但不进行读写表操作
+	l.firstOpType = analyzer.StmtTypeUseDatabase
+}
+
+// EnterUseCatalogStatement 进入USE CATALOG语句时调用
+func (l *dependencyListener) EnterUseCatalogStatement(ctx *parser.UseCatalogStatementContext) {
+	l.curOpType = analyzer.StmtTypeUseCatalog
+	l.isOnlyComment = false
+	// 设置为firstOpType，但不进行读写表操作
+	l.firstOpType = analyzer.StmtTypeUseCatalog
+}
+
 // EnterQualifiedName 进入表名节点时调用
 func (l *dependencyListener) EnterQualifiedName(ctx *parser.QualifiedNameContext) {
 	if ctx != nil {
+		// USE语句不进行读写表操作
+		if l.curOpType == analyzer.StmtTypeUseDatabase || l.curOpType == analyzer.StmtTypeUseCatalog {
+			return
+		}
 		// 直接获取表名文本
 		tableName := ctx.GetText()
 		// 检查是否是CTE名称
@@ -122,6 +142,10 @@ func (l *dependencyListener) EnterQualifiedName(ctx *parser.QualifiedNameContext
 // EnterTableName 进入表名节点时调用
 func (l *dependencyListener) EnterTableName(ctx *parser.TableNameContext) {
 	if ctx != nil {
+		// USE语句不进行读写表操作
+		if l.curOpType == analyzer.StmtTypeUseDatabase || l.curOpType == analyzer.StmtTypeUseCatalog {
+			return
+		}
 		// 直接获取表名文本
 		tableName := ctx.GetText()
 		// 检查是否是CTE名称
@@ -143,6 +167,10 @@ func (l *dependencyListener) EnterTableName(ctx *parser.TableNameContext) {
 
 // isWriteOperation 检查当前操作是否是写操作
 func (l *dependencyListener) isWriteOperation() bool {
+	// USE语句不进行读写表操作
+	if l.curOpType == analyzer.StmtTypeUseDatabase || l.curOpType == analyzer.StmtTypeUseCatalog {
+		return false
+	}
 	return l.curOpType == analyzer.StmtTypeCreateTable ||
 		l.curOpType == analyzer.StmtTypeCreateView ||
 		l.curOpType == analyzer.StmtTypeAlterTable ||

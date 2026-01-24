@@ -288,8 +288,31 @@ func (l *dependencyListener) EnterComment(ctx *parser.CommentContext) {
 	l.comments = append(l.comments, commentText)
 }
 
+// EnterUse 进入USE语句时调用，处理USE database形式
+func (l *dependencyListener) EnterUse(ctx *parser.UseContext) {
+	l.curOpType = analyzer.StmtTypeUseDatabase
+	l.isOnlyComment = false
+	if l.firstOpType == "" {
+		l.firstOpType = analyzer.StmtTypeUseDatabase
+	}
+}
+
+// EnterUseNamespace 进入USE语句时调用，处理USE namespace database形式（如USE CATALOG db）
+func (l *dependencyListener) EnterUseNamespace(ctx *parser.UseNamespaceContext) {
+	l.curOpType = analyzer.StmtTypeUseCatalog
+	l.isOnlyComment = false
+	if l.firstOpType == "" {
+		l.firstOpType = analyzer.StmtTypeUseCatalog
+	}
+}
+
 // EnterIdentifierReference 进入标识符引用时调用，用于提取数据库名和表名
 func (l *dependencyListener) EnterIdentifierReference(ctx *parser.IdentifierReferenceContext) {
+	// USE语句不应该添加表依赖
+	if l.curOpType == analyzer.StmtTypeUseDatabase || l.curOpType == analyzer.StmtTypeUseCatalog {
+		return
+	}
+
 	if ctx.MultipartIdentifier() != nil {
 		parts := ctx.MultipartIdentifier().AllErrorCapturingIdentifier()
 		if len(parts) > 0 {
