@@ -73,13 +73,91 @@ func (v *dependencyVisitor) Enter(in ast.Node) (out ast.Node, skipChildren bool)
 	case *ast.CreateTableStmt:
 		v.deps.StmtType = analyzer.StmtTypeCreateTable
 		// 添加创建的表到写表
-		v.addWriteTableByName(n.Table.Name.O, n.Table.Schema.O)
+		tableName := n.Table.Name.O
+		schema := n.Table.Schema.O
+		if schema == "" {
+			schema = v.defaultDatabase
+		}
+		v.addWriteTableByName(tableName, schema)
+
+		// 提取列信息
+		columns := []*analyzer.ActionColumn{}
+		for _, col := range n.Cols {
+			columns = append(columns, &analyzer.ActionColumn{
+				Name:   col.Name.Name.O,
+				Type:   col.Tp.String(),
+				Action: analyzer.ActionTypeCreate,
+			})
+		}
+
+		// 添加CREATE TABLE action
+		action := &analyzer.ActionTable{
+			Cluster:  v.defaultCluster,
+			Database: schema,
+			Table:    tableName,
+			Columns:  columns,
+			Action:   analyzer.ActionTypeCreate,
+		}
+		v.deps.Actions = append(v.deps.Actions, action)
 
 	// ALTER TABLE语句
 	case *ast.AlterTableStmt:
 		v.deps.StmtType = analyzer.StmtTypeAlterTable
 		// 添加修改的表到写表
-		v.addWriteTableByName(n.Table.Name.O, n.Table.Schema.O)
+		tableName := n.Table.Name.O
+		schema := n.Table.Schema.O
+		if schema == "" {
+			schema = v.defaultDatabase
+		}
+		v.addWriteTableByName(tableName, schema)
+
+		// 提取列信息
+		columns := []*analyzer.ActionColumn{}
+		for _, spec := range n.Specs {
+			switch spec.Tp {
+			case 2: // 添加列
+				for _, col := range spec.NewColumns {
+					columns = append(columns, &analyzer.ActionColumn{
+						Name:   col.Name.Name.O,
+						Type:   col.Tp.String(),
+						Action: analyzer.ActionTypeCreate,
+					})
+				}
+			case 4: // 删除列
+				if spec.OldColumnName != nil {
+					columns = append(columns, &analyzer.ActionColumn{
+						Name:   spec.OldColumnName.Name.O,
+						Action: analyzer.ActionTypeDrop,
+					})
+				}
+			case 8: // 修改列
+				for _, col := range spec.NewColumns {
+					columns = append(columns, &analyzer.ActionColumn{
+						Name:   col.Name.Name.O,
+						Type:   col.Tp.String(),
+						Action: analyzer.ActionTypeAlter,
+					})
+				}
+			case 9: // 修改列名
+				for _, col := range spec.NewColumns {
+					columns = append(columns, &analyzer.ActionColumn{
+						Name:   col.Name.Name.O,
+						Type:   col.Tp.String(),
+						Action: analyzer.ActionTypeAlter,
+					})
+				}
+			}
+		}
+
+		// 添加ALTER TABLE action
+		action := &analyzer.ActionTable{
+			Cluster:  v.defaultCluster,
+			Database: schema,
+			Table:    tableName,
+			Columns:  columns,
+			Action:   analyzer.ActionTypeAlter,
+		}
+		v.deps.Actions = append(v.deps.Actions, action)
 
 	// TRUNCATE TABLE语句
 	case *ast.TruncateTableStmt:
@@ -92,7 +170,21 @@ func (v *dependencyVisitor) Enter(in ast.Node) (out ast.Node, skipChildren bool)
 		v.deps.StmtType = analyzer.StmtTypeDropTable
 		// 添加删除的表到写表
 		for _, table := range n.Tables {
-			v.addWriteTableByName(table.Name.O, table.Schema.O)
+			tableName := table.Name.O
+			schema := table.Schema.O
+			if schema == "" {
+				schema = v.defaultDatabase
+			}
+			v.addWriteTableByName(tableName, schema)
+
+			// 添加DROP TABLE action
+			action := &analyzer.ActionTable{
+				Cluster:  v.defaultCluster,
+				Database: schema,
+				Table:    tableName,
+				Action:   analyzer.ActionTypeDrop,
+			}
+			v.deps.Actions = append(v.deps.Actions, action)
 		}
 
 	// CREATE VIEW语句

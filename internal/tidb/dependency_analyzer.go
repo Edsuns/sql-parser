@@ -55,6 +55,7 @@ func (a *dependencyAnalyzer) parseOneStmt(stmt ast.StmtNode, defaultCluster, def
 		Stmt:     strings.TrimSpace(stmt.OriginalText()),
 		Read:     make([]*analyzer.DependencyTable, 0),
 		Write:    make([]*analyzer.DependencyTable, 0),
+		Actions:  make([]*analyzer.ActionTable, 0),
 		StmtType: "",
 	}
 	visitor := &dependencyVisitor{

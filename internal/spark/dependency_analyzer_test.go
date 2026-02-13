@@ -277,6 +277,18 @@ func TestSparkDependencyAnalyzer(t *testing.T) {
 					Write: []*analyzer.DependencyTable{
 						{Cluster: "default_cluster", Database: "default_db", Table: "table3"},
 					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "table3",
+							Action:   analyzer.ActionTypeCreate,
+							Columns: []*analyzer.ActionColumn{
+								{Name: "id", Type: "INT", IsNotNull: false, IsPrimary: false, DefaultValue: "", Comment: "", Action: analyzer.ActionTypeCreate},
+								{Name: "name", Type: "STRING", IsNotNull: false, IsPrimary: false, DefaultValue: "", Comment: "", Action: analyzer.ActionTypeCreate},
+							},
+						},
+					},
 				},
 			},
 		},
@@ -290,6 +302,18 @@ func TestSparkDependencyAnalyzer(t *testing.T) {
 					Read:     []*analyzer.DependencyTable{},
 					Write: []*analyzer.DependencyTable{
 						{Cluster: "default_cluster", Database: "default_db", Table: "table4"},
+					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "table4",
+							Action:   analyzer.ActionTypeCreate,
+							Columns: []*analyzer.ActionColumn{
+								{Name: "id", Type: "INT", IsNotNull: false, IsPrimary: false, DefaultValue: "", Comment: "", Action: analyzer.ActionTypeCreate},
+								{Name: "name", Type: "STRING", IsNotNull: false, IsPrimary: false, DefaultValue: "", Comment: "", Action: analyzer.ActionTypeCreate},
+							},
+						},
 					},
 				},
 			},
@@ -307,6 +331,15 @@ func TestSparkDependencyAnalyzer(t *testing.T) {
 					},
 					Write: []*analyzer.DependencyTable{
 						{Cluster: "default_cluster", Database: "default_db", Table: "table5"},
+					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "table5",
+							Action:   analyzer.ActionTypeCreate,
+							Columns:  []*analyzer.ActionColumn{},
+						},
 					},
 				},
 			},
@@ -355,6 +388,17 @@ func TestSparkDependencyAnalyzer(t *testing.T) {
 					Write: []*analyzer.DependencyTable{
 						{Cluster: "default_cluster", Database: "default_db", Table: "table1"},
 					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "table1",
+							Action:   analyzer.ActionTypeAlter,
+							Columns: []*analyzer.ActionColumn{
+								{Name: "age", Type: "INT", IsNotNull: false, IsPrimary: false, DefaultValue: "", Comment: "", Action: analyzer.ActionTypeAlter},
+							},
+						},
+					},
 				},
 			},
 		},
@@ -399,6 +443,15 @@ func TestSparkDependencyAnalyzer(t *testing.T) {
 					Read:     []*analyzer.DependencyTable{},
 					Write: []*analyzer.DependencyTable{
 						{Cluster: "default_cluster", Database: "default_db", Table: "table1"},
+					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "table1",
+							Action:   analyzer.ActionTypeDrop,
+							Columns:  []*analyzer.ActionColumn{},
+						},
 					},
 				},
 			},
@@ -564,6 +617,18 @@ func TestSparkDependencyAnalyzer(t *testing.T) {
 					Write: []*analyzer.DependencyTable{
 						{Cluster: "default_cluster", Database: "default_db", Table: "table3"},
 					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "table3",
+							Action:   analyzer.ActionTypeCreate,
+							Columns: []*analyzer.ActionColumn{
+								{Name: "id", Type: "INT", IsNotNull: false, IsPrimary: false, DefaultValue: "", Comment: "", Action: analyzer.ActionTypeCreate},
+								{Name: "content", Type: "STRING", IsNotNull: false, IsPrimary: false, DefaultValue: "", Comment: "COMMENT'table with -- comment in comment'", Action: analyzer.ActionTypeCreate},
+							},
+						},
+					},
 				},
 			},
 		},
@@ -593,6 +658,161 @@ func TestSparkDependencyAnalyzer(t *testing.T) {
 					StmtType: analyzer.StmtTypeUseDatabase,
 					Read:     []*analyzer.DependencyTable{},
 					Write:    []*analyzer.DependencyTable{},
+				},
+			},
+		},
+		// Action parsing tests - CREATE TABLE with various column types and constraints
+		{
+			name: "create table with complex columns and constraints",
+			sql:  "CREATE TABLE users (id INT PRIMARY KEY, name STRING NOT NULL, age INT DEFAULT 18, email STRING COMMENT 'User email address');",
+			expected: []*analyzer.DependencyResult{
+				{
+					Stmt:     "CREATE TABLE users (id INT PRIMARY KEY, name STRING NOT NULL, age INT DEFAULT 18, email STRING COMMENT 'User email address');",
+					StmtType: analyzer.StmtTypeCreateTable,
+					Read:     []*analyzer.DependencyTable{},
+					Write: []*analyzer.DependencyTable{
+						{Cluster: "default_cluster", Database: "default_db", Table: "users"},
+					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "users",
+							Action:   analyzer.ActionTypeCreate,
+							Columns: []*analyzer.ActionColumn{
+								{Name: "id", Type: "INT", IsNotNull: false, IsPrimary: true, DefaultValue: "", Comment: "", Action: analyzer.ActionTypeCreate},
+								{Name: "name", Type: "STRING", IsNotNull: true, IsPrimary: false, DefaultValue: "", Comment: "", Action: analyzer.ActionTypeCreate},
+								{Name: "age", Type: "INT", IsNotNull: false, IsPrimary: false, DefaultValue: "DEFAULT18", Comment: "", Action: analyzer.ActionTypeCreate},
+								{Name: "email", Type: "STRING", IsNotNull: false, IsPrimary: false, DefaultValue: "", Comment: "COMMENT'User email address'", Action: analyzer.ActionTypeCreate},
+							},
+						},
+					},
+				},
+			},
+		},
+		// Action parsing tests - ALTER TABLE operations
+		{
+			name: "alter table add column",
+			sql:  "ALTER TABLE users ADD COLUMN phone STRING;",
+			expected: []*analyzer.DependencyResult{
+				{
+					Stmt:     "ALTER TABLE users ADD COLUMN phone STRING;",
+					StmtType: analyzer.StmtTypeAlterTable,
+					Read:     []*analyzer.DependencyTable{},
+					Write: []*analyzer.DependencyTable{
+						{Cluster: "default_cluster", Database: "default_db", Table: "users"},
+					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "users",
+							Action:   analyzer.ActionTypeAlter,
+							Columns: []*analyzer.ActionColumn{
+								{Name: "phone", Type: "STRING", IsNotNull: false, IsPrimary: false, DefaultValue: "", Comment: "", Action: analyzer.ActionTypeAlter},
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			name: "alter table rename column",
+			sql:  "ALTER TABLE users RENAME COLUMN phone TO mobile;",
+			expected: []*analyzer.DependencyResult{
+				{
+					Stmt:     "ALTER TABLE users RENAME COLUMN phone TO mobile;",
+					StmtType: analyzer.StmtTypeAlterTable,
+					Read:     []*analyzer.DependencyTable{},
+					Write: []*analyzer.DependencyTable{
+						{Cluster: "default_cluster", Database: "default_db", Table: "users"},
+					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "users",
+							Action:   analyzer.ActionTypeAlter,
+							Columns: []*analyzer.ActionColumn{
+								{Name: "mobile", Type: "", IsNotNull: false, IsPrimary: false, DefaultValue: "", Comment: "", Action: analyzer.ActionTypeAlter},
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			name: "alter table rename table",
+			sql:  "ALTER TABLE users RENAME TO new_users;",
+			expected: []*analyzer.DependencyResult{
+				{
+					Stmt:     "ALTER TABLE users RENAME TO new_users;",
+					StmtType: analyzer.StmtTypeAlterTable,
+					Read:     []*analyzer.DependencyTable{},
+					Write: []*analyzer.DependencyTable{
+						{Cluster: "default_cluster", Database: "default_db", Table: "users"},
+					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "users",
+							Action:   analyzer.ActionTypeAlter,
+						},
+					},
+				},
+			},
+		},
+		{
+			name: "alter table drop column",
+			sql:  "ALTER TABLE users DROP COLUMN mobile;",
+			expected: []*analyzer.DependencyResult{
+				{
+					Stmt:     "ALTER TABLE users DROP COLUMN mobile;",
+					StmtType: analyzer.StmtTypeAlterTable,
+					Read:     []*analyzer.DependencyTable{},
+					Write: []*analyzer.DependencyTable{
+						{Cluster: "default_cluster", Database: "default_db", Table: "users"},
+					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "users",
+							Action:   analyzer.ActionTypeAlter,
+							Columns: []*analyzer.ActionColumn{
+								{Name: "mobile", Type: "", IsNotNull: false, IsPrimary: false, DefaultValue: "", Comment: "", Action: analyzer.ActionTypeDrop},
+							},
+						},
+					},
+				},
+			},
+		},
+		// Action parsing tests - Complex CREATE TABLE from Spark docs
+		{
+			name: "create table with partitions and options",
+			sql:  "CREATE TABLE sales (id INT, product STRING, amount DOUBLE) PARTITIONED BY (sale_date DATE) STORED AS PARQUET;",
+			expected: []*analyzer.DependencyResult{
+				{
+					Stmt:     "CREATE TABLE sales (id INT, product STRING, amount DOUBLE) PARTITIONED BY (sale_date DATE) STORED AS PARQUET;",
+					StmtType: analyzer.StmtTypeCreateTable,
+					Read:     []*analyzer.DependencyTable{},
+					Write: []*analyzer.DependencyTable{
+						{Cluster: "default_cluster", Database: "default_db", Table: "sales"},
+					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "sales",
+							Action:   analyzer.ActionTypeCreate,
+							Columns: []*analyzer.ActionColumn{
+								{Name: "id", Type: "INT", IsNotNull: false, IsPrimary: false, DefaultValue: "", Comment: "", Action: analyzer.ActionTypeCreate},
+								{Name: "product", Type: "STRING", IsNotNull: false, IsPrimary: false, DefaultValue: "", Comment: "", Action: analyzer.ActionTypeCreate},
+								{Name: "amount", Type: "DOUBLE", IsNotNull: false, IsPrimary: false, DefaultValue: "", Comment: "", Action: analyzer.ActionTypeCreate},
+							},
+						},
+					},
 				},
 			},
 		},
@@ -633,6 +853,31 @@ func TestSparkDependencyAnalyzer(t *testing.T) {
 						assert.Equal(t, expectedWrite.Cluster, writeTable.Cluster)
 						assert.Equal(t, expectedWrite.Database, writeTable.Database)
 						assert.Equal(t, expectedWrite.Table, writeTable.Table)
+					}
+
+					// 验证Actions
+					if expected.Actions == nil {
+						assert.Empty(t, result.Actions)
+					} else {
+						assert.Equal(t, len(expected.Actions), len(result.Actions))
+						for j, actionTable := range result.Actions {
+							expectedActionTable := expected.Actions[j]
+							assert.Equal(t, expectedActionTable.Cluster, actionTable.Cluster)
+							assert.Equal(t, expectedActionTable.Database, actionTable.Database)
+							assert.Equal(t, expectedActionTable.Table, actionTable.Table)
+							assert.Equal(t, expectedActionTable.Action, actionTable.Action)
+							assert.Equal(t, len(expectedActionTable.Columns), len(actionTable.Columns))
+							for k, actionColumn := range actionTable.Columns {
+								expectedActionColumn := expectedActionTable.Columns[k]
+								assert.Equal(t, expectedActionColumn.Name, actionColumn.Name)
+								assert.Equal(t, expectedActionColumn.Type, actionColumn.Type)
+								assert.Equal(t, expectedActionColumn.IsNotNull, actionColumn.IsNotNull)
+								assert.Equal(t, expectedActionColumn.IsPrimary, actionColumn.IsPrimary)
+								assert.Equal(t, expectedActionColumn.DefaultValue, actionColumn.DefaultValue)
+								assert.Equal(t, expectedActionColumn.Comment, actionColumn.Comment)
+								assert.Equal(t, expectedActionColumn.Action, actionColumn.Action)
+							}
+						}
 					}
 				}
 			}

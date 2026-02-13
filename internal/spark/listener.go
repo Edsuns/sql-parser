@@ -15,20 +15,22 @@ type dependencyListener struct {
 	dependencies    *analyzer.DependencyResult
 	defaultCluster  string
 	defaultDatabase string
-	curOpType       analyzer.StmtType // 当前操作类型：SELECT, INSERT, UPDATE, DELETE, MERGE, CREATE_TABLE, CREATE_VIEW, ALTER_TABLE, REPLACE_TABLE, DROP_TABLE, CREATE_LIKE
-	firstOpType     analyzer.StmtType // 第一个操作类型，根据规则：第一个写入表的OpType，若没有写入则取第一个读取表的OpType
-	comments        []string          // 存储解析到的注释
-	isOnlyComment   bool              // 标记当前SQL是否只包含注释
-	isWriteOp       bool              // 是否已遇到写入操作
-	cteNames        map[string]bool   // 存储CTE名称，避免将CTE作为表依赖
+	curOpType       analyzer.StmtType     // 当前操作类型：SELECT, INSERT, UPDATE, DELETE, MERGE, CREATE_TABLE, CREATE_VIEW, ALTER_TABLE, REPLACE_TABLE, DROP_TABLE, CREATE_LIKE
+	firstOpType     analyzer.StmtType     // 第一个操作类型，根据规则：第一个写入表的OpType，若没有写入则取第一个读取表的OpType
+	comments        []string              // 存储解析到的注释
+	isOnlyComment   bool                  // 标记当前SQL是否只包含注释
+	isWriteOp       bool                  // 是否已遇到写入操作
+	cteNames        map[string]bool       // 存储CTE名称，避免将CTE作为表依赖
+	currentTable    *analyzer.ActionTable // 当前正在处理的表
 }
 
 // newDependencyListener 创建新的监听器实例
 func newDependencyListener(defaultCluster, defaultDatabase string) *dependencyListener {
 	return &dependencyListener{
 		dependencies: &analyzer.DependencyResult{
-			Read:  []*analyzer.DependencyTable{},
-			Write: []*analyzer.DependencyTable{},
+			Read:    []*analyzer.DependencyTable{},
+			Write:   []*analyzer.DependencyTable{},
+			Actions: []*analyzer.ActionTable{},
 		},
 		defaultCluster:  defaultCluster,
 		defaultDatabase: defaultDatabase,
@@ -147,30 +149,190 @@ func (l *dependencyListener) EnterCreateView(ctx *parser.CreateViewContext) {
 func (l *dependencyListener) EnterAlterTableAlterColumn(ctx *parser.AlterTableAlterColumnContext) {
 	l.curOpType = analyzer.StmtTypeAlterTable
 	l.onWriteStmt()
+
+	// 提取表名信息
+	if ctx.IdentifierReference() != nil {
+		if ctx.IdentifierReference().MultipartIdentifier() != nil {
+			parts := ctx.IdentifierReference().MultipartIdentifier().AllErrorCapturingIdentifier()
+			cluster, database, tableName := l.extractTableInfo(parts)
+
+			// 创建或获取ActionTable
+			l.ensureActionTable(cluster, database, tableName, analyzer.ActionTypeAlter)
+		}
+	}
 }
 
 // EnterAddTableColumns 进入添加表列语句时调用
 func (l *dependencyListener) EnterAddTableColumns(ctx *parser.AddTableColumnsContext) {
 	l.curOpType = analyzer.StmtTypeAlterTable
 	l.onWriteStmt()
+
+	// 提取表名信息
+	if ctx.IdentifierReference() != nil {
+		if ctx.IdentifierReference().MultipartIdentifier() != nil {
+			parts := ctx.IdentifierReference().MultipartIdentifier().AllErrorCapturingIdentifier()
+			cluster, database, tableName := l.extractTableInfo(parts)
+
+			// 创建或获取ActionTable
+			l.ensureActionTable(cluster, database, tableName, analyzer.ActionTypeAlter)
+
+			// 提取列信息
+			if l.currentTable != nil && ctx.GetColumns() != nil {
+				for _, colType := range ctx.GetColumns().AllQualifiedColTypeWithPosition() {
+					// 提取列名
+					columnName := ""
+					if colType.GetName() != nil {
+						if len(colType.GetName().AllErrorCapturingIdentifier()) > 0 {
+							columnName = colType.GetName().AllErrorCapturingIdentifier()[0].GetText()
+						}
+					}
+
+					// 提取列类型
+					columnType := ""
+					if colType.DataType() != nil {
+						columnType = colType.DataType().GetText()
+					}
+
+					// 创建ActionColumn并添加到当前表
+					actionColumn := &analyzer.ActionColumn{
+						Name:         columnName,
+						Type:         columnType,
+						IsNotNull:    false,
+						IsPrimary:    false,
+						DefaultValue: "",
+						Comment:      "",
+						Action:       analyzer.ActionTypeAlter,
+					}
+
+					l.currentTable.Columns = append(l.currentTable.Columns, actionColumn)
+				}
+			}
+		}
+	}
+}
+
+// ensureActionTable 确保ActionTable存在，如果不存在则创建
+func (l *dependencyListener) ensureActionTable(cluster, database, tableName string, action analyzer.ActionType) {
+	// 设置默认值
+	if cluster == "" {
+		cluster = l.defaultCluster
+	}
+	if database == "" {
+		database = l.defaultDatabase
+	}
+
+	// 检查是否已存在相同的ActionTable
+	for _, existingTable := range l.dependencies.Actions {
+		if existingTable.Cluster == cluster && existingTable.Database == database && existingTable.Table == tableName {
+			l.currentTable = existingTable
+			return
+		}
+	}
+
+	// 创建新的ActionTable
+	newTable := &analyzer.ActionTable{
+		Cluster:  cluster,
+		Database: database,
+		Table:    tableName,
+		Columns:  []*analyzer.ActionColumn{},
+		Action:   action,
+	}
+	l.dependencies.Actions = append(l.dependencies.Actions, newTable)
+	l.currentTable = newTable
 }
 
 // EnterRenameTableColumn 进入重命名表列语句时调用
 func (l *dependencyListener) EnterRenameTableColumn(ctx *parser.RenameTableColumnContext) {
 	l.curOpType = analyzer.StmtTypeAlterTable
 	l.onWriteStmt()
+
+	// 提取表名信息
+	if ctx.GetTable() != nil {
+		if ctx.GetTable().MultipartIdentifier() != nil {
+			parts := ctx.GetTable().MultipartIdentifier().AllErrorCapturingIdentifier()
+			cluster, database, tableName := l.extractTableInfo(parts)
+
+			// 创建或获取ActionTable
+			l.ensureActionTable(cluster, database, tableName, analyzer.ActionTypeAlter)
+		}
+	}
+
+	// 提取列名信息
+	if l.currentTable != nil {
+		// 提取新列名作为操作的列名
+		if ctx.GetTo() != nil {
+			columnName := ctx.GetTo().GetText()
+
+			actionColumn := &analyzer.ActionColumn{
+				Name:         columnName,
+				Type:         "", // 重命名操作不需要类型
+				IsNotNull:    false,
+				IsPrimary:    false,
+				DefaultValue: "",
+				Comment:      "",
+				Action:       analyzer.ActionTypeAlter,
+			}
+
+			l.currentTable.Columns = append(l.currentTable.Columns, actionColumn)
+		}
+	}
 }
 
 // EnterDropTableColumns 进入删除表列语句时调用
 func (l *dependencyListener) EnterDropTableColumns(ctx *parser.DropTableColumnsContext) {
 	l.curOpType = analyzer.StmtTypeAlterTable
 	l.onWriteStmt()
+
+	// 提取表名信息
+	if ctx.IdentifierReference() != nil {
+		if ctx.IdentifierReference().MultipartIdentifier() != nil {
+			parts := ctx.IdentifierReference().MultipartIdentifier().AllErrorCapturingIdentifier()
+			cluster, database, tableName := l.extractTableInfo(parts)
+
+			// 创建或获取ActionTable
+			l.ensureActionTable(cluster, database, tableName, analyzer.ActionTypeAlter)
+		}
+	}
+
+	// 提取列名信息
+	if l.currentTable != nil {
+		if ctx.GetColumns() != nil {
+			for _, id := range ctx.GetColumns().AllMultipartIdentifier() {
+				if len(id.AllErrorCapturingIdentifier()) > 0 {
+					columnName := id.AllErrorCapturingIdentifier()[0].GetText()
+
+					actionColumn := &analyzer.ActionColumn{
+						Name:         columnName,
+						Type:         "", // 删除操作不需要类型
+						IsNotNull:    false,
+						IsPrimary:    false,
+						DefaultValue: "",
+						Comment:      "",
+						Action:       analyzer.ActionTypeDrop,
+					}
+
+					l.currentTable.Columns = append(l.currentTable.Columns, actionColumn)
+				}
+			}
+		}
+	}
 }
 
 // EnterRenameTable 进入重命名表语句时调用
 func (l *dependencyListener) EnterRenameTable(ctx *parser.RenameTableContext) {
 	l.curOpType = analyzer.StmtTypeAlterTable
 	l.onWriteStmt()
+
+	// 提取表名信息
+	if ctx.GetFrom() != nil {
+		if ctx.GetFrom().MultipartIdentifier() != nil {
+			parts := ctx.GetFrom().MultipartIdentifier().AllErrorCapturingIdentifier()
+			cluster, database, tableName := l.extractTableInfo(parts)
+
+			// 创建或获取ActionTable
+			l.ensureActionTable(cluster, database, tableName, analyzer.ActionTypeAlter)
+		}
+	}
 }
 
 // EnterSetTableProperties 进入设置表属性语句时调用
@@ -261,12 +423,66 @@ func (l *dependencyListener) EnterDropTableConstraint(ctx *parser.DropTableConst
 func (l *dependencyListener) EnterDropTable(ctx *parser.DropTableContext) {
 	l.curOpType = analyzer.StmtTypeDropTable
 	l.onWriteStmt()
+
+	// 提取表名信息
+	if ctx.IdentifierReference() != nil {
+		if ctx.IdentifierReference().MultipartIdentifier() != nil {
+			parts := ctx.IdentifierReference().MultipartIdentifier().AllErrorCapturingIdentifier()
+			cluster, database, tableName := l.extractTableInfo(parts)
+
+			// 设置默认值
+			if cluster == "" {
+				cluster = l.defaultCluster
+			}
+			if database == "" {
+				database = l.defaultDatabase
+			}
+
+			// 创建ActionTable
+			actionTable := &analyzer.ActionTable{
+				Cluster:  cluster,
+				Database: database,
+				Table:    tableName,
+				Columns:  []*analyzer.ActionColumn{},
+				Action:   analyzer.ActionTypeDrop,
+			}
+			l.dependencies.Actions = append(l.dependencies.Actions, actionTable)
+		}
+	}
 }
 
 // EnterCreateTable 进入创建表语句时调用
 func (l *dependencyListener) EnterCreateTable(ctx *parser.CreateTableContext) {
 	l.curOpType = analyzer.StmtTypeCreateTable
 	l.onWriteStmt()
+
+	// 提取表名信息
+	if ctx.CreateTableHeader() != nil {
+		if ctx.CreateTableHeader().IdentifierReference() != nil {
+			if ctx.CreateTableHeader().IdentifierReference().MultipartIdentifier() != nil {
+				parts := ctx.CreateTableHeader().IdentifierReference().MultipartIdentifier().AllErrorCapturingIdentifier()
+				cluster, database, tableName := l.extractTableInfo(parts)
+
+				// 设置默认值
+				if cluster == "" {
+					cluster = l.defaultCluster
+				}
+				if database == "" {
+					database = l.defaultDatabase
+				}
+
+				// 创建ActionTable
+				l.currentTable = &analyzer.ActionTable{
+					Cluster:  cluster,
+					Database: database,
+					Table:    tableName,
+					Columns:  []*analyzer.ActionColumn{},
+					Action:   analyzer.ActionTypeCreate,
+				}
+				l.dependencies.Actions = append(l.dependencies.Actions, l.currentTable)
+			}
+		}
+	}
 }
 
 // EnterCreateTableLike 进入创建表（LIKE）语句时调用
@@ -401,6 +617,62 @@ func (l *dependencyListener) onReadStmt() {
 	if !l.isWriteOp && l.firstOpType == "" {
 		l.firstOpType = analyzer.StmtTypeSelect
 	}
+}
+
+// EnterColDefinition 进入列定义时调用
+func (l *dependencyListener) EnterColDefinition(ctx *parser.ColDefinitionContext) {
+	if l.currentTable == nil {
+		return
+	}
+
+	// 提取列名
+	columnName := ""
+	if ctx.GetColName() != nil {
+		columnName = ctx.GetColName().GetText()
+	}
+
+	// 提取列类型
+	columnType := ""
+	if ctx.DataType() != nil {
+		columnType = ctx.DataType().GetText()
+	}
+
+	// 提取列选项
+	isNotNull := false
+	isPrimary := false
+	defaultValue := ""
+	comment := ""
+
+	for _, option := range ctx.AllColDefinitionOption() {
+		// 检查NOT NULL约束
+		if option.ErrorCapturingNot() != nil && option.NULL() != nil {
+			isNotNull = true
+		} else if option.DefaultExpression() != nil {
+			// 检查DEFAULT值
+			defaultValue = option.DefaultExpression().GetText()
+		} else if option.CommentSpec() != nil {
+			// 检查注释
+			comment = option.CommentSpec().GetText()
+		} else if option.ColumnConstraintDefinition() != nil {
+			// 检查PRIMARY KEY约束
+			// 简化处理：如果有ColumnConstraintDefinition，假设是PRIMARY KEY
+			// 实际情况可能更复杂，需要检查具体约束类型
+			isPrimary = true
+		}
+	}
+
+	// 创建ActionColumn并添加到当前表
+	actionColumn := &analyzer.ActionColumn{
+		Name:         columnName,
+		Type:         columnType,
+		IsNotNull:    isNotNull,
+		IsPrimary:    isPrimary,
+		DefaultValue: defaultValue,
+		Comment:      comment,
+		Action:       analyzer.ActionTypeCreate,
+	}
+
+	l.currentTable.Columns = append(l.currentTable.Columns, actionColumn)
 }
 
 // 自定义错误监听器，用于捕获语法错误

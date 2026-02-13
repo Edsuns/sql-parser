@@ -28,8 +28,9 @@ type dependencyListener struct {
 func newDependencyListener(defaultCluster, defaultDatabase string) *dependencyListener {
 	return &dependencyListener{
 		dependencies: &analyzer.DependencyResult{
-			Read:  []*analyzer.DependencyTable{},
-			Write: []*analyzer.DependencyTable{},
+			Read:    []*analyzer.DependencyTable{},
+			Write:   []*analyzer.DependencyTable{},
+			Actions: []*analyzer.ActionTable{},
 		},
 		defaultCluster:  defaultCluster,
 		defaultDatabase: defaultDatabase,
@@ -50,6 +51,23 @@ func (l *dependencyListener) EnterSingleStatement(ctx *parser.SingleStatementCon
 func (l *dependencyListener) EnterCreateTableStatement(ctx *parser.CreateTableStatementContext) {
 	l.curOpType = analyzer.StmtTypeCreateTable
 	l.onWriteStmt()
+
+	// 提取表名
+	if ctx.QualifiedName() != nil {
+		tableName := ctx.QualifiedName().GetText()
+
+		// 解析数据库和表名
+		cluster, database, table := l.parseTableName(tableName)
+
+		// 添加CREATE TABLE action
+		action := &analyzer.ActionTable{
+			Cluster:  cluster,
+			Database: database,
+			Table:    table,
+			Action:   analyzer.ActionTypeCreate,
+		}
+		l.dependencies.Actions = append(l.dependencies.Actions, action)
+	}
 }
 
 // EnterCreateViewStatement 进入创建视图语句时调用
@@ -62,12 +80,105 @@ func (l *dependencyListener) EnterCreateViewStatement(ctx *parser.CreateViewStat
 func (l *dependencyListener) EnterAlterTableStatement(ctx *parser.AlterTableStatementContext) {
 	l.curOpType = analyzer.StmtTypeAlterTable
 	l.onWriteStmt()
+
+	// 提取表名
+	if ctx.QualifiedName() != nil {
+		tableName := ctx.QualifiedName().GetText()
+
+		// 解析数据库和表名
+		cluster, database, table := l.parseTableName(tableName)
+
+		// 提取列信息
+		columns := []*analyzer.ActionColumn{}
+
+		// 遍历所有alterClause
+		for _, alterClause := range ctx.AllAlterClause() {
+			// 处理ADD COLUMN语句
+			if addColumnClause := alterClause.AddColumnClause(); addColumnClause != nil {
+				if columnDesc := addColumnClause.ColumnDesc(); columnDesc != nil {
+					columnName := ""
+					columnType := ""
+
+					// 提取列名
+					if id := columnDesc.Identifier(); id != nil {
+						columnName = id.GetText()
+					}
+
+					// 提取列类型
+					if t := columnDesc.Type_(); t != nil {
+						columnType = t.GetText()
+					}
+
+					if columnName != "" {
+						columns = append(columns, &analyzer.ActionColumn{
+							Name:   columnName,
+							Type:   columnType,
+							Action: analyzer.ActionTypeCreate,
+						})
+					}
+				}
+			}
+
+			// 处理ADD COLUMNS语句（多个列）
+			if addColumnsClause := alterClause.AddColumnsClause(); addColumnsClause != nil {
+				for _, columnDesc := range addColumnsClause.AllColumnDesc() {
+					columnName := ""
+					columnType := ""
+
+					// 提取列名
+					if id := columnDesc.Identifier(); id != nil {
+						columnName = id.GetText()
+					}
+
+					// 提取列类型
+					if t := columnDesc.Type_(); t != nil {
+						columnType = t.GetText()
+					}
+
+					if columnName != "" {
+						columns = append(columns, &analyzer.ActionColumn{
+							Name:   columnName,
+							Type:   columnType,
+							Action: analyzer.ActionTypeCreate,
+						})
+					}
+				}
+			}
+		}
+
+		// 添加ALTER TABLE action
+		action := &analyzer.ActionTable{
+			Cluster:  cluster,
+			Database: database,
+			Table:    table,
+			Columns:  columns,
+			Action:   analyzer.ActionTypeAlter,
+		}
+		l.dependencies.Actions = append(l.dependencies.Actions, action)
+	}
 }
 
 // EnterDropTableStatement 进入删除表语句时调用
 func (l *dependencyListener) EnterDropTableStatement(ctx *parser.DropTableStatementContext) {
 	l.curOpType = analyzer.StmtTypeDropTable
 	l.onWriteStmt()
+
+	// 提取表名
+	if ctx.QualifiedName() != nil {
+		tableName := ctx.QualifiedName().GetText()
+
+		// 解析数据库和表名
+		cluster, database, table := l.parseTableName(tableName)
+
+		// 添加DROP TABLE action
+		action := &analyzer.ActionTable{
+			Cluster:  cluster,
+			Database: database,
+			Table:    table,
+			Action:   analyzer.ActionTypeDrop,
+		}
+		l.dependencies.Actions = append(l.dependencies.Actions, action)
+	}
 }
 
 // EnterInsertStatement 进入插入语句时调用

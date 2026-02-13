@@ -103,16 +103,96 @@ func TestTiDBDependencyAnalyzer(t *testing.T) {
 				Write: []*analyzer.DependencyTable{
 					{Cluster: "default_cluster", Database: "default_db", Table: "new_table"},
 				},
+				Actions: []*analyzer.ActionTable{
+					{Cluster: "default_cluster", Database: "default_db", Table: "new_table", Action: analyzer.ActionTypeCreate},
+				},
 			}},
 		},
 		{
-			name: "ALTER TABLE statement",
+			name: "ALTER TABLE add column",
 			sql:  "ALTER TABLE table1 ADD COLUMN new_column VARCHAR(100)",
 			expected: []*analyzer.DependencyResult{{
 				StmtType: analyzer.StmtTypeAlterTable,
 				Read:     []*analyzer.DependencyTable{},
 				Write: []*analyzer.DependencyTable{
 					{Cluster: "default_cluster", Database: "default_db", Table: "table1"},
+				},
+				Actions: []*analyzer.ActionTable{
+					{
+						Cluster:  "default_cluster",
+						Database: "default_db",
+						Table:    "table1",
+						Action:   analyzer.ActionTypeAlter,
+						Columns: []*analyzer.ActionColumn{
+							{Name: "new_column", Type: "VARCHAR(100)", Action: analyzer.ActionTypeCreate},
+						},
+					},
+				},
+			}},
+		},
+		{
+			name: "ALTER TABLE drop column",
+			sql:  "ALTER TABLE table1 DROP COLUMN new_column",
+			expected: []*analyzer.DependencyResult{{
+				StmtType: analyzer.StmtTypeAlterTable,
+				Read:     []*analyzer.DependencyTable{},
+				Write: []*analyzer.DependencyTable{
+					{Cluster: "default_cluster", Database: "default_db", Table: "table1"},
+				},
+				Actions: []*analyzer.ActionTable{
+					{
+						Cluster:  "default_cluster",
+						Database: "default_db",
+						Table:    "table1",
+						Action:   analyzer.ActionTypeAlter,
+						Columns: []*analyzer.ActionColumn{
+							{Name: "new_column", Action: analyzer.ActionTypeDrop},
+						},
+					},
+				},
+			}},
+		},
+		{
+			name: "ALTER TABLE modify column",
+			sql:  "ALTER TABLE table1 MODIFY COLUMN new_column VARCHAR(200)",
+			expected: []*analyzer.DependencyResult{{
+				StmtType: analyzer.StmtTypeAlterTable,
+				Read:     []*analyzer.DependencyTable{},
+				Write: []*analyzer.DependencyTable{
+					{Cluster: "default_cluster", Database: "default_db", Table: "table1"},
+				},
+				Actions: []*analyzer.ActionTable{
+					{
+						Cluster:  "default_cluster",
+						Database: "default_db",
+						Table:    "table1",
+						Action:   analyzer.ActionTypeAlter,
+						Columns: []*analyzer.ActionColumn{
+							{Name: "new_column", Type: "VARCHAR(200)", Action: analyzer.ActionTypeAlter},
+						},
+					},
+				},
+			}},
+		},
+		{
+			name: "ALTER TABLE change column",
+			sql:  "ALTER TABLE table1 CHANGE COLUMN new_column email VARCHAR(200)",
+			expected: []*analyzer.DependencyResult{{
+				StmtType: analyzer.StmtTypeAlterTable,
+				Read:     []*analyzer.DependencyTable{},
+				Write: []*analyzer.DependencyTable{
+					{Cluster: "default_cluster", Database: "default_db", Table: "table1"},
+				},
+				Actions: []*analyzer.ActionTable{
+					{
+						Cluster:  "default_cluster",
+						Database: "default_db",
+						Table:    "table1",
+						Action:   analyzer.ActionTypeAlter,
+						Columns: []*analyzer.ActionColumn{
+							{Name: "email", Type: "VARCHAR(200)", Action: analyzer.ActionTypeAlter},
+						},
+					},
 				},
 			}},
 		},
@@ -125,6 +205,9 @@ func TestTiDBDependencyAnalyzer(t *testing.T) {
 				Write: []*analyzer.DependencyTable{
 					{Cluster: "default_cluster", Database: "default_db", Table: "old_table"},
 				},
+				Actions: []*analyzer.ActionTable{
+					{Cluster: "default_cluster", Database: "default_db", Table: "old_table", Action: analyzer.ActionTypeDrop},
+				},
 			}},
 		},
 		{
@@ -135,6 +218,9 @@ func TestTiDBDependencyAnalyzer(t *testing.T) {
 				Read:     []*analyzer.DependencyTable{},
 				Write: []*analyzer.DependencyTable{
 					{Cluster: "default_cluster", Database: "default_db", Table: "test_table"},
+				},
+				Actions: []*analyzer.ActionTable{
+					{Cluster: "default_cluster", Database: "default_db", Table: "test_table", Action: analyzer.ActionTypeDrop},
 				},
 			}},
 		},
@@ -293,6 +379,16 @@ func TestTiDBDependencyAnalyzer(t *testing.T) {
 						assert.Equal(t, expectedWrite.Cluster, writeTable.Cluster)
 						assert.Equal(t, expectedWrite.Database, writeTable.Database)
 						assert.Equal(t, expectedWrite.Table, writeTable.Table)
+					}
+
+					// 验证Actions
+					assert.Equal(t, len(expected.Actions), len(result.Actions))
+					for j, action := range result.Actions {
+						expectedAction := expected.Actions[j]
+						assert.Equal(t, expectedAction.Cluster, action.Cluster)
+						assert.Equal(t, expectedAction.Database, action.Database)
+						assert.Equal(t, expectedAction.Table, action.Table)
+						assert.Equal(t, expectedAction.Action, action.Action)
 					}
 				}
 			}

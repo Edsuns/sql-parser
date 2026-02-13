@@ -187,6 +187,14 @@ func TestHiveDependencyAnalyzer(t *testing.T) {
 							Table:    "new_table",
 						},
 					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "new_table",
+							Action:   analyzer.ActionTypeCreate,
+						},
+					},
 				},
 			},
 		},
@@ -203,6 +211,14 @@ func TestHiveDependencyAnalyzer(t *testing.T) {
 							Cluster:  "default_cluster",
 							Database: "default_db",
 							Table:    "ext_table",
+						},
+					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "ext_table",
+							Action:   analyzer.ActionTypeCreate,
 						},
 					},
 				},
@@ -223,9 +239,63 @@ func TestHiveDependencyAnalyzer(t *testing.T) {
 							Table:    "table1",
 						},
 					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "table1",
+							Columns: []*analyzer.ActionColumn{
+								{
+									Name:   "email",
+									Type:   "STRING",
+									Action: analyzer.ActionTypeCreate,
+								},
+							},
+							Action: analyzer.ActionTypeAlter,
+						},
+					},
 				},
 			},
 		},
+		{
+			name: "ALTER TABLE add multiple columns",
+			sql:  "ALTER TABLE table1 ADD COLUMNS (email STRING, age INT)",
+			expected: []*analyzer.DependencyResult{
+				{
+					Stmt:     "ALTER TABLE table1 ADD COLUMNS (email STRING, age INT)",
+					StmtType: analyzer.StmtTypeAlterTable,
+					Read:     []*analyzer.DependencyTable{},
+					Write: []*analyzer.DependencyTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "table1",
+						},
+					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "table1",
+							Columns: []*analyzer.ActionColumn{
+								{
+									Name:   "email",
+									Type:   "STRING",
+									Action: analyzer.ActionTypeCreate,
+								},
+								{
+									Name:   "age",
+									Type:   "INT",
+									Action: analyzer.ActionTypeCreate,
+								},
+							},
+							Action: analyzer.ActionTypeAlter,
+						},
+					},
+				},
+			},
+		},
+
 		{
 			name: "DROP TABLE statement",
 			sql:  "DROP TABLE IF EXISTS old_table",
@@ -239,6 +309,14 @@ func TestHiveDependencyAnalyzer(t *testing.T) {
 							Cluster:  "default_cluster",
 							Database: "default_db",
 							Table:    "old_table",
+						},
+					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "old_table",
+							Action:   analyzer.ActionTypeDrop,
 						},
 					},
 				},
@@ -299,6 +377,65 @@ func TestHiveDependencyAnalyzer(t *testing.T) {
 							Cluster:  "default_cluster",
 							Database: "default_db",
 							Table:    "view1",
+						},
+					},
+				},
+			},
+		},
+		{
+			name: "ALTER TABLE rename column",
+			sql:  "ALTER TABLE table1 CHANGE COLUMN phone mobile STRING",
+			expected: []*analyzer.DependencyResult{
+				{
+					Stmt:     "ALTER TABLE table1 CHANGE COLUMN phone mobile STRING",
+					StmtType: analyzer.StmtTypeAlterTable,
+					Read:     []*analyzer.DependencyTable{},
+					Write: []*analyzer.DependencyTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "table1",
+						},
+					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "table1",
+							Columns: []*analyzer.ActionColumn{
+								{
+									Name:   "phone",
+									Type:   "STRING",
+									Action: analyzer.ActionTypeAlter,
+								},
+							},
+							Action: analyzer.ActionTypeAlter,
+						},
+					},
+				},
+			},
+		},
+		{
+			name: "ALTER TABLE rename table",
+			sql:  "ALTER TABLE table1 RENAME TO table2",
+			expected: []*analyzer.DependencyResult{
+				{
+					Stmt:     "ALTER TABLE table1 RENAME TO table2",
+					StmtType: analyzer.StmtTypeAlterTable,
+					Read:     []*analyzer.DependencyTable{},
+					Write: []*analyzer.DependencyTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "table1",
+						},
+					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "table1",
+							Action:   analyzer.ActionTypeAlter,
 						},
 					},
 				},
@@ -388,8 +525,54 @@ func TestHiveDependencyAnalyzer(t *testing.T) {
 						assert.Equal(t, expectedWrite.Database, writeTable.Database)
 						assert.Equal(t, expectedWrite.Table, writeTable.Table)
 					}
+
+					// 验证Actions
+					if len(expected.Actions) != len(r.Actions) {
+						t.Logf("Expected Actions length: %d, Actual: %d", len(expected.Actions), len(r.Actions))
+						for i, act := range r.Actions {
+							t.Logf("Action %d: Cluster=%s, Database=%s, Table=%s, Action=%v", i, act.Cluster, act.Database, act.Table, act.Action)
+						}
+					}
+					assert.Equal(t, len(expected.Actions), len(r.Actions))
+					for j, action := range r.Actions {
+						expectedAction := expected.Actions[j]
+						assert.Equal(t, expectedAction.Cluster, action.Cluster)
+						assert.Equal(t, expectedAction.Database, action.Database)
+						assert.Equal(t, expectedAction.Table, action.Table)
+						assert.Equal(t, expectedAction.Action, action.Action)
+					}
 				}
 			}
+		})
+	}
+}
+
+// TestHiveDependencyAnalyzerSyntaxError 测试 Hive 解析器的语法错误情况
+func TestHiveDependencyAnalyzerSyntaxError(t *testing.T) {
+	// 语法错误测试用例
+	tests := []struct {
+		name string
+		sql  string
+	}{
+		{
+			name: "ALTER TABLE drop column (syntax error)",
+			sql:  "ALTER TABLE table1 DROP COLUMN email",
+		},
+	}
+
+	hiveAnalyzer := NewDependencyAnalyzer()
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result, err := hiveAnalyzer.Analyze(&analyzer.DependencyAnalyzeReq{
+				DefaultCluster:  "default_cluster",
+				DefaultDatabase: "default_db",
+				Type:            analyzer.EngineHive,
+				SQL:             tt.sql,
+			})
+			// 验证解析器返回错误
+			assert.Error(t, err)
+			// 验证没有返回结果
+			assert.Nil(t, result)
 		})
 	}
 }

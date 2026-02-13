@@ -27,6 +27,9 @@ type dependencyListener struct {
 	currentDb      string
 	currentCluster string
 
+	// 记录当前正在处理的表，用于action解析
+	currentTableName string
+
 	// 记录操作类型
 	readTables  []*analyzer.DependencyTable
 	writeTables []*analyzer.DependencyTable
@@ -48,8 +51,9 @@ func newDependencyListener(defaultCluster, defaultDatabase string) *dependencyLi
 		defaultDatabase: defaultDatabase,
 		isOnlyComment:   true,
 		dependencies: &analyzer.DependencyResult{
-			Read:  []*analyzer.DependencyTable{},
-			Write: []*analyzer.DependencyTable{},
+			Read:    []*analyzer.DependencyTable{},
+			Write:   []*analyzer.DependencyTable{},
+			Actions: []*analyzer.ActionTable{},
 		},
 		readTables:              []*analyzer.DependencyTable{},
 		writeTables:             []*analyzer.DependencyTable{},
@@ -94,6 +98,11 @@ func (l *dependencyListener) extractTable(ctx *parser.TableNameContext) {
 		return
 	}
 
+	// 对于ALTER TABLE语句，跳过处理，因为EnterAlterStatement函数已经处理了
+	if l.firstOpType == analyzer.StmtTypeAlterTable {
+		return
+	}
+
 	// 创建表依赖
 	tableDep := &analyzer.DependencyTable{
 		Cluster:  l.defaultCluster,
@@ -112,9 +121,8 @@ func (l *dependencyListener) extractTable(ctx *parser.TableNameContext) {
 			// SELECT语句，所有表都是读表
 			l.readTables = append(l.readTables, tableDep)
 		case analyzer.StmtTypeInsert, analyzer.StmtTypeUpdate, analyzer.StmtTypeDelete,
-			analyzer.StmtTypeCreateTable, analyzer.StmtTypeAlterTable,
-			analyzer.StmtTypeDropTable, analyzer.StmtTypeTruncate,
-			analyzer.StmtTypeCreateView:
+				analyzer.StmtTypeCreateTable, analyzer.StmtTypeDropTable,
+				analyzer.StmtTypeTruncate, analyzer.StmtTypeCreateView:
 			// 这些语句中的表都是目标表，添加到写表
 			l.writeTables = append(l.writeTables, tableDep)
 		}
@@ -196,18 +204,190 @@ func (l *dependencyListener) EnterDeleteStatement(ctx *parser.DeleteStatementCon
 func (l *dependencyListener) EnterCreateTableStatement(ctx *parser.CreateTableStatementContext) {
 	l.isOnlyComment = false
 	l.firstOpType = analyzer.StmtTypeCreateTable
+
+	// 提取表名
+	if ctx.TableName() != nil {
+		tableName := ctx.TableName().GetText()
+		l.currentTableName = tableName
+
+		// 解析数据库和表名
+		db, table := "", ""
+		if strings.Contains(tableName, ".") {
+			parts := strings.Split(tableName, ".")
+			db = parts[0]
+			table = parts[1]
+		} else {
+			table = tableName
+			db = l.defaultDatabase
+		}
+
+		// 添加CREATE TABLE action
+		action := &analyzer.ActionTable{
+			Cluster:  l.defaultCluster,
+			Database: db,
+			Table:    table,
+			Action:   analyzer.ActionTypeCreate,
+		}
+		l.dependencies.Actions = append(l.dependencies.Actions, action)
+	}
 }
 
 // 监听进入修改表语句
 func (l *dependencyListener) EnterAlterStatement(ctx *parser.AlterStatementContext) {
 	l.isOnlyComment = false
-	l.firstOpType = analyzer.StmtTypeAlterTable
+	// 只有当firstOpType还没有设置时，才处理ALTER TABLE语句
+	if l.firstOpType != analyzer.StmtTypeAlterTable {
+		l.firstOpType = analyzer.StmtTypeAlterTable
+
+		// 清空writeTables，因为EnterTableName会调用extractTable添加写表
+		l.writeTables = []*analyzer.DependencyTable{}
+
+		// 提取表名
+		if ctx.TableName() != nil {
+			tableName := ctx.TableName().GetText()
+			l.currentTableName = tableName
+
+			// 解析数据库和表名
+			db, table := "", ""
+			if strings.Contains(tableName, ".") {
+				parts := strings.Split(tableName, ".")
+				db = parts[0]
+				table = parts[1]
+			} else {
+				table = tableName
+				db = l.defaultDatabase
+			}
+
+			// 检查是否是表重命名操作
+			isRenameTable := false
+			if ctx.AlterTableStatementSuffix() != nil {
+				alterTableSuffix := ctx.AlterTableStatementSuffix()
+				// 直接检查是否是表重命名操作
+				if alterTableSuffix.AlterStatementSuffixRename() != nil {
+					isRenameTable = true
+				}
+			}
+
+			// 处理其他ALTER操作
+			columns := []*analyzer.ActionColumn{}
+			if !isRenameTable && ctx.AlterTableStatementSuffix() != nil {
+				alterTableSuffix := ctx.AlterTableStatementSuffix()
+				if alterTblPartitionSuffix := alterTableSuffix.AlterTblPartitionStatementSuffix(); alterTblPartitionSuffix != nil {
+					// 处理添加列
+					if addColCtx := alterTblPartitionSuffix.AlterStatementSuffixAddCol(); addColCtx != nil {
+						if addColCtx.ColumnNameTypeList() != nil {
+							for _, col := range addColCtx.ColumnNameTypeList().AllColumnNameType() {
+								columnName := ""
+								columnType := ""
+
+								// 提取列名
+								if col.Id_() != nil {
+									columnName = col.Id_().GetText()
+								}
+
+								// 提取列类型
+								if col.ColType() != nil {
+									columnType = col.ColType().GetText()
+								}
+
+								if columnName != "" {
+									columns = append(columns, &analyzer.ActionColumn{
+										Name:   columnName,
+										Type:   columnType,
+										Action: analyzer.ActionTypeCreate,
+									})
+								}
+							}
+						}
+					}
+					// 处理修改列
+					if alterTblPartitionSuffix.AlterStatementSuffixUpdateColumns() != nil {
+						// 处理更新列的情况
+						columns = append(columns, &analyzer.ActionColumn{
+							Action: analyzer.ActionTypeAlter,
+						})
+					}
+					// 处理重命名列
+					if renameColCtx := alterTblPartitionSuffix.AlterStatementSuffixRenameCol(); renameColCtx != nil {
+						if renameColCtx.GetOldName() != nil {
+							columnName := renameColCtx.GetOldName().GetText()
+							columnType := ""
+							if renameColCtx.ColType() != nil {
+								columnType = renameColCtx.ColType().GetText()
+							}
+							columns = append(columns, &analyzer.ActionColumn{
+								Name:   columnName,
+								Type:   columnType,
+								Action: analyzer.ActionTypeAlter,
+							})
+						}
+					}
+					// 处理删除列
+					// if dropColCtx := alterTblPartitionSuffix.GetAlterStatementSuffixDropCol(); dropColCtx != nil {
+					// 	if dropColCtx.GetName() != nil {
+					// 		columnName := dropColCtx.GetName().GetText()
+					// 		columns = append(columns, &analyzer.ActionColumn{
+					// 			Name:   columnName,
+					// 			Action: analyzer.ActionTypeDrop,
+					// 		})
+					// 	}
+					// }
+				}
+			}
+
+			// 清空Actions，确保只添加一个ActionTable
+			l.dependencies.Actions = []*analyzer.ActionTable{}
+
+			// 添加ActionTable
+			action := &analyzer.ActionTable{
+				Cluster:  l.defaultCluster,
+				Database: db,
+				Table:    table,
+				Columns:  columns,
+				Action:   analyzer.ActionTypeAlter,
+			}
+			l.dependencies.Actions = append(l.dependencies.Actions, action)
+
+			// 添加写表
+			tableDep := &analyzer.DependencyTable{
+				Cluster:  l.defaultCluster,
+				Database: db,
+				Table:    table,
+			}
+			l.writeTables = []*analyzer.DependencyTable{tableDep}
+		}
+	}
 }
 
 // 监听进入删除表语句
 func (l *dependencyListener) EnterDropTableStatement(ctx *parser.DropTableStatementContext) {
 	l.isOnlyComment = false
 	l.firstOpType = analyzer.StmtTypeDropTable
+
+	// 提取表名
+	if ctx.TableName() != nil {
+		tableName := ctx.TableName().GetText()
+
+		// 解析数据库和表名
+		db, table := "", ""
+		if strings.Contains(tableName, ".") {
+			parts := strings.Split(tableName, ".")
+			db = parts[0]
+			table = parts[1]
+		} else {
+			table = tableName
+			db = l.defaultDatabase
+		}
+
+		// 添加DROP TABLE action
+		action := &analyzer.ActionTable{
+			Cluster:  l.defaultCluster,
+			Database: db,
+			Table:    table,
+			Action:   analyzer.ActionTypeDrop,
+		}
+		l.dependencies.Actions = append(l.dependencies.Actions, action)
+	}
 }
 
 // 监听进入创建视图语句

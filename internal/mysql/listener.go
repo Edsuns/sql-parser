@@ -28,8 +28,9 @@ type dependencyListener struct {
 func newDependencyListener(defaultCluster, defaultDatabase string) *dependencyListener {
 	return &dependencyListener{
 		dependencies: &analyzer.DependencyResult{
-			Read:  []*analyzer.DependencyTable{},
-			Write: []*analyzer.DependencyTable{},
+			Read:    []*analyzer.DependencyTable{},
+			Write:   []*analyzer.DependencyTable{},
+			Actions: []*analyzer.ActionTable{},
 		},
 		defaultCluster:  defaultCluster,
 		defaultDatabase: defaultDatabase,
@@ -79,6 +80,39 @@ func (l *dependencyListener) EnterTruncateTableStatement(ctx *parser.TruncateTab
 func (l *dependencyListener) EnterCreateTable(ctx *parser.CreateTableContext) {
 	l.curOpType = analyzer.StmtTypeCreateTable
 	l.onWriteStmt()
+
+	// 提取表名
+	if ctx.TableName() != nil {
+		tableName := ctx.TableName().GetText()
+
+		// 解析数据库和表名
+		cluster, database, table := "", "", ""
+		parts := strings.Split(tableName, ".")
+		if len(parts) == 1 {
+			table = parts[0]
+			database = l.defaultDatabase
+		} else if len(parts) == 2 {
+			database = parts[0]
+			table = parts[1]
+		} else if len(parts) > 2 {
+			cluster = parts[0]
+			database = parts[1]
+			table = parts[2]
+		}
+
+		// 添加CREATE TABLE action
+		clusterName := l.defaultCluster
+		if cluster != "" {
+			clusterName = cluster
+		}
+		action := &analyzer.ActionTable{
+			Cluster:  clusterName,
+			Database: database,
+			Table:    table,
+			Action:   analyzer.ActionTypeCreate,
+		}
+		l.dependencies.Actions = append(l.dependencies.Actions, action)
+	}
 }
 
 // EnterCreateView 进入CREATE VIEW语句时调用
@@ -91,12 +125,192 @@ func (l *dependencyListener) EnterCreateView(ctx *parser.CreateViewContext) {
 func (l *dependencyListener) EnterDropTable(ctx *parser.DropTableContext) {
 	l.curOpType = analyzer.StmtTypeDropTable
 	l.onWriteStmt()
+
+	// 提取表名
+	if ctx.TableRefList() != nil {
+		for _, tableRefCtx := range ctx.TableRefList().AllTableRef() {
+			tableName := tableRefCtx.GetText()
+
+			// 解析数据库和表名
+			cluster, database, table := "", "", ""
+			parts := strings.Split(tableName, ".")
+			if len(parts) == 1 {
+				table = parts[0]
+				database = l.defaultDatabase
+			} else if len(parts) == 2 {
+				database = parts[0]
+				table = parts[1]
+			} else if len(parts) > 2 {
+				cluster = parts[0]
+				database = parts[1]
+				table = parts[2]
+			}
+
+			// 添加DROP TABLE action
+			clusterName := l.defaultCluster
+			if cluster != "" {
+				clusterName = cluster
+			}
+			action := &analyzer.ActionTable{
+				Cluster:  clusterName,
+				Database: database,
+				Table:    table,
+				Action:   analyzer.ActionTypeDrop,
+			}
+			l.dependencies.Actions = append(l.dependencies.Actions, action)
+		}
+	}
 }
 
 // EnterAlterTable 进入ALTER TABLE语句时调用
 func (l *dependencyListener) EnterAlterTable(ctx *parser.AlterTableContext) {
 	l.curOpType = analyzer.StmtTypeAlterTable
 	l.onWriteStmt()
+
+	// 提取表名
+	if ctx.TableRef() != nil {
+		tableName := ctx.TableRef().GetText()
+
+		// 解析数据库和表名
+		cluster, database, table := "", "", ""
+		parts := strings.Split(tableName, ".")
+		if len(parts) == 1 {
+			table = parts[0]
+			database = l.defaultDatabase
+		} else if len(parts) == 2 {
+			database = parts[0]
+			table = parts[1]
+		} else if len(parts) > 2 {
+			cluster = parts[0]
+			database = parts[1]
+			table = parts[2]
+		}
+
+		// 提取列信息
+		columns := []*analyzer.ActionColumn{}
+
+		// 处理ALTER TABLE actions
+		if ctx.AlterTableActions() != nil {
+			alterActions := ctx.AlterTableActions()
+			if alterActions.AlterCommandList() != nil {
+				alterCommandList := alterActions.AlterCommandList()
+				if alterCommandList.AlterList() != nil {
+					alterList := alterCommandList.AlterList()
+					for _, alterItem := range alterList.AllAlterListItem() {
+						// 检查是否是添加列的操作
+						if alterItem.ADD_SYMBOL() != nil {
+							// 处理单个列添加
+							if alterItem.FieldDefinition() != nil {
+								fieldDef := alterItem.FieldDefinition()
+								columnName := ""
+								columnType := ""
+
+								// 提取列名
+								if alterItem.Identifier() != nil {
+									columnName = alterItem.Identifier().GetText()
+								}
+
+								// 提取列类型
+								if fieldDef.DataType() != nil {
+									columnType = fieldDef.DataType().GetText()
+								}
+
+								if columnName != "" {
+									columns = append(columns, &analyzer.ActionColumn{
+										Name:   columnName,
+										Type:   columnType,
+										Action: analyzer.ActionTypeCreate,
+									})
+								}
+							}
+
+							// 处理多个列添加
+							if alterItem.OPEN_PAR_SYMBOL() != nil && alterItem.TableElementList() != nil {
+								tableElementList := alterItem.TableElementList()
+								for _, tableElement := range tableElementList.AllTableElement() {
+									if tableElement.ColumnDefinition() != nil {
+										columnDef := tableElement.ColumnDefinition()
+										columnName := ""
+										columnType := ""
+
+										// 提取列名
+										if columnDef.ColumnName() != nil && columnDef.ColumnName().Identifier() != nil {
+											columnName = columnDef.ColumnName().Identifier().GetText()
+										}
+
+										// 提取列类型
+										if columnDef.FieldDefinition() != nil && columnDef.FieldDefinition().DataType() != nil {
+											columnType = columnDef.FieldDefinition().DataType().GetText()
+										}
+
+										if columnName != "" {
+											columns = append(columns, &analyzer.ActionColumn{
+												Name:   columnName,
+												Type:   columnType,
+												Action: analyzer.ActionTypeCreate,
+											})
+										}
+									}
+								}
+							}
+						}
+						// 检查是否是删除列的操作
+						if alterItem.DROP_SYMBOL() != nil {
+							if alterItem.Identifier() != nil {
+								columnName := alterItem.Identifier().GetText()
+								if columnName != "" {
+									columns = append(columns, &analyzer.ActionColumn{
+										Name:   columnName,
+										Action: analyzer.ActionTypeDrop,
+									})
+								}
+							}
+						}
+						// 检查是否是修改列的操作
+						if alterItem.MODIFY_SYMBOL() != nil || alterItem.CHANGE_SYMBOL() != nil {
+							if alterItem.FieldDefinition() != nil {
+								fieldDef := alterItem.FieldDefinition()
+								columnName := ""
+								columnType := ""
+
+								// 提取列名
+								if alterItem.Identifier() != nil {
+									columnName = alterItem.Identifier().GetText()
+								}
+
+								// 提取列类型
+								if fieldDef.DataType() != nil {
+									columnType = fieldDef.DataType().GetText()
+								}
+
+								if columnName != "" {
+									columns = append(columns, &analyzer.ActionColumn{
+										Name:   columnName,
+										Type:   columnType,
+										Action: analyzer.ActionTypeAlter,
+									})
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// 添加ALTER TABLE action
+		clusterName := l.defaultCluster
+		if cluster != "" {
+			clusterName = cluster
+		}
+		action := &analyzer.ActionTable{
+			Cluster:  clusterName,
+			Database: database,
+			Table:    table,
+			Columns:  columns,
+			Action:   analyzer.ActionTypeAlter,
+		}
+		l.dependencies.Actions = append(l.dependencies.Actions, action)
+	}
 }
 
 // EnterReplaceStatement 进入REPLACE语句时调用

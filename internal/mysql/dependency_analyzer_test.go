@@ -191,6 +191,14 @@ func TestMySQLDependencyAnalyzer(t *testing.T) {
 							Table:    "new_table",
 						},
 					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "cl",
+							Database: "db",
+							Table:    "new_table",
+							Action:   analyzer.ActionTypeCreate,
+						},
+					},
 				},
 			},
 		},
@@ -209,6 +217,157 @@ func TestMySQLDependencyAnalyzer(t *testing.T) {
 							Table:    "table1",
 						},
 					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "cl",
+							Database: "db",
+							Table:    "table1",
+							Columns: []*analyzer.ActionColumn{
+								{
+									Name:   "new_column",
+									Type:   "VARCHAR(100)",
+									Action: analyzer.ActionTypeCreate,
+								},
+							},
+							Action: analyzer.ActionTypeAlter,
+						},
+					},
+				},
+			},
+		},
+		{
+			name: "ALTER TABLE add multiple columns",
+			sql:  "ALTER TABLE table1 ADD COLUMN (email VARCHAR(100), age INT)",
+			expected: []*analyzer.DependencyResult{
+				{
+					Stmt:     "ALTER TABLE table1 ADD COLUMN (email VARCHAR(100), age INT)",
+					StmtType: analyzer.StmtTypeAlterTable,
+					Read:     []*analyzer.DependencyTable{},
+					Write: []*analyzer.DependencyTable{
+						{
+							Cluster:  "cl",
+							Database: "db",
+							Table:    "table1",
+						},
+					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "cl",
+							Database: "db",
+							Table:    "table1",
+							Columns: []*analyzer.ActionColumn{
+								{
+									Name:   "email",
+									Type:   "VARCHAR(100)",
+									Action: analyzer.ActionTypeCreate,
+								},
+								{
+									Name:   "age",
+									Type:   "INT",
+									Action: analyzer.ActionTypeCreate,
+								},
+							},
+							Action: analyzer.ActionTypeAlter,
+						},
+					},
+				},
+			},
+		},
+		{
+			name: "ALTER TABLE drop column",
+			sql:  "ALTER TABLE table1 DROP COLUMN email",
+			expected: []*analyzer.DependencyResult{
+				{
+					Stmt:     "ALTER TABLE table1 DROP COLUMN email",
+					StmtType: analyzer.StmtTypeAlterTable,
+					Read:     []*analyzer.DependencyTable{},
+					Write: []*analyzer.DependencyTable{
+						{
+							Cluster:  "cl",
+							Database: "db",
+							Table:    "table1",
+						},
+					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "cl",
+							Database: "db",
+							Table:    "table1",
+							Columns: []*analyzer.ActionColumn{
+								{
+									Name:   "email",
+									Action: analyzer.ActionTypeDrop,
+								},
+							},
+							Action: analyzer.ActionTypeAlter,
+						},
+					},
+				},
+			},
+		},
+		{
+			name: "ALTER TABLE modify column",
+			sql:  "ALTER TABLE table1 MODIFY COLUMN email VARCHAR(200)",
+			expected: []*analyzer.DependencyResult{
+				{
+					Stmt:     "ALTER TABLE table1 MODIFY COLUMN email VARCHAR(200)",
+					StmtType: analyzer.StmtTypeAlterTable,
+					Read:     []*analyzer.DependencyTable{},
+					Write: []*analyzer.DependencyTable{
+						{
+							Cluster:  "cl",
+							Database: "db",
+							Table:    "table1",
+						},
+					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "cl",
+							Database: "db",
+							Table:    "table1",
+							Columns: []*analyzer.ActionColumn{
+								{
+									Name:   "email",
+									Type:   "VARCHAR(200)",
+									Action: analyzer.ActionTypeAlter,
+								},
+							},
+							Action: analyzer.ActionTypeAlter,
+						},
+					},
+				},
+			},
+		},
+		{
+			name: "ALTER TABLE change column",
+			sql:  "ALTER TABLE table1 CHANGE COLUMN email email_address VARCHAR(200)",
+			expected: []*analyzer.DependencyResult{
+				{
+					Stmt:     "ALTER TABLE table1 CHANGE COLUMN email email_address VARCHAR(200)",
+					StmtType: analyzer.StmtTypeAlterTable,
+					Read:     []*analyzer.DependencyTable{},
+					Write: []*analyzer.DependencyTable{
+						{
+							Cluster:  "cl",
+							Database: "db",
+							Table:    "table1",
+						},
+					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "cl",
+							Database: "db",
+							Table:    "table1",
+							Columns: []*analyzer.ActionColumn{
+								{
+									Name:   "email",
+									Type:   "VARCHAR(200)",
+									Action: analyzer.ActionTypeAlter,
+								},
+							},
+							Action: analyzer.ActionTypeAlter,
+						},
+					},
 				},
 			},
 		},
@@ -225,6 +384,14 @@ func TestMySQLDependencyAnalyzer(t *testing.T) {
 							Cluster:  "cl",
 							Database: "db",
 							Table:    "old_table",
+						},
+					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "cl",
+							Database: "db",
+							Table:    "old_table",
+							Action:   analyzer.ActionTypeDrop,
 						},
 					},
 				},
@@ -313,6 +480,16 @@ func TestMySQLDependencyAnalyzer(t *testing.T) {
 						assert.Equal(t, expectedWrite.Cluster, writeTable.Cluster)
 						assert.Equal(t, expectedWrite.Database, writeTable.Database)
 						assert.Equal(t, expectedWrite.Table, writeTable.Table)
+					}
+
+					// 验证Actions
+					assert.Equal(t, len(expected.Actions), len(r.Actions))
+					for j, action := range r.Actions {
+						expectedAction := expected.Actions[j]
+						assert.Equal(t, expectedAction.Cluster, action.Cluster)
+						assert.Equal(t, expectedAction.Database, action.Database)
+						assert.Equal(t, expectedAction.Table, action.Table)
+						assert.Equal(t, expectedAction.Action, action.Action)
 					}
 				}
 			}
