@@ -40,9 +40,19 @@ type (
 		Columns  []*ActionColumn `json:"columns"`
 		Action   ActionType      `json:"action"`
 	}
+	TechInfo struct {
+		// StarRocks 技术信息
+		Compression            string   `json:"compression"`
+		DistributedColumnNames []string `json:"distributedColumnNames"`
+		PartitionColumnNames   []string `json:"partitionColumnNames"`
+		DataModel              string   `json:"dataModel"`
+		// LifecycleValue         int64    `json:"lifecycleValue"`
+		// LifecycleTimeUnit      string   `json:"lifecycleTimeUnit"`
+	}
 	DependencyResult struct {
 		Stmt     string             `json:"stmt"`
 		StmtType StmtType           `json:"stmtType"`
+		TechInfo *TechInfo          `json:"techInfo"`
 		Read     []*DependencyTable `json:"read"`
 		Write    []*DependencyTable `json:"write"`
 		Actions  []*ActionTable     `json:"actions"`

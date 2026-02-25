@@ -169,6 +169,140 @@ func TestStarRocksDependencyAnalyzer(t *testing.T) {
 							Action:   analyzer.ActionTypeCreate,
 						},
 					},
+					TechInfo: &analyzer.TechInfo{
+						Compression:            "",
+						DistributedColumnNames: []string{"id"},
+						PartitionColumnNames:   []string{},
+						DataModel:              "",
+					},
+				},
+			},
+		},
+		{
+			name: "CREATE TABLE statement with TechInfo",
+			sql:  "CREATE TABLE sales_table (id INT, sale_date DATE, amount DECIMAL(10,2)) ENGINE=OLAP PRIMARY KEY(id) PARTITION BY RANGE(sale_date) (PARTITION p2023 VALUES [('2023-01-01'), ('2024-01-01'))) DISTRIBUTED BY HASH(id) BUCKETS 10 PROPERTIES ('compression' = 'LZ4')",
+			expected: []*analyzer.DependencyResult{
+				{
+					Stmt:     "CREATE TABLE sales_table (id INT, sale_date DATE, amount DECIMAL(10,2)) ENGINE=OLAP PRIMARY KEY(id) PARTITION BY RANGE(sale_date) (PARTITION p2023 VALUES [('2023-01-01'), ('2024-01-01'))) DISTRIBUTED BY HASH(id) BUCKETS 10 PROPERTIES ('compression' = 'LZ4')",
+					StmtType: analyzer.StmtTypeCreateTable,
+					Read:     []*analyzer.DependencyTable{},
+					Write: []*analyzer.DependencyTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "sales_table",
+						},
+					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "sales_table",
+							Action:   analyzer.ActionTypeCreate,
+						},
+					},
+					TechInfo: &analyzer.TechInfo{
+						Compression:            "LZ4",
+						DistributedColumnNames: []string{"id"},
+						PartitionColumnNames:   []string{"sale_date"},
+						DataModel:              "PRIMARY",
+					},
+				},
+			},
+		},
+		{
+			name: "CREATE TABLE statement with TechInfo (DUPLICATE KEY)",
+			sql:  "CREATE TABLE log_table (id INT, log_time DATETIME, message VARCHAR(255)) ENGINE=OLAP DUPLICATE KEY(id, log_time) PARTITION BY RANGE(log_time) (PARTITION p2023 VALUES [('2023-01-01'), ('2024-01-01'))) DISTRIBUTED BY HASH(id) BUCKETS 10 PROPERTIES ('compression' = 'LZ4')",
+			expected: []*analyzer.DependencyResult{
+				{
+					Stmt:     "CREATE TABLE log_table (id INT, log_time DATETIME, message VARCHAR(255)) ENGINE=OLAP DUPLICATE KEY(id, log_time) PARTITION BY RANGE(log_time) (PARTITION p2023 VALUES [('2023-01-01'), ('2024-01-01'))) DISTRIBUTED BY HASH(id) BUCKETS 10 PROPERTIES ('compression' = 'LZ4')",
+					StmtType: analyzer.StmtTypeCreateTable,
+					Read:     []*analyzer.DependencyTable{},
+					Write: []*analyzer.DependencyTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "log_table",
+						},
+					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "log_table",
+							Action:   analyzer.ActionTypeCreate,
+						},
+					},
+					TechInfo: &analyzer.TechInfo{
+						Compression:            "LZ4",
+						DistributedColumnNames: []string{"id"},
+						PartitionColumnNames:   []string{"log_time"},
+						DataModel:              "DUPLICATE",
+					},
+				},
+			},
+		},
+		{
+			name: "CREATE TABLE statement with TechInfo (UNIQUE KEY)",
+			sql:  "CREATE TABLE user_table (id INT, name VARCHAR(50), email VARCHAR(100)) ENGINE=OLAP UNIQUE KEY(id) DISTRIBUTED BY HASH(id) BUCKETS 10 PROPERTIES ('compression' = 'LZ4')",
+			expected: []*analyzer.DependencyResult{
+				{
+					Stmt:     "CREATE TABLE user_table (id INT, name VARCHAR(50), email VARCHAR(100)) ENGINE=OLAP UNIQUE KEY(id) DISTRIBUTED BY HASH(id) BUCKETS 10 PROPERTIES ('compression' = 'LZ4')",
+					StmtType: analyzer.StmtTypeCreateTable,
+					Read:     []*analyzer.DependencyTable{},
+					Write: []*analyzer.DependencyTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "user_table",
+						},
+					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "user_table",
+							Action:   analyzer.ActionTypeCreate,
+						},
+					},
+					TechInfo: &analyzer.TechInfo{
+						Compression:            "LZ4",
+						DistributedColumnNames: []string{"id"},
+						PartitionColumnNames:   []string{},
+						DataModel:              "UNIQUE",
+					},
+				},
+			},
+		},
+		{
+			name: "CREATE TABLE statement with TechInfo (AGGREGATE KEY)",
+			sql:  "CREATE TABLE sales_agg (date DATE, product_id INT, amount DECIMAL(10,2)) ENGINE=OLAP AGGREGATE KEY(date, product_id) PARTITION BY RANGE(date) (PARTITION p2023 VALUES [('2023-01-01'), ('2024-01-01'))) DISTRIBUTED BY HASH(product_id) BUCKETS 10 PROPERTIES ('compression' = 'LZ4')",
+			expected: []*analyzer.DependencyResult{
+				{
+					Stmt:     "CREATE TABLE sales_agg (date DATE, product_id INT, amount DECIMAL(10,2)) ENGINE=OLAP AGGREGATE KEY(date, product_id) PARTITION BY RANGE(date) (PARTITION p2023 VALUES [('2023-01-01'), ('2024-01-01'))) DISTRIBUTED BY HASH(product_id) BUCKETS 10 PROPERTIES ('compression' = 'LZ4')",
+					StmtType: analyzer.StmtTypeCreateTable,
+					Read:     []*analyzer.DependencyTable{},
+					Write: []*analyzer.DependencyTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "sales_agg",
+						},
+					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "default_db",
+							Table:    "sales_agg",
+							Action:   analyzer.ActionTypeCreate,
+						},
+					},
+					TechInfo: &analyzer.TechInfo{
+						Compression:            "LZ4",
+						DistributedColumnNames: []string{"product_id"},
+						PartitionColumnNames:   []string{"date"},
+						DataModel:              "AGGREGATE",
+					},
 				},
 			},
 		},
@@ -411,6 +545,23 @@ func TestStarRocksDependencyAnalyzer(t *testing.T) {
 						assert.Equal(t, expectedAction.Database, action.Database)
 						assert.Equal(t, expectedAction.Table, action.Table)
 						assert.Equal(t, expectedAction.Action, action.Action)
+					}
+
+					// 验证 TechInfo
+					if expected.TechInfo != nil {
+						assert.NotNil(t, r.TechInfo)
+						assert.Equal(t, expected.TechInfo.Compression, r.TechInfo.Compression)
+						assert.Equal(t, expected.TechInfo.DataModel, r.TechInfo.DataModel)
+						assert.Equal(t, len(expected.TechInfo.DistributedColumnNames), len(r.TechInfo.DistributedColumnNames))
+						for k, col := range expected.TechInfo.DistributedColumnNames {
+							assert.Equal(t, col, r.TechInfo.DistributedColumnNames[k])
+						}
+						assert.Equal(t, len(expected.TechInfo.PartitionColumnNames), len(r.TechInfo.PartitionColumnNames))
+						for k, col := range expected.TechInfo.PartitionColumnNames {
+							assert.Equal(t, col, r.TechInfo.PartitionColumnNames[k])
+						}
+					} else {
+						assert.Nil(t, r.TechInfo)
 					}
 				}
 			}

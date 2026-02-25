@@ -22,6 +22,7 @@ type dependencyListener struct {
 	isOnlyComment   bool
 	isWriteOp       bool
 	cteNames        map[string]bool
+	techInfo        *analyzer.TechInfo
 }
 
 // newDependencyListener 创建新的监听器实例
@@ -39,6 +40,7 @@ func newDependencyListener(defaultCluster, defaultDatabase string) *dependencyLi
 		isOnlyComment:   true,
 		isWriteOp:       false,
 		cteNames:        make(map[string]bool),
+		techInfo:        &analyzer.TechInfo{},
 	}
 }
 
@@ -67,6 +69,93 @@ func (l *dependencyListener) EnterCreateTableStatement(ctx *parser.CreateTableSt
 			Action:   analyzer.ActionTypeCreate,
 		}
 		l.dependencies.Actions = append(l.dependencies.Actions, action)
+	}
+
+	// 提取 TechInfo
+	l.extractTechInfo(ctx)
+}
+
+// extractTechInfo 从 CREATE TABLE 语句中提取 TechInfo 信息
+func (l *dependencyListener) extractTechInfo(ctx *parser.CreateTableStatementContext) {
+	// 初始化 TechInfo
+	l.techInfo = &analyzer.TechInfo{
+		DistributedColumnNames: []string{},
+		PartitionColumnNames:   []string{},
+	}
+
+	// 提取分区列
+	if partitionDesc := ctx.PartitionDesc(); partitionDesc != nil {
+		l.extractPartitionColumns(partitionDesc)
+	}
+
+	// 提取分桶列
+	if distributionDesc := ctx.DistributionDesc(); distributionDesc != nil {
+		l.extractDistributionColumns(distributionDesc)
+	}
+
+	// 提取key类型，确定数据模型
+	if keyDesc := ctx.KeyDesc(); keyDesc != nil {
+		l.extractDataModel(keyDesc)
+	}
+
+	// 提取属性信息（压缩方式等）
+	if properties := ctx.Properties(); properties != nil {
+		l.extractProperties(properties)
+	}
+
+	// 将 TechInfo 设置到依赖结果中
+	l.dependencies.TechInfo = l.techInfo
+}
+
+// extractDataModel 从 KeyDesc 中提取数据模型信息
+func (l *dependencyListener) extractDataModel(ctx parser.IKeyDescContext) {
+	if ctx.PRIMARY() != nil {
+		l.techInfo.DataModel = "PRIMARY"
+	} else if ctx.DUPLICATE() != nil {
+		l.techInfo.DataModel = "DUPLICATE"
+	} else if ctx.UNIQUE() != nil {
+		l.techInfo.DataModel = "UNIQUE"
+	} else if ctx.AGGREGATE() != nil {
+		l.techInfo.DataModel = "AGGREGATE"
+	}
+}
+
+// extractPartitionColumns 提取分区列信息
+func (l *dependencyListener) extractPartitionColumns(ctx parser.IPartitionDescContext) {
+	// 处理 PARTITION BY RANGE 或 LIST
+	if ctx.IdentifierList() != nil {
+		for _, id := range ctx.IdentifierList().AllIdentifier() {
+			l.techInfo.PartitionColumnNames = append(l.techInfo.PartitionColumnNames, id.GetText())
+		}
+	}
+	// 处理多个分区表达式
+	for _, expr := range ctx.AllPartitionExpr() {
+		l.techInfo.PartitionColumnNames = append(l.techInfo.PartitionColumnNames, expr.GetText())
+	}
+}
+
+// extractDistributionColumns 提取分桶列信息
+func (l *dependencyListener) extractDistributionColumns(ctx parser.IDistributionDescContext) {
+	if ctx.IdentifierList() != nil {
+		for _, id := range ctx.IdentifierList().AllIdentifier() {
+			l.techInfo.DistributedColumnNames = append(l.techInfo.DistributedColumnNames, id.GetText())
+		}
+	}
+}
+
+// extractProperties 提取属性信息
+func (l *dependencyListener) extractProperties(ctx parser.IPropertiesContext) {
+	for _, prop := range ctx.AllProperty() {
+		key := prop.GetKey().GetText()
+		value := prop.GetValue().GetText()
+		// 移除引号
+		key = strings.Trim(key, "'\"")
+		value = strings.Trim(value, "'\"")
+
+		switch strings.ToLower(key) {
+		case "compression":
+			l.techInfo.Compression = value
+		}
 	}
 }
 
