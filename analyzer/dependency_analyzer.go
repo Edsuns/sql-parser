@@ -41,13 +41,20 @@ type (
 		Action   ActionType      `json:"action"`
 	}
 	TechInfo struct {
+		// 共有技术信息
+		PartitionColumnNames []string `json:"partitionColumnNames"`
+
 		// StarRocks 技术信息
 		Compression            string   `json:"compression"`
 		DistributedColumnNames []string `json:"distributedColumnNames"`
-		PartitionColumnNames   []string `json:"partitionColumnNames"`
-		DataModel              string   `json:"dataModel"`
+		DataModel              string   `json:"dataModel"` // PRIMARY/DUPLICATE/UNIQUE/AGGREGATE
 		// LifecycleValue         int64    `json:"lifecycleValue"`
 		// LifecycleTimeUnit      string   `json:"lifecycleTimeUnit"`
+
+		// Spark 技术信息
+		Locations            []string `json:"locations"`
+		LakehouseTableFormat string   `json:"lakehouseTableFormat"` // hive/paimon/iceberg
+		FileFormat           string   `json:"fileFormat"`           // parquet/orc/avro
 	}
 	DependencyResult struct {
 		Stmt     string             `json:"stmt"`

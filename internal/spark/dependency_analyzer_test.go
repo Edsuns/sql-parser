@@ -813,6 +813,45 @@ func TestSparkDependencyAnalyzer(t *testing.T) {
 							},
 						},
 					},
+					TechInfo: &analyzer.TechInfo{
+						PartitionColumnNames: []string{"sale_date"},
+						Locations:            []string{},
+						LakehouseTableFormat: "",
+					},
+				},
+			},
+		},
+		// Test for Tech Info parsing
+		{
+			name: "create table with tech info",
+			sql:  "CREATE TABLE dw_sp.adv_dwv_sp_email_delivery_fct ( `bulk_id` STRING NOT NULL COMMENT '批量发送邮件标识', `user_id` STRING NOT NULL COMMENT '用户ID', `platform` STRING NOT NULL COMMENT '平台：ec1,ec2,shopify,others', `dt` STRING NOT NULL COMMENT '分区' ) USING paimon PARTITIONED BY (dt) COMMENT '邮件送达表' TBLPROPERTIES( 'bucket' = '400', 'path' = 'hdfs://slcluster01/hive_warehouse/dw_sp.db/adv_dwv_email_delivery_fct', 'primary-key' = 'dt,bulk_id,user_id,platform', 'snapshot.num-retained.max' = '1', 'snapshot.num-retained.min' = '1', 'write-only' = 'true' )",
+			expected: []*analyzer.DependencyResult{
+				{
+					Stmt:     "CREATE TABLE dw_sp.adv_dwv_sp_email_delivery_fct ( `bulk_id` STRING NOT NULL COMMENT '批量发送邮件标识', `user_id` STRING NOT NULL COMMENT '用户ID', `platform` STRING NOT NULL COMMENT '平台：ec1,ec2,shopify,others', `dt` STRING NOT NULL COMMENT '分区' ) USING paimon PARTITIONED BY (dt) COMMENT '邮件送达表' TBLPROPERTIES( 'bucket' = '400', 'path' = 'hdfs://slcluster01/hive_warehouse/dw_sp.db/adv_dwv_email_delivery_fct', 'primary-key' = 'dt,bulk_id,user_id,platform', 'snapshot.num-retained.max' = '1', 'snapshot.num-retained.min' = '1', 'write-only' = 'true' )",
+					StmtType: analyzer.StmtTypeCreateTable,
+					Read:     []*analyzer.DependencyTable{},
+					Write: []*analyzer.DependencyTable{
+						{Cluster: "default_cluster", Database: "dw_sp", Table: "adv_dwv_sp_email_delivery_fct"},
+					},
+					Actions: []*analyzer.ActionTable{
+						{
+							Cluster:  "default_cluster",
+							Database: "dw_sp",
+							Table:    "adv_dwv_sp_email_delivery_fct",
+							Action:   analyzer.ActionTypeCreate,
+							Columns: []*analyzer.ActionColumn{
+								{Name: "`bulk_id`", Type: "STRING", IsNotNull: true, IsPrimary: false, DefaultValue: "", Comment: "COMMENT'批量发送邮件标识'", Action: analyzer.ActionTypeCreate},
+								{Name: "`user_id`", Type: "STRING", IsNotNull: true, IsPrimary: false, DefaultValue: "", Comment: "COMMENT'用户ID'", Action: analyzer.ActionTypeCreate},
+								{Name: "`platform`", Type: "STRING", IsNotNull: true, IsPrimary: false, DefaultValue: "", Comment: "COMMENT'平台：ec1,ec2,shopify,others'", Action: analyzer.ActionTypeCreate},
+								{Name: "`dt`", Type: "STRING", IsNotNull: true, IsPrimary: false, DefaultValue: "", Comment: "COMMENT'分区'", Action: analyzer.ActionTypeCreate},
+							},
+						},
+					},
+					TechInfo: &analyzer.TechInfo{
+						PartitionColumnNames: []string{"dt"},
+						Locations:            []string{"'hdfs://slcluster01/hive_warehouse/dw_sp.db/adv_dwv_email_delivery_fct'"},
+						LakehouseTableFormat: "paimon",
+					},
 				},
 			},
 		},
@@ -878,6 +917,23 @@ func TestSparkDependencyAnalyzer(t *testing.T) {
 								assert.Equal(t, expectedActionColumn.Action, actionColumn.Action)
 							}
 						}
+					}
+
+					// 验证TechInfo
+					if expected.TechInfo != nil {
+						assert.NotNil(t, result.TechInfo)
+						assert.Equal(t, len(expected.TechInfo.PartitionColumnNames), len(result.TechInfo.PartitionColumnNames))
+						for k, col := range expected.TechInfo.PartitionColumnNames {
+							assert.Equal(t, col, result.TechInfo.PartitionColumnNames[k])
+						}
+						assert.Equal(t, len(expected.TechInfo.Locations), len(result.TechInfo.Locations))
+						for k, loc := range expected.TechInfo.Locations {
+							assert.Equal(t, loc, result.TechInfo.Locations[k])
+						}
+						assert.Equal(t, expected.TechInfo.LakehouseTableFormat, result.TechInfo.LakehouseTableFormat)
+						assert.Equal(t, expected.TechInfo.FileFormat, result.TechInfo.FileFormat)
+					} else {
+						assert.Nil(t, result.TechInfo)
 					}
 				}
 			}

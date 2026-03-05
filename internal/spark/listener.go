@@ -2,6 +2,7 @@ package spark
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/Edsuns/sql-parser/analyzer"
 	"github.com/Edsuns/sql-parser/internal/spark/parser"
@@ -22,6 +23,7 @@ type dependencyListener struct {
 	isWriteOp       bool                  // 是否已遇到写入操作
 	cteNames        map[string]bool       // 存储CTE名称，避免将CTE作为表依赖
 	currentTable    *analyzer.ActionTable // 当前正在处理的表
+	techInfo        *analyzer.TechInfo    // 技术信息
 }
 
 // newDependencyListener 创建新的监听器实例
@@ -39,6 +41,7 @@ func newDependencyListener(defaultCluster, defaultDatabase string) *dependencyLi
 		isOnlyComment:   true, // 默认认为是只有注释，遇到非注释内容时设置为false
 		isWriteOp:       false,
 		cteNames:        make(map[string]bool),
+		techInfo:        nil,
 	}
 }
 
@@ -483,6 +486,59 @@ func (l *dependencyListener) EnterCreateTable(ctx *parser.CreateTableContext) {
 			}
 		}
 	}
+
+	// 初始化TechInfo
+	l.techInfo = &analyzer.TechInfo{
+		PartitionColumnNames: []string{},
+		Locations:            []string{},
+	}
+
+	// 提取技术信息
+	l.extractTechInfo(ctx)
+
+	// 提取表格式信息（从USING子句）
+	if tableProvider := ctx.TableProvider(); tableProvider != nil {
+		if multipartIdentifier := tableProvider.MultipartIdentifier(); multipartIdentifier != nil {
+			if len(multipartIdentifier.AllErrorCapturingIdentifier()) > 0 {
+				l.techInfo.LakehouseTableFormat = multipartIdentifier.AllErrorCapturingIdentifier()[0].GetText()
+			}
+		}
+	}
+
+	// 提取存储路径信息（从TBLPROPERTIES或LOCATION子句）
+	if createTableClauses := ctx.CreateTableClauses(); createTableClauses != nil {
+		// 提取LOCATION子句
+		for _, locationSpec := range createTableClauses.AllLocationSpec() {
+			if stringLit := locationSpec.StringLit(); stringLit != nil {
+				l.techInfo.Locations = append(l.techInfo.Locations, stringLit.GetText())
+			}
+		}
+
+		// 提取TBLPROPERTIES中的path属性
+		if propertyList := createTableClauses.GetTableProps(); propertyList != nil {
+			for _, property := range propertyList.AllProperty() {
+				if propertyWithKeyAndEquals, ok := property.(*parser.PropertyWithKeyAndEqualsContext); ok {
+					if key := propertyWithKeyAndEquals.GetKey(); key != nil {
+						if keyText := key.GetText(); strings.Trim(keyText, "'\"") == "path" {
+							if value := propertyWithKeyAndEquals.GetValue(); value != nil {
+								l.techInfo.Locations = append(l.techInfo.Locations, value.GetText())
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// 只有当TechInfo中有实际信息时才设置到依赖结果中
+	hasTechInfo := len(l.techInfo.PartitionColumnNames) > 0 ||
+		len(l.techInfo.Locations) > 0 ||
+		l.techInfo.LakehouseTableFormat != ""
+	if hasTechInfo {
+		l.dependencies.TechInfo = l.techInfo
+	} else {
+		l.dependencies.TechInfo = nil
+	}
 }
 
 // EnterCreateTableLike 进入创建表（LIKE）语句时调用
@@ -673,6 +729,76 @@ func (l *dependencyListener) EnterColDefinition(ctx *parser.ColDefinitionContext
 	}
 
 	l.currentTable.Columns = append(l.currentTable.Columns, actionColumn)
+}
+
+// extractTechInfo 从 CREATE TABLE 语句中提取 TechInfo 信息
+func (l *dependencyListener) extractTechInfo(ctx *parser.CreateTableContext) {
+	// 提取分区列和表属性
+	if createTableClauses := ctx.CreateTableClauses(); createTableClauses != nil {
+		// 提取分区列
+		if partitionFieldList := createTableClauses.GetPartitioning(); partitionFieldList != nil {
+			l.extractPartitionColumns(partitionFieldList)
+		}
+
+		// 提取表属性
+		if propertyList := createTableClauses.GetTableProps(); propertyList != nil {
+			l.extractTableProperties(propertyList)
+		}
+
+		// 提取存储位置
+		for _, locationSpec := range createTableClauses.AllLocationSpec() {
+			if locationSpec.StringLit() != nil {
+				l.techInfo.Locations = append(l.techInfo.Locations, locationSpec.StringLit().GetText())
+			}
+		}
+	}
+}
+
+// extractPartitionColumns 提取分区列信息
+func (l *dependencyListener) extractPartitionColumns(ctx parser.IPartitionFieldListContext) {
+	// 使用AllPartitionField()方法获取所有分区字段
+	for _, partitionField := range ctx.AllPartitionField() {
+		// 检查是否是分区列
+		if partitionColumn, ok := partitionField.(*parser.PartitionColumnContext); ok {
+			// 获取ColTypeContext
+			colType := partitionColumn.ColType()
+			// 获取列名
+			if colName := colType.GetColName(); colName != nil {
+				l.techInfo.PartitionColumnNames = append(l.techInfo.PartitionColumnNames, colName.GetText())
+			}
+		} else if partitionTransform, ok := partitionField.(*parser.PartitionTransformContext); ok {
+			// 处理分区转换
+			transform := partitionTransform.Transform()
+			// 处理身份转换 (如 col)
+			if identityTransform, ok := transform.(*parser.IdentityTransformContext); ok {
+				if qualifiedName := identityTransform.QualifiedName(); qualifiedName != nil {
+					l.techInfo.PartitionColumnNames = append(l.techInfo.PartitionColumnNames, qualifiedName.GetText())
+				}
+			} else if applyTransform, ok := transform.(*parser.ApplyTransformContext); ok {
+				// 处理应用转换 (如 year(col))
+				for _, arg := range applyTransform.AllTransformArgument() {
+					if transformArg, ok := arg.(*parser.TransformArgumentContext); ok {
+						if qualifiedName := transformArg.QualifiedName(); qualifiedName != nil {
+							l.techInfo.PartitionColumnNames = append(l.techInfo.PartitionColumnNames, qualifiedName.GetText())
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+// extractTableProperties 提取表属性信息
+func (l *dependencyListener) extractTableProperties(ctx parser.IPropertyListContext) {
+	if ctx != nil {
+		// 暂时跳过详细解析，后续可以根据需要完善
+		// 我们可以通过分析整个属性列表的文本来提取信息
+		propsText := ctx.GetText()
+		// 简单检查是否包含path属性
+		if strings.Contains(propsText, "path") {
+			// 这里可以添加更详细的解析逻辑
+		}
+	}
 }
 
 // 自定义错误监听器，用于捕获语法错误
