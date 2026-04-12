@@ -5856,6 +5856,16 @@ func (s *SqlStatementsContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SqlStatementsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSqlStatements(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) SqlStatements() (localctx ISqlStatementsContext) {
 	localctx = NewSqlStatementsContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 0, StarRocksParserRULE_sqlStatements)
@@ -6013,6 +6023,16 @@ func (s *SingleStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SingleStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSingleStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) SingleStatement() (localctx ISingleStatementContext) {
 	localctx = NewSingleStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 2, StarRocksParserRULE_singleStatement)
@@ -6135,6 +6155,16 @@ func (s *EmptyStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *EmptyStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitEmptyStatement(s)
+	}
+}
+
+func (s *EmptyStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitEmptyStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -10217,6 +10247,16 @@ func (s *StatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *StatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) Statement() (localctx IStatementContext) {
 	localctx = NewStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 6, StarRocksParserRULE_statement)
@@ -11976,6 +12016,16 @@ func (s *UseDatabaseStatementContext) ExitRule(listener antlr.ParseTreeListener)
 	}
 }
 
+func (s *UseDatabaseStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitUseDatabaseStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) UseDatabaseStatement() (localctx IUseDatabaseStatementContext) {
 	localctx = NewUseDatabaseStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 8, StarRocksParserRULE_useDatabaseStatement)
@@ -12090,6 +12140,16 @@ func (s *UseCatalogStatementContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *UseCatalogStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitUseCatalogStatement(s)
+	}
+}
+
+func (s *UseCatalogStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitUseCatalogStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -12212,6 +12272,16 @@ func (s *SetCatalogStatementContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *SetCatalogStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitSetCatalogStatement(s)
+	}
+}
+
+func (s *SetCatalogStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSetCatalogStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -12423,6 +12493,16 @@ func (s *ShowDatabasesStatementContext) EnterRule(listener antlr.ParseTreeListen
 func (s *ShowDatabasesStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowDatabasesStatement(s)
+	}
+}
+
+func (s *ShowDatabasesStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowDatabasesStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -12743,6 +12823,16 @@ func (s *AlterDbQuotaStatementContext) EnterRule(listener antlr.ParseTreeListene
 func (s *AlterDbQuotaStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAlterDbQuotaStatement(s)
+	}
+}
+
+func (s *AlterDbQuotaStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAlterDbQuotaStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -13081,6 +13171,16 @@ func (s *CreateDbStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CreateDbStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateDbStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) CreateDbStatement() (localctx ICreateDbStatementContext) {
 	localctx = NewCreateDbStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 18, StarRocksParserRULE_createDbStatement)
@@ -13375,6 +13475,16 @@ func (s *DropDbStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DropDbStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropDbStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DropDbStatement() (localctx IDropDbStatementContext) {
 	localctx = NewDropDbStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 20, StarRocksParserRULE_dropDbStatement)
@@ -13590,6 +13700,16 @@ func (s *ShowCreateDbStatementContext) ExitRule(listener antlr.ParseTreeListener
 	}
 }
 
+func (s *ShowCreateDbStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowCreateDbStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowCreateDbStatement() (localctx IShowCreateDbStatementContext) {
 	localctx = NewShowCreateDbStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 22, StarRocksParserRULE_showCreateDbStatement)
@@ -13764,6 +13884,16 @@ func (s *AlterDatabaseRenameStatementContext) ExitRule(listener antlr.ParseTreeL
 	}
 }
 
+func (s *AlterDatabaseRenameStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAlterDatabaseRenameStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) AlterDatabaseRenameStatement() (localctx IAlterDatabaseRenameStatementContext) {
 	localctx = NewAlterDatabaseRenameStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 24, StarRocksParserRULE_alterDatabaseRenameStatement)
@@ -13911,6 +14041,16 @@ func (s *RecoverDbStmtContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *RecoverDbStmtContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRecoverDbStmt(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) RecoverDbStmt() (localctx IRecoverDbStmtContext) {
 	localctx = NewRecoverDbStmtContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 26, StarRocksParserRULE_recoverDbStmt)
@@ -14048,6 +14188,16 @@ func (s *ShowDataStmtContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ShowDataStmtContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowDataStmt(s)
+	}
+}
+
+func (s *ShowDataStmtContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowDataStmt(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -14244,6 +14394,16 @@ func (s *ShowDataDistributionStmtContext) EnterRule(listener antlr.ParseTreeList
 func (s *ShowDataDistributionStmtContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowDataDistributionStmt(s)
+	}
+}
+
+func (s *ShowDataDistributionStmtContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowDataDistributionStmt(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -14687,6 +14847,16 @@ func (s *CreateTableStatementContext) EnterRule(listener antlr.ParseTreeListener
 func (s *CreateTableStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitCreateTableStatement(s)
+	}
+}
+
+func (s *CreateTableStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateTableStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -15221,6 +15391,16 @@ func (s *ColumnDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ColumnDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitColumnDesc(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ColumnDesc() (localctx IColumnDescContext) {
 	localctx = NewColumnDescContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 34, StarRocksParserRULE_columnDesc)
@@ -15461,6 +15641,16 @@ func (s *CharsetNameContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CharsetNameContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCharsetName(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) CharsetName() (localctx ICharsetNameContext) {
 	localctx = NewCharsetNameContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 36, StarRocksParserRULE_charsetName)
@@ -15666,6 +15856,16 @@ func (s *DefaultDescContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DefaultDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDefaultDesc(s)
+	}
+}
+
+func (s *DefaultDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDefaultDesc(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -15903,6 +16103,16 @@ func (s *GeneratedColumnDescContext) ExitRule(listener antlr.ParseTreeListener) 
 	}
 }
 
+func (s *GeneratedColumnDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitGeneratedColumnDesc(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) GeneratedColumnDesc() (localctx IGeneratedColumnDescContext) {
 	localctx = NewGeneratedColumnDescContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 40, StarRocksParserRULE_generatedColumnDesc)
@@ -16099,6 +16309,16 @@ func (s *IndexDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *IndexDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitIndexDesc(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) IndexDesc() (localctx IIndexDescContext) {
 	localctx = NewIndexDescContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 42, StarRocksParserRULE_indexDesc)
@@ -16272,6 +16492,16 @@ func (s *EngineDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *EngineDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitEngineDesc(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) EngineDesc() (localctx IEngineDescContext) {
 	localctx = NewEngineDescContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 44, StarRocksParserRULE_engineDesc)
@@ -16419,6 +16649,16 @@ func (s *CharsetDescContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *CharsetDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitCharsetDesc(s)
+	}
+}
+
+func (s *CharsetDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCharsetDesc(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -16636,6 +16876,16 @@ func (s *CollateDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CollateDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCollateDesc(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) CollateDesc() (localctx ICollateDescContext) {
 	localctx = NewCollateDescContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 48, StarRocksParserRULE_collateDesc)
@@ -16811,6 +17061,16 @@ func (s *KeyDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *KeyDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitKeyDesc(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) KeyDesc() (localctx IKeyDescContext) {
 	localctx = NewKeyDescContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 50, StarRocksParserRULE_keyDesc)
@@ -16946,6 +17206,16 @@ func (s *OrderByDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *OrderByDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitOrderByDesc(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) OrderByDesc() (localctx IOrderByDescContext) {
 	localctx = NewOrderByDescContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 52, StarRocksParserRULE_orderByDesc)
@@ -17056,6 +17326,16 @@ func (s *ColumnNullableContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ColumnNullableContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitColumnNullable(s)
+	}
+}
+
+func (s *ColumnNullableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitColumnNullable(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -17213,6 +17493,16 @@ func (s *TypeWithNullableContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *TypeWithNullableContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitTypeWithNullable(s)
+	}
+}
+
+func (s *TypeWithNullableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitTypeWithNullable(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -17376,6 +17666,16 @@ func (s *AggStateDescContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *AggStateDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAggStateDesc(s)
+	}
+}
+
+func (s *AggStateDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAggStateDesc(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -17570,6 +17870,16 @@ func (s *AggDescContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *AggDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAggDesc(s)
+	}
+}
+
+func (s *AggDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAggDesc(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -17805,6 +18115,16 @@ func (s *RollupDescContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *RollupDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitRollupDesc(s)
+	}
+}
+
+func (s *RollupDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRollupDesc(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -18045,6 +18365,16 @@ func (s *RollupItemContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *RollupItemContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRollupItem(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) RollupItem() (localctx IRollupItemContext) {
 	localctx = NewRollupItemContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 64, StarRocksParserRULE_rollupItem)
@@ -18210,6 +18540,16 @@ func (s *DupKeysContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DupKeysContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDupKeys(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DupKeys() (localctx IDupKeysContext) {
 	localctx = NewDupKeysContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 66, StarRocksParserRULE_dupKeys)
@@ -18335,6 +18675,16 @@ func (s *FromRollupContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *FromRollupContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitFromRollup(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) FromRollup() (localctx IFromRollupContext) {
 	localctx = NewFromRollupContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 68, StarRocksParserRULE_fromRollup)
@@ -18437,6 +18787,16 @@ func (s *OrReplaceContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *OrReplaceContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitOrReplace(s)
+	}
+}
+
+func (s *OrReplaceContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitOrReplace(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -18563,6 +18923,16 @@ func (s *IfNotExistsContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *IfNotExistsContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitIfNotExists(s)
+	}
+}
+
+func (s *IfNotExistsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitIfNotExists(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -18939,6 +19309,16 @@ func (s *CreateTableAsSelectStatementContext) EnterRule(listener antlr.ParseTree
 func (s *CreateTableAsSelectStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitCreateTableAsSelectStatement(s)
+	}
+}
+
+func (s *CreateTableAsSelectStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateTableAsSelectStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -19384,6 +19764,16 @@ func (s *DropTableStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DropTableStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropTableStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DropTableStatement() (localctx IDropTableStatementContext) {
 	localctx = NewDropTableStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 76, StarRocksParserRULE_dropTableStatement)
@@ -19590,6 +19980,16 @@ func (s *CleanTemporaryTableStatementContext) EnterRule(listener antlr.ParseTree
 func (s *CleanTemporaryTableStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitCleanTemporaryTableStatement(s)
+	}
+}
+
+func (s *CleanTemporaryTableStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCleanTemporaryTableStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -19888,6 +20288,16 @@ func (s *AlterTableStatementContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *AlterTableStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAlterTableStatement(s)
+	}
+}
+
+func (s *AlterTableStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAlterTableStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -20310,6 +20720,16 @@ func (s *CreateIndexStatementContext) ExitRule(listener antlr.ParseTreeListener)
 	}
 }
 
+func (s *CreateIndexStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateIndexStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) CreateIndexStatement() (localctx ICreateIndexStatementContext) {
 	localctx = NewCreateIndexStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 82, StarRocksParserRULE_createIndexStatement)
@@ -20536,6 +20956,16 @@ func (s *DropIndexStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DropIndexStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropIndexStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DropIndexStatement() (localctx IDropIndexStatementContext) {
 	localctx = NewDropIndexStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 84, StarRocksParserRULE_dropIndexStatement)
@@ -20676,6 +21106,16 @@ func (s *IndexTypeContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *IndexTypeContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitIndexType(s)
+	}
+}
+
+func (s *IndexTypeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitIndexType(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -20888,6 +21328,16 @@ func (s *ShowTableStatementContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *ShowTableStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowTableStatement(s)
+	}
+}
+
+func (s *ShowTableStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowTableStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -21187,6 +21637,16 @@ func (s *ShowTemporaryTablesStatementContext) ExitRule(listener antlr.ParseTreeL
 	}
 }
 
+func (s *ShowTemporaryTablesStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowTemporaryTablesStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowTemporaryTablesStatement() (localctx IShowTemporaryTablesStatementContext) {
 	localctx = NewShowTemporaryTablesStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 90, StarRocksParserRULE_showTemporaryTablesStatement)
@@ -21415,6 +21875,16 @@ func (s *ShowCreateTableStatementContext) EnterRule(listener antlr.ParseTreeList
 func (s *ShowCreateTableStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowCreateTableStatement(s)
+	}
+}
+
+func (s *ShowCreateTableStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowCreateTableStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -21730,6 +22200,16 @@ func (s *ShowColumnStatementContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *ShowColumnStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowColumnStatement(s)
+	}
+}
+
+func (s *ShowColumnStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowColumnStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -22052,6 +22532,16 @@ func (s *ShowTableStatusStatementContext) ExitRule(listener antlr.ParseTreeListe
 	}
 }
 
+func (s *ShowTableStatusStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowTableStatusStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowTableStatusStatement() (localctx IShowTableStatusStatementContext) {
 	localctx = NewShowTableStatusStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 96, StarRocksParserRULE_showTableStatusStatement)
@@ -22307,6 +22797,16 @@ func (s *RefreshTableStatementContext) EnterRule(listener antlr.ParseTreeListene
 func (s *RefreshTableStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitRefreshTableStatement(s)
+	}
+}
+
+func (s *RefreshTableStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRefreshTableStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -22656,6 +23156,16 @@ func (s *ShowAlterStatementContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *ShowAlterStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowAlterStatement(s)
+	}
+}
+
+func (s *ShowAlterStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowAlterStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -23135,6 +23645,16 @@ func (s *DescTableStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DescTableStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDescTableStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DescTableStatement() (localctx IDescTableStatementContext) {
 	localctx = NewDescTableStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 102, StarRocksParserRULE_descTableStatement)
@@ -23414,6 +23934,16 @@ func (s *CreateTableLikeStatementContext) EnterRule(listener antlr.ParseTreeList
 func (s *CreateTableLikeStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitCreateTableLikeStatement(s)
+	}
+}
+
+func (s *CreateTableLikeStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateTableLikeStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -23741,6 +24271,16 @@ func (s *ShowIndexStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ShowIndexStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowIndexStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowIndexStatement() (localctx IShowIndexStatementContext) {
 	localctx = NewShowIndexStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 106, StarRocksParserRULE_showIndexStatement)
@@ -23920,6 +24460,16 @@ func (s *RecoverTableStatementContext) ExitRule(listener antlr.ParseTreeListener
 	}
 }
 
+func (s *RecoverTableStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRecoverTableStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) RecoverTableStatement() (localctx IRecoverTableStatementContext) {
 	localctx = NewRecoverTableStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 108, StarRocksParserRULE_recoverTableStatement)
@@ -24064,6 +24614,16 @@ func (s *TruncateTableStatementContext) EnterRule(listener antlr.ParseTreeListen
 func (s *TruncateTableStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitTruncateTableStatement(s)
+	}
+}
+
+func (s *TruncateTableStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitTruncateTableStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -24255,6 +24815,16 @@ func (s *CancelAlterTableStatementContext) EnterRule(listener antlr.ParseTreeLis
 func (s *CancelAlterTableStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitCancelAlterTableStatement(s)
+	}
+}
+
+func (s *CancelAlterTableStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCancelAlterTableStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -24665,6 +25235,16 @@ func (s *ShowPartitionsStatementContext) ExitRule(listener antlr.ParseTreeListen
 	}
 }
 
+func (s *ShowPartitionsStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowPartitionsStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowPartitionsStatement() (localctx IShowPartitionsStatementContext) {
 	localctx = NewShowPartitionsStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 114, StarRocksParserRULE_showPartitionsStatement)
@@ -24953,6 +25533,16 @@ func (s *RecoverPartitionStatementContext) ExitRule(listener antlr.ParseTreeList
 	}
 }
 
+func (s *RecoverPartitionStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRecoverPartitionStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) RecoverPartitionStatement() (localctx IRecoverPartitionStatementContext) {
 	localctx = NewRecoverPartitionStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 116, StarRocksParserRULE_recoverPartitionStatement)
@@ -25217,6 +25807,16 @@ func (s *CreateViewStatementContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *CreateViewStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitCreateViewStatement(s)
+	}
+}
+
+func (s *CreateViewStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateViewStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -25647,6 +26247,16 @@ func (s *AlterViewStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *AlterViewStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAlterViewStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) AlterViewStatement() (localctx IAlterViewStatementContext) {
 	localctx = NewAlterViewStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 120, StarRocksParserRULE_alterViewStatement)
@@ -26020,6 +26630,16 @@ func (s *DropViewStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DropViewStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropViewStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DropViewStatement() (localctx IDropViewStatementContext) {
 	localctx = NewDropViewStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 122, StarRocksParserRULE_dropViewStatement)
@@ -26193,6 +26813,16 @@ func (s *ColumnNameWithCommentContext) EnterRule(listener antlr.ParseTreeListene
 func (s *ColumnNameWithCommentContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitColumnNameWithComment(s)
+	}
+}
+
+func (s *ColumnNameWithCommentContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitColumnNameWithComment(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -26428,6 +27058,16 @@ func (s *SubmitTaskStatementContext) ExitRule(listener antlr.ParseTreeListener) 
 	}
 }
 
+func (s *SubmitTaskStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSubmitTaskStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) SubmitTaskStatement() (localctx ISubmitTaskStatementContext) {
 	localctx = NewSubmitTaskStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 126, StarRocksParserRULE_submitTaskStatement)
@@ -26632,6 +27272,16 @@ func (s *TaskClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *TaskClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitTaskClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) TaskClause() (localctx ITaskClauseContext) {
 	localctx = NewTaskClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 128, StarRocksParserRULE_taskClause)
@@ -26778,6 +27428,16 @@ func (s *DropTaskStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DropTaskStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDropTaskStatement(s)
+	}
+}
+
+func (s *DropTaskStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropTaskStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -26976,6 +27636,16 @@ func (s *TaskScheduleDescContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *TaskScheduleDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitTaskScheduleDesc(s)
+	}
+}
+
+func (s *TaskScheduleDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitTaskScheduleDesc(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -27364,6 +28034,16 @@ func (s *CreateMaterializedViewStatementContext) ExitRule(listener antlr.ParseTr
 	}
 }
 
+func (s *CreateMaterializedViewStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateMaterializedViewStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) CreateMaterializedViewStatement() (localctx ICreateMaterializedViewStatementContext) {
 	localctx = NewCreateMaterializedViewStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 134, StarRocksParserRULE_createMaterializedViewStatement)
@@ -27698,6 +28378,16 @@ func (s *MvPartitionExprsContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *MvPartitionExprsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitMvPartitionExprs(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) MvPartitionExprs() (localctx IMvPartitionExprsContext) {
 	localctx = NewMvPartitionExprsContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 136, StarRocksParserRULE_mvPartitionExprs)
@@ -27942,6 +28632,16 @@ func (s *MaterializedViewDescContext) EnterRule(listener antlr.ParseTreeListener
 func (s *MaterializedViewDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitMaterializedViewDesc(s)
+	}
+}
+
+func (s *MaterializedViewDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitMaterializedViewDesc(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -28197,6 +28897,16 @@ func (s *ShowMaterializedViewsStatementContext) ExitRule(listener antlr.ParseTre
 	}
 }
 
+func (s *ShowMaterializedViewsStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowMaterializedViewsStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowMaterializedViewsStatement() (localctx IShowMaterializedViewsStatementContext) {
 	localctx = NewShowMaterializedViewsStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 140, StarRocksParserRULE_showMaterializedViewsStatement)
@@ -28425,6 +29135,16 @@ func (s *DropMaterializedViewStatementContext) EnterRule(listener antlr.ParseTre
 func (s *DropMaterializedViewStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDropMaterializedViewStatement(s)
+	}
+}
+
+func (s *DropMaterializedViewStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropMaterializedViewStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -28695,6 +29415,16 @@ func (s *AlterMaterializedViewStatementContext) EnterRule(listener antlr.ParseTr
 func (s *AlterMaterializedViewStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAlterMaterializedViewStatement(s)
+	}
+}
+
+func (s *AlterMaterializedViewStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAlterMaterializedViewStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -29030,6 +29760,16 @@ func (s *RefreshMaterializedViewStatementContext) ExitRule(listener antlr.ParseT
 	}
 }
 
+func (s *RefreshMaterializedViewStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRefreshMaterializedViewStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) RefreshMaterializedViewStatement() (localctx IRefreshMaterializedViewStatementContext) {
 	localctx = NewRefreshMaterializedViewStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 146, StarRocksParserRULE_refreshMaterializedViewStatement)
@@ -29335,6 +30075,16 @@ func (s *CancelRefreshMaterializedViewStatementContext) ExitRule(listener antlr.
 	}
 }
 
+func (s *CancelRefreshMaterializedViewStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCancelRefreshMaterializedViewStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) CancelRefreshMaterializedViewStatement() (localctx ICancelRefreshMaterializedViewStatementContext) {
 	localctx = NewCancelRefreshMaterializedViewStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 148, StarRocksParserRULE_cancelRefreshMaterializedViewStatement)
@@ -29521,6 +30271,16 @@ func (s *AdminSetConfigStatementContext) EnterRule(listener antlr.ParseTreeListe
 func (s *AdminSetConfigStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAdminSetConfigStatement(s)
+	}
+}
+
+func (s *AdminSetConfigStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAdminSetConfigStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -29724,6 +30484,16 @@ func (s *AdminSetReplicaStatusStatementContext) ExitRule(listener antlr.ParseTre
 	}
 }
 
+func (s *AdminSetReplicaStatusStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAdminSetReplicaStatusStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) AdminSetReplicaStatusStatement() (localctx IAdminSetReplicaStatusStatementContext) {
 	localctx = NewAdminSetReplicaStatusStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 152, StarRocksParserRULE_adminSetReplicaStatusStatement)
@@ -29893,6 +30663,16 @@ func (s *AdminShowConfigStatementContext) EnterRule(listener antlr.ParseTreeList
 func (s *AdminShowConfigStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAdminShowConfigStatement(s)
+	}
+}
+
+func (s *AdminShowConfigStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAdminShowConfigStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -30095,6 +30875,16 @@ func (s *AdminShowReplicaDistributionStatementContext) EnterRule(listener antlr.
 func (s *AdminShowReplicaDistributionStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAdminShowReplicaDistributionStatement(s)
+	}
+}
+
+func (s *AdminShowReplicaDistributionStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAdminShowReplicaDistributionStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -30333,6 +31123,16 @@ func (s *AdminShowReplicaStatusStatementContext) ExitRule(listener antlr.ParseTr
 	}
 }
 
+func (s *AdminShowReplicaStatusStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAdminShowReplicaStatusStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) AdminShowReplicaStatusStatement() (localctx IAdminShowReplicaStatusStatementContext) {
 	localctx = NewAdminShowReplicaStatusStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 158, StarRocksParserRULE_adminShowReplicaStatusStatement)
@@ -30550,6 +31350,16 @@ func (s *AdminRepairTableStatementContext) ExitRule(listener antlr.ParseTreeList
 	}
 }
 
+func (s *AdminRepairTableStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAdminRepairTableStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) AdminRepairTableStatement() (localctx IAdminRepairTableStatementContext) {
 	localctx = NewAdminRepairTableStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 160, StarRocksParserRULE_adminRepairTableStatement)
@@ -30728,6 +31538,16 @@ func (s *AdminCancelRepairTableStatementContext) EnterRule(listener antlr.ParseT
 func (s *AdminCancelRepairTableStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAdminCancelRepairTableStatement(s)
+	}
+}
+
+func (s *AdminCancelRepairTableStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAdminCancelRepairTableStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -30912,6 +31732,16 @@ func (s *AdminCheckTabletsStatementContext) EnterRule(listener antlr.ParseTreeLi
 func (s *AdminCheckTabletsStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAdminCheckTabletsStatement(s)
+	}
+}
+
+func (s *AdminCheckTabletsStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAdminCheckTabletsStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -31154,6 +31984,16 @@ func (s *AdminSetPartitionVersionContext) EnterRule(listener antlr.ParseTreeList
 func (s *AdminSetPartitionVersionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAdminSetPartitionVersion(s)
+	}
+}
+
+func (s *AdminSetPartitionVersionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAdminSetPartitionVersion(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -31411,6 +32251,16 @@ func (s *KillStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *KillStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitKillStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) KillStatement() (localctx IKillStatementContext) {
 	localctx = NewKillStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 168, StarRocksParserRULE_killStatement)
@@ -31583,6 +32433,16 @@ func (s *SyncStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SyncStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSyncStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) SyncStatement() (localctx ISyncStatementContext) {
 	localctx = NewSyncStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 170, StarRocksParserRULE_syncStatement)
@@ -31739,6 +32599,16 @@ func (s *AdminSetAutomatedSnapshotOnStatementContext) EnterRule(listener antlr.P
 func (s *AdminSetAutomatedSnapshotOnStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAdminSetAutomatedSnapshotOnStatement(s)
+	}
+}
+
+func (s *AdminSetAutomatedSnapshotOnStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAdminSetAutomatedSnapshotOnStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -31939,6 +32809,16 @@ func (s *AdminSetAutomatedSnapshotOffStatementContext) ExitRule(listener antlr.P
 	}
 }
 
+func (s *AdminSetAutomatedSnapshotOffStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAdminSetAutomatedSnapshotOffStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) AdminSetAutomatedSnapshotOffStatement() (localctx IAdminSetAutomatedSnapshotOffStatementContext) {
 	localctx = NewAdminSetAutomatedSnapshotOffStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 174, StarRocksParserRULE_adminSetAutomatedSnapshotOffStatement)
@@ -32094,6 +32974,16 @@ func (s *AlterSystemStatementContext) EnterRule(listener antlr.ParseTreeListener
 func (s *AlterSystemStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAlterSystemStatement(s)
+	}
+}
+
+func (s *AlterSystemStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAlterSystemStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -32258,6 +33148,16 @@ func (s *CancelAlterSystemStatementContext) ExitRule(listener antlr.ParseTreeLis
 	}
 }
 
+func (s *CancelAlterSystemStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCancelAlterSystemStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) CancelAlterSystemStatement() (localctx ICancelAlterSystemStatementContext) {
 	localctx = NewCancelAlterSystemStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 178, StarRocksParserRULE_cancelAlterSystemStatement)
@@ -32411,6 +33311,16 @@ func (s *ShowComputeNodesStatementContext) EnterRule(listener antlr.ParseTreeLis
 func (s *ShowComputeNodesStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowComputeNodesStatement(s)
+	}
+}
+
+func (s *ShowComputeNodesStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowComputeNodesStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -32614,6 +33524,16 @@ func (s *CreateExternalCatalogStatementContext) EnterRule(listener antlr.ParseTr
 func (s *CreateExternalCatalogStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitCreateExternalCatalogStatement(s)
+	}
+}
+
+func (s *CreateExternalCatalogStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateExternalCatalogStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -32832,6 +33752,16 @@ func (s *ShowCreateExternalCatalogStatementContext) ExitRule(listener antlr.Pars
 	}
 }
 
+func (s *ShowCreateExternalCatalogStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowCreateExternalCatalogStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowCreateExternalCatalogStatement() (localctx IShowCreateExternalCatalogStatementContext) {
 	localctx = NewShowCreateExternalCatalogStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 184, StarRocksParserRULE_showCreateExternalCatalogStatement)
@@ -32995,6 +33925,16 @@ func (s *DropExternalCatalogStatementContext) EnterRule(listener antlr.ParseTree
 func (s *DropExternalCatalogStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDropExternalCatalogStatement(s)
+	}
+}
+
+func (s *DropExternalCatalogStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropExternalCatalogStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -33172,6 +34112,16 @@ func (s *ShowCatalogsStatementContext) EnterRule(listener antlr.ParseTreeListene
 func (s *ShowCatalogsStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowCatalogsStatement(s)
+	}
+}
+
+func (s *ShowCatalogsStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowCatalogsStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -33357,6 +34307,16 @@ func (s *AlterCatalogStatementContext) EnterRule(listener antlr.ParseTreeListene
 func (s *AlterCatalogStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAlterCatalogStatement(s)
+	}
+}
+
+func (s *AlterCatalogStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAlterCatalogStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -33600,6 +34560,16 @@ func (s *CreateStorageVolumeStatementContext) ExitRule(listener antlr.ParseTreeL
 	}
 }
 
+func (s *CreateStorageVolumeStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateStorageVolumeStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) CreateStorageVolumeStatement() (localctx ICreateStorageVolumeStatementContext) {
 	localctx = NewCreateStorageVolumeStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 192, StarRocksParserRULE_createStorageVolumeStatement)
@@ -33813,6 +34783,16 @@ func (s *TypeDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *TypeDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitTypeDesc(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) TypeDesc() (localctx ITypeDescContext) {
 	localctx = NewTypeDescContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 194, StarRocksParserRULE_typeDesc)
@@ -33940,6 +34920,16 @@ func (s *LocationsDescContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *LocationsDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitLocationsDesc(s)
+	}
+}
+
+func (s *LocationsDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitLocationsDesc(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -34091,6 +35081,16 @@ func (s *ShowStorageVolumesStatementContext) EnterRule(listener antlr.ParseTreeL
 func (s *ShowStorageVolumesStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowStorageVolumesStatement(s)
+	}
+}
+
+func (s *ShowStorageVolumesStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowStorageVolumesStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -34282,6 +35282,16 @@ func (s *DropStorageVolumeStatementContext) EnterRule(listener antlr.ParseTreeLi
 func (s *DropStorageVolumeStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDropStorageVolumeStatement(s)
+	}
+}
+
+func (s *DropStorageVolumeStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropStorageVolumeStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -34502,6 +35512,16 @@ func (s *AlterStorageVolumeStatementContext) ExitRule(listener antlr.ParseTreeLi
 	}
 }
 
+func (s *AlterStorageVolumeStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAlterStorageVolumeStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) AlterStorageVolumeStatement() (localctx IAlterStorageVolumeStatementContext) {
 	localctx = NewAlterStorageVolumeStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 202, StarRocksParserRULE_alterStorageVolumeStatement)
@@ -34681,6 +35701,16 @@ func (s *AlterStorageVolumeClauseContext) ExitRule(listener antlr.ParseTreeListe
 	}
 }
 
+func (s *AlterStorageVolumeClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAlterStorageVolumeClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) AlterStorageVolumeClause() (localctx IAlterStorageVolumeClauseContext) {
 	localctx = NewAlterStorageVolumeClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 204, StarRocksParserRULE_alterStorageVolumeClause)
@@ -34810,6 +35840,16 @@ func (s *ModifyStorageVolumePropertiesClauseContext) ExitRule(listener antlr.Par
 	}
 }
 
+func (s *ModifyStorageVolumePropertiesClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitModifyStorageVolumePropertiesClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ModifyStorageVolumePropertiesClause() (localctx IModifyStorageVolumePropertiesClauseContext) {
 	localctx = NewModifyStorageVolumePropertiesClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 206, StarRocksParserRULE_modifyStorageVolumePropertiesClause)
@@ -34929,6 +35969,16 @@ func (s *ModifyStorageVolumeCommentClauseContext) EnterRule(listener antlr.Parse
 func (s *ModifyStorageVolumeCommentClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitModifyStorageVolumeCommentClause(s)
+	}
+}
+
+func (s *ModifyStorageVolumeCommentClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitModifyStorageVolumeCommentClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -35069,6 +36119,16 @@ func (s *DescStorageVolumeStatementContext) EnterRule(listener antlr.ParseTreeLi
 func (s *DescStorageVolumeStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDescStorageVolumeStatement(s)
+	}
+}
+
+func (s *DescStorageVolumeStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDescStorageVolumeStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -35227,6 +36287,16 @@ func (s *SetDefaultStorageVolumeStatementContext) EnterRule(listener antlr.Parse
 func (s *SetDefaultStorageVolumeStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitSetDefaultStorageVolumeStatement(s)
+	}
+}
+
+func (s *SetDefaultStorageVolumeStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSetDefaultStorageVolumeStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -35452,6 +36522,16 @@ func (s *UpdateFailPointStatusStatementContext) EnterRule(listener antlr.ParseTr
 func (s *UpdateFailPointStatusStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitUpdateFailPointStatusStatement(s)
+	}
+}
+
+func (s *UpdateFailPointStatusStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitUpdateFailPointStatusStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -35879,6 +36959,16 @@ func (s *ShowFailPointStatementContext) ExitRule(listener antlr.ParseTreeListene
 	}
 }
 
+func (s *ShowFailPointStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowFailPointStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowFailPointStatement() (localctx IShowFailPointStatementContext) {
 	localctx = NewShowFailPointStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 216, StarRocksParserRULE_showFailPointStatement)
@@ -36144,6 +37234,16 @@ func (s *CreateDictionaryStatementContext) ExitRule(listener antlr.ParseTreeList
 	}
 }
 
+func (s *CreateDictionaryStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateDictionaryStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) CreateDictionaryStatement() (localctx ICreateDictionaryStatementContext) {
 	localctx = NewCreateDictionaryStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 218, StarRocksParserRULE_createDictionaryStatement)
@@ -36355,6 +37455,16 @@ func (s *DropDictionaryStatementContext) ExitRule(listener antlr.ParseTreeListen
 	}
 }
 
+func (s *DropDictionaryStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropDictionaryStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DropDictionaryStatement() (localctx IDropDictionaryStatementContext) {
 	localctx = NewDropDictionaryStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 220, StarRocksParserRULE_dropDictionaryStatement)
@@ -36505,6 +37615,16 @@ func (s *RefreshDictionaryStatementContext) ExitRule(listener antlr.ParseTreeLis
 	}
 }
 
+func (s *RefreshDictionaryStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRefreshDictionaryStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) RefreshDictionaryStatement() (localctx IRefreshDictionaryStatementContext) {
 	localctx = NewRefreshDictionaryStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 222, StarRocksParserRULE_refreshDictionaryStatement)
@@ -36632,6 +37752,16 @@ func (s *ShowDictionaryStatementContext) EnterRule(listener antlr.ParseTreeListe
 func (s *ShowDictionaryStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowDictionaryStatement(s)
+	}
+}
+
+func (s *ShowDictionaryStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowDictionaryStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -36782,6 +37912,16 @@ func (s *CancelRefreshDictionaryStatementContext) ExitRule(listener antlr.ParseT
 	}
 }
 
+func (s *CancelRefreshDictionaryStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCancelRefreshDictionaryStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) CancelRefreshDictionaryStatement() (localctx ICancelRefreshDictionaryStatementContext) {
 	localctx = NewCancelRefreshDictionaryStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 226, StarRocksParserRULE_cancelRefreshDictionaryStatement)
@@ -36917,6 +38057,16 @@ func (s *DictionaryColumnDescContext) EnterRule(listener antlr.ParseTreeListener
 func (s *DictionaryColumnDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDictionaryColumnDesc(s)
+	}
+}
+
+func (s *DictionaryColumnDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDictionaryColumnDesc(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -37056,6 +38206,16 @@ func (s *DictionaryNameContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DictionaryNameContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDictionaryName(s)
+	}
+}
+
+func (s *DictionaryNameContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDictionaryName(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -37996,6 +39156,16 @@ func (s *AlterClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *AlterClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAlterClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) AlterClause() (localctx IAlterClauseContext) {
 	localctx = NewAlterClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 232, StarRocksParserRULE_alterClause)
@@ -38470,6 +39640,16 @@ func (s *AddFrontendClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *AddFrontendClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAddFrontendClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) AddFrontendClause() (localctx IAddFrontendClauseContext) {
 	localctx = NewAddFrontendClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 234, StarRocksParserRULE_addFrontendClause)
@@ -38607,6 +39787,16 @@ func (s *DropFrontendClauseContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *DropFrontendClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDropFrontendClause(s)
+	}
+}
+
+func (s *DropFrontendClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropFrontendClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -38778,6 +39968,16 @@ func (s *ModifyFrontendHostClauseContext) EnterRule(listener antlr.ParseTreeList
 func (s *ModifyFrontendHostClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitModifyFrontendHostClause(s)
+	}
+}
+
+func (s *ModifyFrontendHostClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitModifyFrontendHostClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -38994,6 +40194,16 @@ func (s *AddBackendClauseContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *AddBackendClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAddBackendClause(s)
+	}
+}
+
+func (s *AddBackendClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAddBackendClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -39272,6 +40482,16 @@ func (s *DropBackendClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DropBackendClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropBackendClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DropBackendClause() (localctx IDropBackendClauseContext) {
 	localctx = NewDropBackendClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 242, StarRocksParserRULE_dropBackendClause)
@@ -39518,6 +40738,16 @@ func (s *DecommissionBackendClauseContext) ExitRule(listener antlr.ParseTreeList
 	}
 }
 
+func (s *DecommissionBackendClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDecommissionBackendClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DecommissionBackendClause() (localctx IDecommissionBackendClauseContext) {
 	localctx = NewDecommissionBackendClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 244, StarRocksParserRULE_decommissionBackendClause)
@@ -39740,6 +40970,16 @@ func (s *ModifyBackendClauseContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *ModifyBackendClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitModifyBackendClause(s)
+	}
+}
+
+func (s *ModifyBackendClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitModifyBackendClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -40010,6 +41250,16 @@ func (s *AddComputeNodeClauseContext) EnterRule(listener antlr.ParseTreeListener
 func (s *AddComputeNodeClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAddComputeNodeClause(s)
+	}
+}
+
+func (s *AddComputeNodeClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAddComputeNodeClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -40296,6 +41546,16 @@ func (s *DropComputeNodeClauseContext) ExitRule(listener antlr.ParseTreeListener
 	}
 }
 
+func (s *DropComputeNodeClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropComputeNodeClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DropComputeNodeClause() (localctx IDropComputeNodeClauseContext) {
 	localctx = NewDropComputeNodeClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 250, StarRocksParserRULE_dropComputeNodeClause)
@@ -40556,6 +41816,16 @@ func (s *ModifyBrokerClauseContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *ModifyBrokerClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitModifyBrokerClause(s)
+	}
+}
+
+func (s *ModifyBrokerClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitModifyBrokerClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -40845,6 +42115,16 @@ func (s *AlterLoadErrorUrlClauseContext) ExitRule(listener antlr.ParseTreeListen
 	}
 }
 
+func (s *AlterLoadErrorUrlClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAlterLoadErrorUrlClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) AlterLoadErrorUrlClause() (localctx IAlterLoadErrorUrlClauseContext) {
 	localctx = NewAlterLoadErrorUrlClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 254, StarRocksParserRULE_alterLoadErrorUrlClause)
@@ -40986,6 +42266,16 @@ func (s *CreateImageClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CreateImageClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateImageClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) CreateImageClause() (localctx ICreateImageClauseContext) {
 	localctx = NewCreateImageClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 256, StarRocksParserRULE_createImageClause)
@@ -41102,6 +42392,16 @@ func (s *CleanTabletSchedQClauseContext) EnterRule(listener antlr.ParseTreeListe
 func (s *CleanTabletSchedQClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitCleanTabletSchedQClause(s)
+	}
+}
+
+func (s *CleanTabletSchedQClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCleanTabletSchedQClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -41280,6 +42580,16 @@ func (s *DecommissionDiskClauseContext) EnterRule(listener antlr.ParseTreeListen
 func (s *DecommissionDiskClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDecommissionDiskClause(s)
+	}
+}
+
+func (s *DecommissionDiskClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDecommissionDiskClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -41501,6 +42811,16 @@ func (s *CancelDecommissionDiskClauseContext) EnterRule(listener antlr.ParseTree
 func (s *CancelDecommissionDiskClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitCancelDecommissionDiskClause(s)
+	}
+}
+
+func (s *CancelDecommissionDiskClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCancelDecommissionDiskClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -41728,6 +43048,16 @@ func (s *DisableDiskClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DisableDiskClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDisableDiskClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DisableDiskClause() (localctx IDisableDiskClauseContext) {
 	localctx = NewDisableDiskClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 264, StarRocksParserRULE_disableDiskClause)
@@ -41946,6 +43276,16 @@ func (s *CancelDisableDiskClauseContext) EnterRule(listener antlr.ParseTreeListe
 func (s *CancelDisableDiskClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitCancelDisableDiskClause(s)
+	}
+}
+
+func (s *CancelDisableDiskClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCancelDisableDiskClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -42216,6 +43556,16 @@ func (s *CreateIndexClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CreateIndexClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateIndexClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) CreateIndexClause() (localctx ICreateIndexClauseContext) {
 	localctx = NewCreateIndexClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 268, StarRocksParserRULE_createIndexClause)
@@ -42408,6 +43758,16 @@ func (s *DropIndexClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DropIndexClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropIndexClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DropIndexClause() (localctx IDropIndexClauseContext) {
 	localctx = NewDropIndexClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 270, StarRocksParserRULE_dropIndexClause)
@@ -42536,6 +43896,16 @@ func (s *TableRenameClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *TableRenameClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitTableRenameClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) TableRenameClause() (localctx ITableRenameClauseContext) {
 	localctx = NewTableRenameClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 272, StarRocksParserRULE_tableRenameClause)
@@ -42655,6 +44025,16 @@ func (s *SwapTableClauseContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SwapTableClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitSwapTableClause(s)
+	}
+}
+
+func (s *SwapTableClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSwapTableClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -42783,6 +44163,16 @@ func (s *ModifyPropertiesClauseContext) ExitRule(listener antlr.ParseTreeListene
 	}
 }
 
+func (s *ModifyPropertiesClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitModifyPropertiesClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ModifyPropertiesClause() (localctx IModifyPropertiesClauseContext) {
 	localctx = NewModifyPropertiesClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 276, StarRocksParserRULE_modifyPropertiesClause)
@@ -42902,6 +44292,16 @@ func (s *ModifyCommentClauseContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *ModifyCommentClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitModifyCommentClause(s)
+	}
+}
+
+func (s *ModifyCommentClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitModifyCommentClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -43080,6 +44480,16 @@ func (s *OptimizeRangeContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *OptimizeRangeContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitOptimizeRange(s)
+	}
+}
+
+func (s *OptimizeRangeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitOptimizeRange(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -43295,6 +44705,16 @@ func (s *OptimizeClauseContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *OptimizeClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitOptimizeClause(s)
+	}
+}
+
+func (s *OptimizeClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitOptimizeClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -43580,6 +45000,16 @@ func (s *AddColumnClauseContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *AddColumnClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAddColumnClause(s)
+	}
+}
+
+func (s *AddColumnClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAddColumnClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -43872,6 +45302,16 @@ func (s *AddColumnsClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *AddColumnsClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAddColumnsClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) AddColumnsClause() (localctx IAddColumnsClauseContext) {
 	localctx = NewAddColumnsClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 286, StarRocksParserRULE_addColumnsClause)
@@ -44149,6 +45589,16 @@ func (s *DropColumnClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DropColumnClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropColumnClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DropColumnClause() (localctx IDropColumnClauseContext) {
 	localctx = NewDropColumnClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 288, StarRocksParserRULE_dropColumnClause)
@@ -44406,6 +45856,16 @@ func (s *ModifyColumnClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ModifyColumnClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitModifyColumnClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ModifyColumnClause() (localctx IModifyColumnClauseContext) {
 	localctx = NewModifyColumnClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 290, StarRocksParserRULE_modifyColumnClause)
@@ -44628,6 +46088,16 @@ func (s *ModifyColumnCommentClauseContext) ExitRule(listener antlr.ParseTreeList
 	}
 }
 
+func (s *ModifyColumnCommentClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitModifyColumnCommentClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ModifyColumnCommentClause() (localctx IModifyColumnCommentClauseContext) {
 	localctx = NewModifyColumnCommentClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 292, StarRocksParserRULE_modifyColumnCommentClause)
@@ -44812,6 +46282,16 @@ func (s *ColumnRenameClauseContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *ColumnRenameClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitColumnRenameClause(s)
+	}
+}
+
+func (s *ColumnRenameClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitColumnRenameClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -45010,6 +46490,16 @@ func (s *ReorderColumnsClauseContext) EnterRule(listener antlr.ParseTreeListener
 func (s *ReorderColumnsClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitReorderColumnsClause(s)
+	}
+}
+
+func (s *ReorderColumnsClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitReorderColumnsClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -45232,6 +46722,16 @@ func (s *RollupRenameClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *RollupRenameClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRollupRenameClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) RollupRenameClause() (localctx IRollupRenameClauseContext) {
 	localctx = NewRollupRenameClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 298, StarRocksParserRULE_rollupRenameClause)
@@ -45394,6 +46894,16 @@ func (s *CompactionClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CompactionClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCompactionClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) CompactionClause() (localctx ICompactionClauseContext) {
 	localctx = NewCompactionClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 300, StarRocksParserRULE_compactionClause)
@@ -45549,6 +47059,16 @@ func (s *SubfieldNameContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SubfieldNameContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitSubfieldName(s)
+	}
+}
+
+func (s *SubfieldNameContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSubfieldName(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -45712,6 +47232,16 @@ func (s *NestedFieldNameContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *NestedFieldNameContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitNestedFieldName(s)
+	}
+}
+
+func (s *NestedFieldNameContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitNestedFieldName(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -45962,6 +47492,16 @@ func (s *AddFieldClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *AddFieldClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAddFieldClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) AddFieldClause() (localctx IAddFieldClauseContext) {
 	localctx = NewAddFieldClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 306, StarRocksParserRULE_addFieldClause)
@@ -46206,6 +47746,16 @@ func (s *DropFieldClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DropFieldClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropFieldClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DropFieldClause() (localctx IDropFieldClauseContext) {
 	localctx = NewDropFieldClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 308, StarRocksParserRULE_dropFieldClause)
@@ -46411,6 +47961,16 @@ func (s *CreateOrReplaceTagClauseContext) EnterRule(listener antlr.ParseTreeList
 func (s *CreateOrReplaceTagClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitCreateOrReplaceTagClause(s)
+	}
+}
+
+func (s *CreateOrReplaceTagClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateOrReplaceTagClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -46691,6 +48251,16 @@ func (s *CreateOrReplaceBranchClauseContext) ExitRule(listener antlr.ParseTreeLi
 	}
 }
 
+func (s *CreateOrReplaceBranchClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateOrReplaceBranchClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) CreateOrReplaceBranchClause() (localctx ICreateOrReplaceBranchClauseContext) {
 	localctx = NewCreateOrReplaceBranchClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 312, StarRocksParserRULE_createOrReplaceBranchClause)
@@ -46936,6 +48506,16 @@ func (s *DropBranchClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DropBranchClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropBranchClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DropBranchClause() (localctx IDropBranchClauseContext) {
 	localctx = NewDropBranchClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 314, StarRocksParserRULE_dropBranchClause)
@@ -47104,6 +48684,16 @@ func (s *DropTagClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DropTagClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropTagClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DropTagClause() (localctx IDropTagClauseContext) {
 	localctx = NewDropTagClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 316, StarRocksParserRULE_dropTagClause)
@@ -47257,6 +48847,16 @@ func (s *TableOperationClauseContext) ExitRule(listener antlr.ParseTreeListener)
 	}
 }
 
+func (s *TableOperationClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitTableOperationClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) TableOperationClause() (localctx ITableOperationClauseContext) {
 	localctx = NewTableOperationClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 318, StarRocksParserRULE_tableOperationClause)
@@ -47398,6 +48998,16 @@ func (s *TagOptionsContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *TagOptionsContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitTagOptions(s)
+	}
+}
+
+func (s *TagOptionsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitTagOptions(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -47604,6 +49214,16 @@ func (s *BranchOptionsContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *BranchOptionsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitBranchOptions(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) BranchOptions() (localctx IBranchOptionsContext) {
 	localctx = NewBranchOptionsContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 322, StarRocksParserRULE_branchOptions)
@@ -47801,6 +49421,16 @@ func (s *SnapshotRetentionContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SnapshotRetentionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitSnapshotRetention(s)
+	}
+}
+
+func (s *SnapshotRetentionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSnapshotRetention(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -48032,6 +49662,16 @@ func (s *RefRetainContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *RefRetainContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRefRetain(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) RefRetain() (localctx IRefRetainContext) {
 	localctx = NewRefRetainContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 326, StarRocksParserRULE_refRetain)
@@ -48165,6 +49805,16 @@ func (s *MaxSnapshotAgeContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *MaxSnapshotAgeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitMaxSnapshotAge(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) MaxSnapshotAge() (localctx IMaxSnapshotAgeContext) {
 	localctx = NewMaxSnapshotAgeContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 328, StarRocksParserRULE_maxSnapshotAge)
@@ -48275,6 +49925,16 @@ func (s *MinSnapshotsToKeepContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *MinSnapshotsToKeepContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitMinSnapshotsToKeep(s)
+	}
+}
+
+func (s *MinSnapshotsToKeepContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitMinSnapshotsToKeep(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -48390,6 +50050,16 @@ func (s *SnapshotIdContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SnapshotIdContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSnapshotId(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) SnapshotId() (localctx ISnapshotIdContext) {
 	localctx = NewSnapshotIdContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 332, StarRocksParserRULE_snapshotId)
@@ -48489,6 +50159,16 @@ func (s *TimeUnitContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *TimeUnitContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitTimeUnit(s)
+	}
+}
+
+func (s *TimeUnitContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitTimeUnit(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -48595,6 +50275,16 @@ func (s *Integer_listContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *Integer_listContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitInteger_list(s)
+	}
+}
+
+func (s *Integer_listContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitInteger_list(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -48781,6 +50471,16 @@ func (s *DropPersistentIndexClauseContext) ExitRule(listener antlr.ParseTreeList
 	}
 }
 
+func (s *DropPersistentIndexClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropPersistentIndexClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DropPersistentIndexClause() (localctx IDropPersistentIndexClauseContext) {
 	localctx = NewDropPersistentIndexClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 338, StarRocksParserRULE_dropPersistentIndexClause)
@@ -48920,6 +50620,16 @@ func (s *AlterTableAutoIncrementClauseContext) EnterRule(listener antlr.ParseTre
 func (s *AlterTableAutoIncrementClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAlterTableAutoIncrementClause(s)
+	}
+}
+
+func (s *AlterTableAutoIncrementClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAlterTableAutoIncrementClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -49144,6 +50854,16 @@ func (s *AddPartitionClauseContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *AddPartitionClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAddPartitionClause(s)
+	}
+}
+
+func (s *AddPartitionClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAddPartitionClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -49529,6 +51249,16 @@ func (s *DropPartitionClauseContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *DropPartitionClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDropPartitionClause(s)
+	}
+}
+
+func (s *DropPartitionClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropPartitionClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -50020,6 +51750,16 @@ func (s *TruncatePartitionClauseContext) ExitRule(listener antlr.ParseTreeListen
 	}
 }
 
+func (s *TruncatePartitionClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitTruncatePartitionClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) TruncatePartitionClause() (localctx ITruncatePartitionClauseContext) {
 	localctx = NewTruncatePartitionClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 346, StarRocksParserRULE_truncatePartitionClause)
@@ -50200,6 +51940,16 @@ func (s *ModifyPartitionClauseContext) EnterRule(listener antlr.ParseTreeListene
 func (s *ModifyPartitionClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitModifyPartitionClause(s)
+	}
+}
+
+func (s *ModifyPartitionClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitModifyPartitionClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -50489,6 +52239,16 @@ func (s *ReplacePartitionClauseContext) ExitRule(listener antlr.ParseTreeListene
 	}
 }
 
+func (s *ReplacePartitionClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitReplacePartitionClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ReplacePartitionClause() (localctx IReplacePartitionClauseContext) {
 	localctx = NewReplacePartitionClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 350, StarRocksParserRULE_replacePartitionClause)
@@ -50690,6 +52450,16 @@ func (s *PartitionRenameClauseContext) EnterRule(listener antlr.ParseTreeListene
 func (s *PartitionRenameClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitPartitionRenameClause(s)
+	}
+}
+
+func (s *PartitionRenameClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitPartitionRenameClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -51038,6 +52808,16 @@ func (s *InsertStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *InsertStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitInsertStatement(s)
+	}
+}
+
+func (s *InsertStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitInsertStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -51400,6 +53180,16 @@ func (s *InsertLabelOrColumnAliasesContext) ExitRule(listener antlr.ParseTreeLis
 	}
 }
 
+func (s *InsertLabelOrColumnAliasesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitInsertLabelOrColumnAliases(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) InsertLabelOrColumnAliases() (localctx IInsertLabelOrColumnAliasesContext) {
 	localctx = NewInsertLabelOrColumnAliasesContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 356, StarRocksParserRULE_insertLabelOrColumnAliases)
@@ -51550,6 +53340,16 @@ func (s *ColumnAliasesOrByNameContext) EnterRule(listener antlr.ParseTreeListene
 func (s *ColumnAliasesOrByNameContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitColumnAliasesOrByName(s)
+	}
+}
+
+func (s *ColumnAliasesOrByNameContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitColumnAliasesOrByName(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -51797,6 +53597,16 @@ func (s *UpdateStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *UpdateStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitUpdateStatement(s)
+	}
+}
+
+func (s *UpdateStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitUpdateStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -52107,6 +53917,16 @@ func (s *DeleteStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DeleteStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDeleteStatement(s)
+	}
+}
+
+func (s *DeleteStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDeleteStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -52539,6 +54359,16 @@ func (s *CreateRoutineLoadStatementContext) ExitRule(listener antlr.ParseTreeLis
 	}
 }
 
+func (s *CreateRoutineLoadStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateRoutineLoadStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) CreateRoutineLoadStatement() (localctx ICreateRoutineLoadStatementContext) {
 	localctx = NewCreateRoutineLoadStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 364, StarRocksParserRULE_createRoutineLoadStatement)
@@ -52931,6 +54761,16 @@ func (s *AlterRoutineLoadStatementContext) ExitRule(listener antlr.ParseTreeList
 	}
 }
 
+func (s *AlterRoutineLoadStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAlterRoutineLoadStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) AlterRoutineLoadStatement() (localctx IAlterRoutineLoadStatementContext) {
 	localctx = NewAlterRoutineLoadStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 366, StarRocksParserRULE_alterRoutineLoadStatement)
@@ -53198,6 +55038,16 @@ func (s *DataSourceContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DataSourceContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDataSource(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DataSource() (localctx IDataSourceContext) {
 	localctx = NewDataSourceContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 368, StarRocksParserRULE_dataSource)
@@ -53390,6 +55240,16 @@ func (s *LoadPropertiesContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *LoadPropertiesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitLoadProperties(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) LoadProperties() (localctx ILoadPropertiesContext) {
 	localctx = NewLoadPropertiesContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 370, StarRocksParserRULE_loadProperties)
@@ -53557,6 +55417,16 @@ func (s *ColSeparatorPropertyContext) ExitRule(listener antlr.ParseTreeListener)
 	}
 }
 
+func (s *ColSeparatorPropertyContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitColSeparatorProperty(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ColSeparatorProperty() (localctx IColSeparatorPropertyContext) {
 	localctx = NewColSeparatorPropertyContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 372, StarRocksParserRULE_colSeparatorProperty)
@@ -53700,6 +55570,16 @@ func (s *RowDelimiterPropertyContext) ExitRule(listener antlr.ParseTreeListener)
 	}
 }
 
+func (s *RowDelimiterPropertyContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRowDelimiterProperty(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) RowDelimiterProperty() (localctx IRowDelimiterPropertyContext) {
 	localctx = NewRowDelimiterPropertyContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 374, StarRocksParserRULE_rowDelimiterProperty)
@@ -53830,6 +55710,16 @@ func (s *ImportColumnsContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ImportColumnsContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitImportColumns(s)
+	}
+}
+
+func (s *ImportColumnsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitImportColumns(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -54011,6 +55901,16 @@ func (s *ColumnPropertiesContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ColumnPropertiesContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitColumnProperties(s)
+	}
+}
+
+func (s *ColumnPropertiesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitColumnProperties(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -54200,6 +56100,16 @@ func (s *JobPropertiesContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *JobPropertiesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitJobProperties(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) JobProperties() (localctx IJobPropertiesContext) {
 	localctx = NewJobPropertiesContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 380, StarRocksParserRULE_jobProperties)
@@ -54301,6 +56211,16 @@ func (s *DataSourcePropertiesContext) EnterRule(listener antlr.ParseTreeListener
 func (s *DataSourcePropertiesContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDataSourceProperties(s)
+	}
+}
+
+func (s *DataSourcePropertiesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDataSourceProperties(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -54464,6 +56384,16 @@ func (s *StopRoutineLoadStatementContext) EnterRule(listener antlr.ParseTreeList
 func (s *StopRoutineLoadStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitStopRoutineLoadStatement(s)
+	}
+}
+
+func (s *StopRoutineLoadStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitStopRoutineLoadStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -54688,6 +56618,16 @@ func (s *ResumeRoutineLoadStatementContext) ExitRule(listener antlr.ParseTreeLis
 	}
 }
 
+func (s *ResumeRoutineLoadStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitResumeRoutineLoadStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ResumeRoutineLoadStatement() (localctx IResumeRoutineLoadStatementContext) {
 	localctx = NewResumeRoutineLoadStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 386, StarRocksParserRULE_resumeRoutineLoadStatement)
@@ -54906,6 +56846,16 @@ func (s *PauseRoutineLoadStatementContext) EnterRule(listener antlr.ParseTreeLis
 func (s *PauseRoutineLoadStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitPauseRoutineLoadStatement(s)
+	}
+}
+
+func (s *PauseRoutineLoadStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitPauseRoutineLoadStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -55255,6 +57205,16 @@ func (s *ShowRoutineLoadStatementContext) EnterRule(listener antlr.ParseTreeList
 func (s *ShowRoutineLoadStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowRoutineLoadStatement(s)
+	}
+}
+
+func (s *ShowRoutineLoadStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowRoutineLoadStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -55627,6 +57587,16 @@ func (s *ShowRoutineLoadTaskStatementContext) ExitRule(listener antlr.ParseTreeL
 	}
 }
 
+func (s *ShowRoutineLoadTaskStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowRoutineLoadTaskStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowRoutineLoadTaskStatement() (localctx IShowRoutineLoadTaskStatementContext) {
 	localctx = NewShowRoutineLoadTaskStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 392, StarRocksParserRULE_showRoutineLoadTaskStatement)
@@ -55854,6 +57824,16 @@ func (s *ShowCreateRoutineLoadStatementContext) EnterRule(listener antlr.ParseTr
 func (s *ShowCreateRoutineLoadStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowCreateRoutineLoadStatement(s)
+	}
+}
+
+func (s *ShowCreateRoutineLoadStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowCreateRoutineLoadStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -56203,6 +58183,16 @@ func (s *ShowStreamLoadStatementContext) EnterRule(listener antlr.ParseTreeListe
 func (s *ShowStreamLoadStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowStreamLoadStatement(s)
+	}
+}
+
+func (s *ShowStreamLoadStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowStreamLoadStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -56608,6 +58598,16 @@ func (s *AnalyzeStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *AnalyzeStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAnalyzeStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) AnalyzeStatement() (localctx IAnalyzeStatementContext) {
 	localctx = NewAnalyzeStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 398, StarRocksParserRULE_analyzeStatement)
@@ -56838,6 +58838,16 @@ func (s *PredicateColumnsContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *PredicateColumnsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitPredicateColumns(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type RegularColumnsContext struct {
 	AnalyzeColumnClauseContext
 }
@@ -56909,6 +58919,16 @@ func (s *RegularColumnsContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *RegularColumnsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRegularColumns(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type AllColumnsContext struct {
 	AnalyzeColumnClauseContext
 }
@@ -56944,6 +58964,16 @@ func (s *AllColumnsContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *AllColumnsContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAllColumns(s)
+	}
+}
+
+func (s *AllColumnsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAllColumns(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -57023,6 +59053,16 @@ func (s *MultiColumnSetContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *MultiColumnSetContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitMultiColumnSet(s)
+	}
+}
+
+func (s *MultiColumnSetContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitMultiColumnSet(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -57353,6 +59393,16 @@ func (s *DropStatsStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DropStatsStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropStatsStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DropStatsStatement() (localctx IDropStatsStatementContext) {
 	localctx = NewDropStatsStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 402, StarRocksParserRULE_dropStatsStatement)
@@ -57586,6 +59636,16 @@ func (s *HistogramStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *HistogramStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitHistogramStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) HistogramStatement() (localctx IHistogramStatementContext) {
 	localctx = NewHistogramStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 404, StarRocksParserRULE_histogramStatement)
@@ -57805,6 +59865,16 @@ func (s *AnalyzeHistogramStatementContext) ExitRule(listener antlr.ParseTreeList
 	}
 }
 
+func (s *AnalyzeHistogramStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAnalyzeHistogramStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) AnalyzeHistogramStatement() (localctx IAnalyzeHistogramStatementContext) {
 	localctx = NewAnalyzeHistogramStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 406, StarRocksParserRULE_analyzeHistogramStatement)
@@ -57996,6 +60066,16 @@ func (s *DropHistogramStatementContext) EnterRule(listener antlr.ParseTreeListen
 func (s *DropHistogramStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDropHistogramStatement(s)
+	}
+}
+
+func (s *DropHistogramStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropHistogramStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -58297,6 +60377,16 @@ func (s *CreateAnalyzeStatementContext) EnterRule(listener antlr.ParseTreeListen
 func (s *CreateAnalyzeStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitCreateAnalyzeStatement(s)
+	}
+}
+
+func (s *CreateAnalyzeStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateAnalyzeStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -58689,6 +60779,16 @@ func (s *DropAnalyzeJobStatementContext) ExitRule(listener antlr.ParseTreeListen
 	}
 }
 
+func (s *DropAnalyzeJobStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropAnalyzeJobStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DropAnalyzeJobStatement() (localctx IDropAnalyzeJobStatementContext) {
 	localctx = NewDropAnalyzeJobStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 412, StarRocksParserRULE_dropAnalyzeJobStatement)
@@ -58952,6 +61052,16 @@ func (s *ShowAnalyzeStatementContext) EnterRule(listener antlr.ParseTreeListener
 func (s *ShowAnalyzeStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowAnalyzeStatement(s)
+	}
+}
+
+func (s *ShowAnalyzeStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowAnalyzeStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -59285,6 +61395,16 @@ func (s *ShowStatsMetaStatementContext) EnterRule(listener antlr.ParseTreeListen
 func (s *ShowStatsMetaStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowStatsMetaStatement(s)
+	}
+}
+
+func (s *ShowStatsMetaStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowStatsMetaStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -59624,6 +61744,16 @@ func (s *ShowHistogramMetaStatementContext) ExitRule(listener antlr.ParseTreeLis
 	}
 }
 
+func (s *ShowHistogramMetaStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowHistogramMetaStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowHistogramMetaStatement() (localctx IShowHistogramMetaStatementContext) {
 	localctx = NewShowHistogramMetaStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 418, StarRocksParserRULE_showHistogramMetaStatement)
@@ -59852,6 +61982,16 @@ func (s *KillAnalyzeStatementContext) ExitRule(listener antlr.ParseTreeListener)
 	}
 }
 
+func (s *KillAnalyzeStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitKillAnalyzeStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) KillAnalyzeStatement() (localctx IKillAnalyzeStatementContext) {
 	localctx = NewKillAnalyzeStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 420, StarRocksParserRULE_killAnalyzeStatement)
@@ -60045,6 +62185,16 @@ func (s *AnalyzeProfileStatementContext) EnterRule(listener antlr.ParseTreeListe
 func (s *AnalyzeProfileStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAnalyzeProfileStatement(s)
+	}
+}
+
+func (s *AnalyzeProfileStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAnalyzeProfileStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -60337,6 +62487,16 @@ func (s *CreateBaselinePlanStatementContext) ExitRule(listener antlr.ParseTreeLi
 	}
 }
 
+func (s *CreateBaselinePlanStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateBaselinePlanStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) CreateBaselinePlanStatement() (localctx ICreateBaselinePlanStatementContext) {
 	localctx = NewCreateBaselinePlanStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 424, StarRocksParserRULE_createBaselinePlanStatement)
@@ -60519,6 +62679,16 @@ func (s *DropBaselinePlanStatementContext) ExitRule(listener antlr.ParseTreeList
 	}
 }
 
+func (s *DropBaselinePlanStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropBaselinePlanStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DropBaselinePlanStatement() (localctx IDropBaselinePlanStatementContext) {
 	localctx = NewDropBaselinePlanStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 426, StarRocksParserRULE_dropBaselinePlanStatement)
@@ -60633,6 +62803,16 @@ func (s *ShowBaselinePlanStatementContext) EnterRule(listener antlr.ParseTreeLis
 func (s *ShowBaselinePlanStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowBaselinePlanStatement(s)
+	}
+}
+
+func (s *ShowBaselinePlanStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowBaselinePlanStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -60885,6 +63065,16 @@ func (s *CreateResourceGroupStatementContext) EnterRule(listener antlr.ParseTree
 func (s *CreateResourceGroupStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitCreateResourceGroupStatement(s)
+	}
+}
+
+func (s *CreateResourceGroupStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateResourceGroupStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -61199,6 +63389,16 @@ func (s *DropResourceGroupStatementContext) ExitRule(listener antlr.ParseTreeLis
 	}
 }
 
+func (s *DropResourceGroupStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropResourceGroupStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DropResourceGroupStatement() (localctx IDropResourceGroupStatementContext) {
 	localctx = NewDropResourceGroupStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 432, StarRocksParserRULE_dropResourceGroupStatement)
@@ -61455,6 +63655,16 @@ func (s *AlterResourceGroupStatementContext) EnterRule(listener antlr.ParseTreeL
 func (s *AlterResourceGroupStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAlterResourceGroupStatement(s)
+	}
+}
+
+func (s *AlterResourceGroupStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAlterResourceGroupStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -61899,6 +64109,16 @@ func (s *ShowResourceGroupStatementContext) ExitRule(listener antlr.ParseTreeLis
 	}
 }
 
+func (s *ShowResourceGroupStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowResourceGroupStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowResourceGroupStatement() (localctx IShowResourceGroupStatementContext) {
 	localctx = NewShowResourceGroupStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 436, StarRocksParserRULE_showResourceGroupStatement)
@@ -62147,6 +64367,16 @@ func (s *ShowResourceGroupUsageStatementContext) ExitRule(listener antlr.ParseTr
 	}
 }
 
+func (s *ShowResourceGroupUsageStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowResourceGroupUsageStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowResourceGroupUsageStatement() (localctx IShowResourceGroupUsageStatementContext) {
 	localctx = NewShowResourceGroupUsageStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 438, StarRocksParserRULE_showResourceGroupUsageStatement)
@@ -62377,6 +64607,16 @@ func (s *CreateResourceStatementContext) ExitRule(listener antlr.ParseTreeListen
 	}
 }
 
+func (s *CreateResourceStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateResourceStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) CreateResourceStatement() (localctx ICreateResourceStatementContext) {
 	localctx = NewCreateResourceStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 440, StarRocksParserRULE_createResourceStatement)
@@ -62581,6 +64821,16 @@ func (s *AlterResourceStatementContext) ExitRule(listener antlr.ParseTreeListene
 	}
 }
 
+func (s *AlterResourceStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAlterResourceStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) AlterResourceStatement() (localctx IAlterResourceStatementContext) {
 	localctx = NewAlterResourceStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 442, StarRocksParserRULE_alterResourceStatement)
@@ -62741,6 +64991,16 @@ func (s *DropResourceStatementContext) ExitRule(listener antlr.ParseTreeListener
 	}
 }
 
+func (s *DropResourceStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropResourceStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DropResourceStatement() (localctx IDropResourceStatementContext) {
 	localctx = NewDropResourceStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 444, StarRocksParserRULE_dropResourceStatement)
@@ -62857,6 +65117,16 @@ func (s *ShowResourceStatementContext) ExitRule(listener antlr.ParseTreeListener
 	}
 }
 
+func (s *ShowResourceStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowResourceStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowResourceStatement() (localctx IShowResourceStatementContext) {
 	localctx = NewShowResourceStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 446, StarRocksParserRULE_showResourceStatement)
@@ -62970,6 +65240,16 @@ func (s *ClassifierContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ClassifierContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitClassifier(s)
+	}
+}
+
+func (s *ClassifierContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitClassifier(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -63191,6 +65471,16 @@ func (s *ShowFunctionsStatementContext) EnterRule(listener antlr.ParseTreeListen
 func (s *ShowFunctionsStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowFunctionsStatement(s)
+	}
+}
+
+func (s *ShowFunctionsStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowFunctionsStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -63459,6 +65749,16 @@ func (s *DropFunctionStatementContext) EnterRule(listener antlr.ParseTreeListene
 func (s *DropFunctionStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDropFunctionStatement(s)
+	}
+}
+
+func (s *DropFunctionStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropFunctionStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -63819,6 +66119,16 @@ func (s *CreateFunctionStatementContext) ExitRule(listener antlr.ParseTreeListen
 	}
 }
 
+func (s *CreateFunctionStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateFunctionStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) CreateFunctionStatement() (localctx ICreateFunctionStatementContext) {
 	localctx = NewCreateFunctionStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 454, StarRocksParserRULE_createFunctionStatement)
@@ -64057,6 +66367,16 @@ func (s *InlineFunctionContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *InlineFunctionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitInlineFunction(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) InlineFunction() (localctx IInlineFunctionContext) {
 	localctx = NewInlineFunctionContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 456, StarRocksParserRULE_inlineFunction)
@@ -64201,6 +66521,16 @@ func (s *TypeListContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *TypeListContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitTypeList(s)
+	}
+}
+
+func (s *TypeListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitTypeList(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -64554,6 +66884,16 @@ func (s *LoadStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *LoadStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitLoadStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) LoadStatement() (localctx ILoadStatementContext) {
 	localctx = NewLoadStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 460, StarRocksParserRULE_loadStatement)
@@ -64898,6 +67238,16 @@ func (s *LabelNameContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *LabelNameContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitLabelName(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) LabelName() (localctx ILabelNameContext) {
 	localctx = NewLabelNameContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 462, StarRocksParserRULE_labelName)
@@ -65051,6 +67401,16 @@ func (s *DataDescListContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DataDescListContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDataDescList(s)
+	}
+}
+
+func (s *DataDescListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDataDescList(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -65628,6 +67988,16 @@ func (s *DataDescContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DataDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDataDesc(s)
+	}
+}
+
+func (s *DataDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDataDesc(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -66296,6 +68666,16 @@ func (s *FormatPropsContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *FormatPropsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitFormatProps(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) FormatProps() (localctx IFormatPropsContext) {
 	localctx = NewFormatPropsContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 468, StarRocksParserRULE_formatProps)
@@ -66593,6 +68973,16 @@ func (s *BrokerDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *BrokerDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitBrokerDesc(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) BrokerDesc() (localctx IBrokerDescContext) {
 	localctx = NewBrokerDescContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 470, StarRocksParserRULE_brokerDesc)
@@ -66829,6 +69219,16 @@ func (s *ResourceDescContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ResourceDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitResourceDesc(s)
+	}
+}
+
+func (s *ResourceDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitResourceDesc(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -67083,6 +69483,16 @@ func (s *ShowLoadStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ShowLoadStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowLoadStatement(s)
+	}
+}
+
+func (s *ShowLoadStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowLoadStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -67419,6 +69829,16 @@ func (s *ShowLoadWarningsStatementContext) ExitRule(listener antlr.ParseTreeList
 	}
 }
 
+func (s *ShowLoadWarningsStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowLoadWarningsStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowLoadWarningsStatement() (localctx IShowLoadWarningsStatementContext) {
 	localctx = NewShowLoadWarningsStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 476, StarRocksParserRULE_showLoadWarningsStatement)
@@ -67691,6 +70111,16 @@ func (s *CancelLoadStatementContext) ExitRule(listener antlr.ParseTreeListener) 
 	}
 }
 
+func (s *CancelLoadStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCancelLoadStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) CancelLoadStatement() (localctx ICancelLoadStatementContext) {
 	localctx = NewCancelLoadStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 478, StarRocksParserRULE_cancelLoadStatement)
@@ -67924,6 +70354,16 @@ func (s *AlterLoadStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *AlterLoadStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAlterLoadStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) AlterLoadStatement() (localctx IAlterLoadStatementContext) {
 	localctx = NewAlterLoadStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 480, StarRocksParserRULE_alterLoadStatement)
@@ -68109,6 +70549,16 @@ func (s *CancelCompactionStatementContext) ExitRule(listener antlr.ParseTreeList
 	}
 }
 
+func (s *CancelCompactionStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCancelCompactionStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) CancelCompactionStatement() (localctx ICancelCompactionStatementContext) {
 	localctx = NewCancelCompactionStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 482, StarRocksParserRULE_cancelCompactionStatement)
@@ -68230,6 +70680,16 @@ func (s *ShowAuthorStatementContext) ExitRule(listener antlr.ParseTreeListener) 
 	}
 }
 
+func (s *ShowAuthorStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowAuthorStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowAuthorStatement() (localctx IShowAuthorStatementContext) {
 	localctx = NewShowAuthorStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 484, StarRocksParserRULE_showAuthorStatement)
@@ -68339,6 +70799,16 @@ func (s *ShowBackendsStatementContext) ExitRule(listener antlr.ParseTreeListener
 	}
 }
 
+func (s *ShowBackendsStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowBackendsStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowBackendsStatement() (localctx IShowBackendsStatementContext) {
 	localctx = NewShowBackendsStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 486, StarRocksParserRULE_showBackendsStatement)
@@ -68445,6 +70915,16 @@ func (s *ShowBrokerStatementContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *ShowBrokerStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowBrokerStatement(s)
+	}
+}
+
+func (s *ShowBrokerStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowBrokerStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -68624,6 +71104,16 @@ func (s *ShowCharsetStatementContext) EnterRule(listener antlr.ParseTreeListener
 func (s *ShowCharsetStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowCharsetStatement(s)
+	}
+}
+
+func (s *ShowCharsetStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowCharsetStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -68881,6 +71371,16 @@ func (s *ShowCollationStatementContext) ExitRule(listener antlr.ParseTreeListene
 	}
 }
 
+func (s *ShowCollationStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowCollationStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowCollationStatement() (localctx IShowCollationStatementContext) {
 	localctx = NewShowCollationStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 492, StarRocksParserRULE_showCollationStatement)
@@ -69069,6 +71569,16 @@ func (s *ShowDeleteStatementContext) ExitRule(listener antlr.ParseTreeListener) 
 	}
 }
 
+func (s *ShowDeleteStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowDeleteStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowDeleteStatement() (localctx IShowDeleteStatementContext) {
 	localctx = NewShowDeleteStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 494, StarRocksParserRULE_showDeleteStatement)
@@ -69253,6 +71763,16 @@ func (s *ShowDynamicPartitionStatementContext) EnterRule(listener antlr.ParseTre
 func (s *ShowDynamicPartitionStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowDynamicPartitionStatement(s)
+	}
+}
+
+func (s *ShowDynamicPartitionStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowDynamicPartitionStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -69504,6 +72024,16 @@ func (s *ShowEventsStatementContext) ExitRule(listener antlr.ParseTreeListener) 
 	}
 }
 
+func (s *ShowEventsStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowEventsStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowEventsStatement() (localctx IShowEventsStatementContext) {
 	localctx = NewShowEventsStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 498, StarRocksParserRULE_showEventsStatement)
@@ -69684,6 +72214,16 @@ func (s *ShowEnginesStatementContext) ExitRule(listener antlr.ParseTreeListener)
 	}
 }
 
+func (s *ShowEnginesStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowEnginesStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowEnginesStatement() (localctx IShowEnginesStatementContext) {
 	localctx = NewShowEnginesStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 500, StarRocksParserRULE_showEnginesStatement)
@@ -69790,6 +72330,16 @@ func (s *ShowFrontendsStatementContext) EnterRule(listener antlr.ParseTreeListen
 func (s *ShowFrontendsStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowFrontendsStatement(s)
+	}
+}
+
+func (s *ShowFrontendsStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowFrontendsStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -69902,6 +72452,16 @@ func (s *ShowPluginsStatementContext) ExitRule(listener antlr.ParseTreeListener)
 	}
 }
 
+func (s *ShowPluginsStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowPluginsStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowPluginsStatement() (localctx IShowPluginsStatementContext) {
 	localctx = NewShowPluginsStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 504, StarRocksParserRULE_showPluginsStatement)
@@ -70008,6 +72568,16 @@ func (s *ShowRepositoriesStatementContext) EnterRule(listener antlr.ParseTreeLis
 func (s *ShowRepositoriesStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowRepositoriesStatement(s)
+	}
+}
+
+func (s *ShowRepositoriesStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowRepositoriesStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -70125,6 +72695,16 @@ func (s *ShowOpenTableStatementContext) ExitRule(listener antlr.ParseTreeListene
 	}
 }
 
+func (s *ShowOpenTableStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowOpenTableStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowOpenTableStatement() (localctx IShowOpenTableStatementContext) {
 	localctx = NewShowOpenTableStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 508, StarRocksParserRULE_showOpenTableStatement)
@@ -70239,6 +72819,16 @@ func (s *ShowPrivilegesStatementContext) EnterRule(listener antlr.ParseTreeListe
 func (s *ShowPrivilegesStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowPrivilegesStatement(s)
+	}
+}
+
+func (s *ShowPrivilegesStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowPrivilegesStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -70424,6 +73014,16 @@ func (s *ShowProcedureStatementContext) EnterRule(listener antlr.ParseTreeListen
 func (s *ShowProcedureStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowProcedureStatement(s)
+	}
+}
+
+func (s *ShowProcedureStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowProcedureStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -70621,6 +73221,16 @@ func (s *ShowProcStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ShowProcStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowProcStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowProcStatement() (localctx IShowProcStatementContext) {
 	localctx = NewShowProcStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 514, StarRocksParserRULE_showProcStatement)
@@ -70761,6 +73371,16 @@ func (s *ShowProcesslistStatementContext) EnterRule(listener antlr.ParseTreeList
 func (s *ShowProcesslistStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowProcesslistStatement(s)
+	}
+}
+
+func (s *ShowProcesslistStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowProcesslistStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -70936,6 +73556,16 @@ func (s *ShowProfilelistStatementContext) ExitRule(listener antlr.ParseTreeListe
 	}
 }
 
+func (s *ShowProfilelistStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowProfilelistStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowProfilelistStatement() (localctx IShowProfilelistStatementContext) {
 	localctx = NewShowProfilelistStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 518, StarRocksParserRULE_showProfilelistStatement)
@@ -71099,6 +73729,16 @@ func (s *ShowRunningQueriesStatementContext) EnterRule(listener antlr.ParseTreeL
 func (s *ShowRunningQueriesStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowRunningQueriesStatement(s)
+	}
+}
+
+func (s *ShowRunningQueriesStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowRunningQueriesStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -71319,6 +73959,16 @@ func (s *ShowStatusStatementContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *ShowStatusStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowStatusStatement(s)
+	}
+}
+
+func (s *ShowStatusStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowStatusStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -71626,6 +74276,16 @@ func (s *ShowTabletStatementContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *ShowTabletStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowTabletStatement(s)
+	}
+}
+
+func (s *ShowTabletStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowTabletStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -71962,6 +74622,16 @@ func (s *ShowTransactionStatementContext) ExitRule(listener antlr.ParseTreeListe
 	}
 }
 
+func (s *ShowTransactionStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowTransactionStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowTransactionStatement() (localctx IShowTransactionStatementContext) {
 	localctx = NewShowTransactionStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 526, StarRocksParserRULE_showTransactionStatement)
@@ -72221,6 +74891,16 @@ func (s *ShowTriggersStatementContext) ExitRule(listener antlr.ParseTreeListener
 	}
 }
 
+func (s *ShowTriggersStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowTriggersStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowTriggersStatement() (localctx IShowTriggersStatementContext) {
 	localctx = NewShowTriggersStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 528, StarRocksParserRULE_showTriggersStatement)
@@ -72474,6 +75154,16 @@ func (s *ShowUserPropertyStatementContext) EnterRule(listener antlr.ParseTreeLis
 func (s *ShowUserPropertyStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowUserPropertyStatement(s)
+	}
+}
+
+func (s *ShowUserPropertyStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowUserPropertyStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -72779,6 +75469,16 @@ func (s *ShowVariablesStatementContext) ExitRule(listener antlr.ParseTreeListene
 	}
 }
 
+func (s *ShowVariablesStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowVariablesStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowVariablesStatement() (localctx IShowVariablesStatementContext) {
 	localctx = NewShowVariablesStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 532, StarRocksParserRULE_showVariablesStatement)
@@ -72967,6 +75667,16 @@ func (s *ShowWarningStatementContext) ExitRule(listener antlr.ParseTreeListener)
 	}
 }
 
+func (s *ShowWarningStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowWarningStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowWarningStatement() (localctx IShowWarningStatementContext) {
 	localctx = NewShowWarningStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 534, StarRocksParserRULE_showWarningStatement)
@@ -73104,6 +75814,16 @@ func (s *HelpStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *HelpStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitHelpStatement(s)
+	}
+}
+
+func (s *HelpStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitHelpStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -73302,6 +76022,16 @@ func (s *CreateUserStatementContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *CreateUserStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitCreateUserStatement(s)
+	}
+}
+
+func (s *CreateUserStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateUserStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -73536,6 +76266,16 @@ func (s *DropUserStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DropUserStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDropUserStatement(s)
+	}
+}
+
+func (s *DropUserStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropUserStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -73780,6 +76520,16 @@ func (s *AlterUserStatementContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *AlterUserStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAlterUserStatement(s)
+	}
+}
+
+func (s *AlterUserStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAlterUserStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -74107,6 +76857,16 @@ func (s *ShowUserStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ShowUserStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowUserStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowUserStatement() (localctx IShowUserStatementContext) {
 	localctx = NewShowUserStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 544, StarRocksParserRULE_showUserStatement)
@@ -74242,6 +77002,16 @@ func (s *ShowAllAuthenticationContext) ExitRule(listener antlr.ParseTreeListener
 	}
 }
 
+func (s *ShowAllAuthenticationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowAllAuthentication(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ShowAuthenticationForUserContext struct {
 	ShowAuthenticationStatementContext
 }
@@ -74297,6 +77067,16 @@ func (s *ShowAuthenticationForUserContext) EnterRule(listener antlr.ParseTreeLis
 func (s *ShowAuthenticationForUserContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowAuthenticationForUser(s)
+	}
+}
+
+func (s *ShowAuthenticationForUserContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowAuthenticationForUser(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -74506,6 +77286,16 @@ func (s *ExecuteAsStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ExecuteAsStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitExecuteAsStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ExecuteAsStatement() (localctx IExecuteAsStatementContext) {
 	localctx = NewExecuteAsStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 548, StarRocksParserRULE_executeAsStatement)
@@ -74701,6 +77491,16 @@ func (s *CreateRoleStatementContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *CreateRoleStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitCreateRoleStatement(s)
+	}
+}
+
+func (s *CreateRoleStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateRoleStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -74926,6 +77726,16 @@ func (s *AlterRoleStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *AlterRoleStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAlterRoleStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) AlterRoleStatement() (localctx IAlterRoleStatementContext) {
 	localctx = NewAlterRoleStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 552, StarRocksParserRULE_alterRoleStatement)
@@ -75122,6 +77932,16 @@ func (s *DropRoleStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DropRoleStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropRoleStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DropRoleStatement() (localctx IDropRoleStatementContext) {
 	localctx = NewDropRoleStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 554, StarRocksParserRULE_dropRoleStatement)
@@ -75260,6 +78080,16 @@ func (s *ShowRolesStatementContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *ShowRolesStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowRolesStatement(s)
+	}
+}
+
+func (s *ShowRolesStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowRolesStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -75425,6 +78255,16 @@ func (s *GrantRoleToUserContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *GrantRoleToUserContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitGrantRoleToUser(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type GrantRoleToRoleContext struct {
 	GrantRoleStatementContext
 }
@@ -75496,6 +78336,16 @@ func (s *GrantRoleToRoleContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *GrantRoleToRoleContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitGrantRoleToRole(s)
+	}
+}
+
+func (s *GrantRoleToRoleContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitGrantRoleToRole(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -75734,6 +78584,16 @@ func (s *RevokeRoleFromUserContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *RevokeRoleFromUserContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRevokeRoleFromUser(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type RevokeRoleFromRoleContext struct {
 	RevokeRoleStatementContext
 }
@@ -75805,6 +78665,16 @@ func (s *RevokeRoleFromRoleContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *RevokeRoleFromRoleContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitRevokeRoleFromRole(s)
+	}
+}
+
+func (s *RevokeRoleFromRoleContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRevokeRoleFromRole(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -76024,6 +78894,16 @@ func (s *SetRoleStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SetRoleStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitSetRoleStatement(s)
+	}
+}
+
+func (s *SetRoleStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSetRoleStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -76311,6 +79191,16 @@ func (s *SetDefaultRoleStatementContext) ExitRule(listener antlr.ParseTreeListen
 	}
 }
 
+func (s *SetDefaultRoleStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSetDefaultRoleStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) SetDefaultRoleStatement() (localctx ISetDefaultRoleStatementContext) {
 	localctx = NewSetDefaultRoleStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 564, StarRocksParserRULE_setDefaultRoleStatement)
@@ -76507,6 +79397,16 @@ func (s *GrantRevokeClauseContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *GrantRevokeClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitGrantRevokeClause(s)
+	}
+}
+
+func (s *GrantRevokeClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitGrantRevokeClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -76771,6 +79671,16 @@ func (s *GrantOnAllContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *GrantOnAllContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitGrantOnAll(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type GrantOnFuncContext struct {
 	GrantPrivilegeStatementContext
 }
@@ -76878,6 +79788,16 @@ func (s *GrantOnFuncContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *GrantOnFuncContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitGrantOnFunc(s)
+	}
+}
+
+func (s *GrantOnFuncContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitGrantOnFunc(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -76999,6 +79919,16 @@ func (s *GrantOnPrimaryObjContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *GrantOnPrimaryObjContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitGrantOnPrimaryObj(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type GrantOnTableBriefContext struct {
 	GrantPrivilegeStatementContext
 }
@@ -77098,6 +80028,16 @@ func (s *GrantOnTableBriefContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *GrantOnTableBriefContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitGrantOnTableBrief(s)
+	}
+}
+
+func (s *GrantOnTableBriefContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitGrantOnTableBrief(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -77220,6 +80160,16 @@ func (s *GrantOnUserContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *GrantOnUserContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitGrantOnUser(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type GrantOnSystemContext struct {
 	GrantPrivilegeStatementContext
 }
@@ -77307,6 +80257,16 @@ func (s *GrantOnSystemContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *GrantOnSystemContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitGrantOnSystem(s)
+	}
+}
+
+func (s *GrantOnSystemContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitGrantOnSystem(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -78084,6 +81044,16 @@ func (s *RevokeOnPrimaryObjContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *RevokeOnPrimaryObjContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRevokeOnPrimaryObj(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type RevokeOnTableBriefContext struct {
 	RevokePrivilegeStatementContext
 }
@@ -78171,6 +81141,16 @@ func (s *RevokeOnTableBriefContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *RevokeOnTableBriefContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitRevokeOnTableBrief(s)
+	}
+}
+
+func (s *RevokeOnTableBriefContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRevokeOnTableBrief(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -78305,6 +81285,16 @@ func (s *RevokeOnAllContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *RevokeOnAllContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRevokeOnAll(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type RevokeOnUserContext struct {
 	RevokePrivilegeStatementContext
 }
@@ -78412,6 +81402,16 @@ func (s *RevokeOnUserContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *RevokeOnUserContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRevokeOnUser(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type RevokeOnFuncContext struct {
 	RevokePrivilegeStatementContext
 }
@@ -78510,6 +81510,16 @@ func (s *RevokeOnFuncContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *RevokeOnFuncContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRevokeOnFunc(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type RevokeOnSystemContext struct {
 	RevokePrivilegeStatementContext
 }
@@ -78585,6 +81595,16 @@ func (s *RevokeOnSystemContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *RevokeOnSystemContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitRevokeOnSystem(s)
+	}
+}
+
+func (s *RevokeOnSystemContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRevokeOnSystem(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -79122,6 +82142,16 @@ func (s *ShowGrantsStatementContext) ExitRule(listener antlr.ParseTreeListener) 
 	}
 }
 
+func (s *ShowGrantsStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowGrantsStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowGrantsStatement() (localctx IShowGrantsStatementContext) {
 	localctx = NewShowGrantsStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 572, StarRocksParserRULE_showGrantsStatement)
@@ -79386,6 +82416,16 @@ func (s *AuthWithPluginContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *AuthWithPluginContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAuthWithPlugin(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type AuthWithoutPluginContext struct {
 	AuthOptionContext
 }
@@ -79441,6 +82481,16 @@ func (s *AuthWithoutPluginContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *AuthWithoutPluginContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAuthWithoutPlugin(s)
+	}
+}
+
+func (s *AuthWithoutPluginContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAuthWithoutPlugin(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -79672,6 +82722,16 @@ func (s *PrivObjectNameContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *PrivObjectNameContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitPrivObjectName(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) PrivObjectName() (localctx IPrivObjectNameContext) {
 	localctx = NewPrivObjectNameContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 576, StarRocksParserRULE_privObjectName)
@@ -79823,6 +82883,16 @@ func (s *PrivObjectNameListContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *PrivObjectNameListContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitPrivObjectNameList(s)
+	}
+}
+
+func (s *PrivObjectNameListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitPrivObjectNameList(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -80029,6 +83099,16 @@ func (s *PrivFunctionObjectNameListContext) ExitRule(listener antlr.ParseTreeLis
 	}
 }
 
+func (s *PrivFunctionObjectNameListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitPrivFunctionObjectNameList(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) PrivFunctionObjectNameList() (localctx IPrivFunctionObjectNameListContext) {
 	localctx = NewPrivFunctionObjectNameListContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 580, StarRocksParserRULE_privFunctionObjectNameList)
@@ -80226,6 +83306,16 @@ func (s *PrivilegeTypeListContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *PrivilegeTypeListContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitPrivilegeTypeList(s)
+	}
+}
+
+func (s *PrivilegeTypeListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitPrivilegeTypeList(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -80523,6 +83613,16 @@ func (s *PrivilegeTypeContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *PrivilegeTypeContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitPrivilegeType(s)
+	}
+}
+
+func (s *PrivilegeTypeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitPrivilegeType(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -81100,6 +84200,16 @@ func (s *PrivObjectTypeContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *PrivObjectTypeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitPrivObjectType(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) PrivObjectType() (localctx IPrivObjectTypeContext) {
 	localctx = NewPrivObjectTypeContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 586, StarRocksParserRULE_privObjectType)
@@ -81414,6 +84524,16 @@ func (s *PrivObjectTypePluralContext) EnterRule(listener antlr.ParseTreeListener
 func (s *PrivObjectTypePluralContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitPrivObjectTypePlural(s)
+	}
+}
+
+func (s *PrivObjectTypePluralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitPrivObjectTypePlural(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -81745,6 +84865,16 @@ func (s *CreateSecurityIntegrationStatementContext) ExitRule(listener antlr.Pars
 	}
 }
 
+func (s *CreateSecurityIntegrationStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateSecurityIntegrationStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) CreateSecurityIntegrationStatement() (localctx ICreateSecurityIntegrationStatementContext) {
 	localctx = NewCreateSecurityIntegrationStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 590, StarRocksParserRULE_createSecurityIntegrationStatement)
@@ -81914,6 +85044,16 @@ func (s *AlterSecurityIntegrationStatementContext) ExitRule(listener antlr.Parse
 	}
 }
 
+func (s *AlterSecurityIntegrationStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAlterSecurityIntegrationStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) AlterSecurityIntegrationStatement() (localctx IAlterSecurityIntegrationStatementContext) {
 	localctx = NewAlterSecurityIntegrationStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 592, StarRocksParserRULE_alterSecurityIntegrationStatement)
@@ -82069,6 +85209,16 @@ func (s *DropSecurityIntegrationStatementContext) ExitRule(listener antlr.ParseT
 	}
 }
 
+func (s *DropSecurityIntegrationStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropSecurityIntegrationStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DropSecurityIntegrationStatement() (localctx IDropSecurityIntegrationStatementContext) {
 	localctx = NewDropSecurityIntegrationStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 594, StarRocksParserRULE_dropSecurityIntegrationStatement)
@@ -82192,6 +85342,16 @@ func (s *ShowSecurityIntegrationStatementContext) EnterRule(listener antlr.Parse
 func (s *ShowSecurityIntegrationStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowSecurityIntegrationStatement(s)
+	}
+}
+
+func (s *ShowSecurityIntegrationStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowSecurityIntegrationStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -82337,6 +85497,16 @@ func (s *ShowCreateSecurityIntegrationStatementContext) EnterRule(listener antlr
 func (s *ShowCreateSecurityIntegrationStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowCreateSecurityIntegrationStatement(s)
+	}
+}
+
+func (s *ShowCreateSecurityIntegrationStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowCreateSecurityIntegrationStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -82520,6 +85690,16 @@ func (s *CreateGroupProviderStatementContext) EnterRule(listener antlr.ParseTree
 func (s *CreateGroupProviderStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitCreateGroupProviderStatement(s)
+	}
+}
+
+func (s *CreateGroupProviderStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateGroupProviderStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -82716,6 +85896,16 @@ func (s *DropGroupProviderStatementContext) ExitRule(listener antlr.ParseTreeLis
 	}
 }
 
+func (s *DropGroupProviderStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropGroupProviderStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DropGroupProviderStatement() (localctx IDropGroupProviderStatementContext) {
 	localctx = NewDropGroupProviderStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 602, StarRocksParserRULE_dropGroupProviderStatement)
@@ -82870,6 +86060,16 @@ func (s *ShowGroupProvidersStatementContext) ExitRule(listener antlr.ParseTreeLi
 	}
 }
 
+func (s *ShowGroupProvidersStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowGroupProvidersStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowGroupProvidersStatement() (localctx IShowGroupProvidersStatementContext) {
 	localctx = NewShowGroupProvidersStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 604, StarRocksParserRULE_showGroupProvidersStatement)
@@ -83011,6 +86211,16 @@ func (s *ShowCreateGroupProviderStatementContext) EnterRule(listener antlr.Parse
 func (s *ShowCreateGroupProviderStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowCreateGroupProviderStatement(s)
+	}
+}
+
+func (s *ShowCreateGroupProviderStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowCreateGroupProviderStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -83339,6 +86549,16 @@ func (s *BackupStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *BackupStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitBackupStatement(s)
+	}
+}
+
+func (s *BackupStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitBackupStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -83688,6 +86908,16 @@ func (s *CancelBackupStatementContext) ExitRule(listener antlr.ParseTreeListener
 	}
 }
 
+func (s *CancelBackupStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCancelBackupStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) CancelBackupStatement() (localctx ICancelBackupStatementContext) {
 	localctx = NewCancelBackupStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 610, StarRocksParserRULE_cancelBackupStatement)
@@ -83876,6 +87106,16 @@ func (s *ShowBackupStatementContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *ShowBackupStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowBackupStatement(s)
+	}
+}
+
+func (s *ShowBackupStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowBackupStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -84227,6 +87467,16 @@ func (s *RestoreStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *RestoreStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitRestoreStatement(s)
+	}
+}
+
+func (s *RestoreStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRestoreStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -84601,6 +87851,16 @@ func (s *CancelRestoreStatementContext) ExitRule(listener antlr.ParseTreeListene
 	}
 }
 
+func (s *CancelRestoreStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCancelRestoreStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) CancelRestoreStatement() (localctx ICancelRestoreStatementContext) {
 	localctx = NewCancelRestoreStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 616, StarRocksParserRULE_cancelRestoreStatement)
@@ -84825,6 +88085,16 @@ func (s *ShowRestoreStatementContext) ExitRule(listener antlr.ParseTreeListener)
 	}
 }
 
+func (s *ShowRestoreStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowRestoreStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowRestoreStatement() (localctx IShowRestoreStatementContext) {
 	localctx = NewShowRestoreStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 618, StarRocksParserRULE_showRestoreStatement)
@@ -85027,6 +88297,16 @@ func (s *ShowSnapshotStatementContext) EnterRule(listener antlr.ParseTreeListene
 func (s *ShowSnapshotStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowSnapshotStatement(s)
+	}
+}
+
+func (s *ShowSnapshotStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowSnapshotStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -85315,6 +88595,16 @@ func (s *CreateRepositoryStatementContext) ExitRule(listener antlr.ParseTreeList
 	}
 }
 
+func (s *CreateRepositoryStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateRepositoryStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) CreateRepositoryStatement() (localctx ICreateRepositoryStatementContext) {
 	localctx = NewCreateRepositoryStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 622, StarRocksParserRULE_createRepositoryStatement)
@@ -85554,6 +88844,16 @@ func (s *DropRepositoryStatementContext) ExitRule(listener antlr.ParseTreeListen
 	}
 }
 
+func (s *DropRepositoryStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropRepositoryStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DropRepositoryStatement() (localctx IDropRepositoryStatementContext) {
 	localctx = NewDropRepositoryStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 624, StarRocksParserRULE_dropRepositoryStatement)
@@ -85684,6 +88984,16 @@ func (s *AddSqlBlackListStatementContext) ExitRule(listener antlr.ParseTreeListe
 	}
 }
 
+func (s *AddSqlBlackListStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAddSqlBlackListStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) AddSqlBlackListStatement() (localctx IAddSqlBlackListStatementContext) {
 	localctx = NewAddSqlBlackListStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 626, StarRocksParserRULE_addSqlBlackListStatement)
@@ -85804,6 +89114,16 @@ func (s *DelSqlBlackListStatementContext) EnterRule(listener antlr.ParseTreeList
 func (s *DelSqlBlackListStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDelSqlBlackListStatement(s)
+	}
+}
+
+func (s *DelSqlBlackListStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDelSqlBlackListStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -85958,6 +89278,16 @@ func (s *ShowSqlBlackListStatementContext) ExitRule(listener antlr.ParseTreeList
 	}
 }
 
+func (s *ShowSqlBlackListStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowSqlBlackListStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowSqlBlackListStatement() (localctx IShowSqlBlackListStatementContext) {
 	localctx = NewShowSqlBlackListStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 630, StarRocksParserRULE_showSqlBlackListStatement)
@@ -86064,6 +89394,16 @@ func (s *ShowWhiteListStatementContext) EnterRule(listener antlr.ParseTreeListen
 func (s *ShowWhiteListStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowWhiteListStatement(s)
+	}
+}
+
+func (s *ShowWhiteListStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowWhiteListStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -86188,6 +89528,16 @@ func (s *AddBackendBlackListStatementContext) EnterRule(listener antlr.ParseTree
 func (s *AddBackendBlackListStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAddBackendBlackListStatement(s)
+	}
+}
+
+func (s *AddBackendBlackListStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAddBackendBlackListStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -86365,6 +89715,16 @@ func (s *DelBackendBlackListStatementContext) ExitRule(listener antlr.ParseTreeL
 	}
 }
 
+func (s *DelBackendBlackListStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDelBackendBlackListStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DelBackendBlackListStatement() (localctx IDelBackendBlackListStatementContext) {
 	localctx = NewDelBackendBlackListStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 636, StarRocksParserRULE_delBackendBlackListStatement)
@@ -86529,6 +89889,16 @@ func (s *ShowBackendBlackListStatementContext) ExitRule(listener antlr.ParseTree
 	}
 }
 
+func (s *ShowBackendBlackListStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowBackendBlackListStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowBackendBlackListStatement() (localctx IShowBackendBlackListStatementContext) {
 	localctx = NewShowBackendBlackListStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 638, StarRocksParserRULE_showBackendBlackListStatement)
@@ -86676,6 +90046,16 @@ func (s *DataCacheTargetContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DataCacheTargetContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDataCacheTarget(s)
+	}
+}
+
+func (s *DataCacheTargetContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDataCacheTarget(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -86878,6 +90258,16 @@ func (s *CreateDataCacheRuleStatementContext) EnterRule(listener antlr.ParseTree
 func (s *CreateDataCacheRuleStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitCreateDataCacheRuleStatement(s)
+	}
+}
+
+func (s *CreateDataCacheRuleStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateDataCacheRuleStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -87087,6 +90477,16 @@ func (s *ShowDataCacheRulesStatementContext) ExitRule(listener antlr.ParseTreeLi
 	}
 }
 
+func (s *ShowDataCacheRulesStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowDataCacheRulesStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowDataCacheRulesStatement() (localctx IShowDataCacheRulesStatementContext) {
 	localctx = NewShowDataCacheRulesStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 644, StarRocksParserRULE_showDataCacheRulesStatement)
@@ -87211,6 +90611,16 @@ func (s *DropDataCacheRuleStatementContext) EnterRule(listener antlr.ParseTreeLi
 func (s *DropDataCacheRuleStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDropDataCacheRuleStatement(s)
+	}
+}
+
+func (s *DropDataCacheRuleStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropDataCacheRuleStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -87341,6 +90751,16 @@ func (s *ClearDataCacheRulesStatementContext) EnterRule(listener antlr.ParseTree
 func (s *ClearDataCacheRulesStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitClearDataCacheRulesStatement(s)
+	}
+}
+
+func (s *ClearDataCacheRulesStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitClearDataCacheRulesStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -87573,6 +90993,16 @@ func (s *DataCacheSelectStatementContext) EnterRule(listener antlr.ParseTreeList
 func (s *DataCacheSelectStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDataCacheSelectStatement(s)
+	}
+}
+
+func (s *DataCacheSelectStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDataCacheSelectStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -87880,6 +91310,16 @@ func (s *ExportStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ExportStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitExportStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ExportStatement() (localctx IExportStatementContext) {
 	localctx = NewExportStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 652, StarRocksParserRULE_exportStatement)
@@ -88174,6 +91614,16 @@ func (s *CancelExportStatementContext) EnterRule(listener antlr.ParseTreeListene
 func (s *CancelExportStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitCancelExportStatement(s)
+	}
+}
+
+func (s *CancelExportStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCancelExportStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -88520,6 +91970,16 @@ func (s *ShowExportStatementContext) ExitRule(listener antlr.ParseTreeListener) 
 	}
 }
 
+func (s *ShowExportStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowExportStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowExportStatement() (localctx IShowExportStatementContext) {
 	localctx = NewShowExportStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 656, StarRocksParserRULE_showExportStatement)
@@ -88811,6 +92271,16 @@ func (s *InstallPluginStatementContext) ExitRule(listener antlr.ParseTreeListene
 	}
 }
 
+func (s *InstallPluginStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitInstallPluginStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) InstallPluginStatement() (localctx IInstallPluginStatementContext) {
 	localctx = NewInstallPluginStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 658, StarRocksParserRULE_installPluginStatement)
@@ -88962,6 +92432,16 @@ func (s *UninstallPluginStatementContext) EnterRule(listener antlr.ParseTreeList
 func (s *UninstallPluginStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitUninstallPluginStatement(s)
+	}
+}
+
+func (s *UninstallPluginStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitUninstallPluginStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -89147,6 +92627,16 @@ func (s *CreateFileStatementContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *CreateFileStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitCreateFileStatement(s)
+	}
+}
+
+func (s *CreateFileStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateFileStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -89369,6 +92859,16 @@ func (s *DropFileStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DropFileStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropFileStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DropFileStatement() (localctx IDropFileStatementContext) {
 	localctx = NewDropFileStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 664, StarRocksParserRULE_dropFileStatement)
@@ -89551,6 +93051,16 @@ func (s *ShowSmallFilesStatementContext) EnterRule(listener antlr.ParseTreeListe
 func (s *ShowSmallFilesStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowSmallFilesStatement(s)
+	}
+}
+
+func (s *ShowSmallFilesStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowSmallFilesStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -89783,6 +93293,16 @@ func (s *CreatePipeStatementContext) ExitRule(listener antlr.ParseTreeListener) 
 	}
 }
 
+func (s *CreatePipeStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreatePipeStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) CreatePipeStatement() (localctx ICreatePipeStatementContext) {
 	localctx = NewCreatePipeStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 668, StarRocksParserRULE_createPipeStatement)
@@ -89956,6 +93476,16 @@ func (s *DropPipeStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DropPipeStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDropPipeStatement(s)
+	}
+}
+
+func (s *DropPipeStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropPipeStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -90162,6 +93692,16 @@ func (s *AlterPipeClauseContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *AlterPipeClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAlterPipeClause(s)
+	}
+}
+
+func (s *AlterPipeClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAlterPipeClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -90383,6 +93923,16 @@ func (s *AlterPipeStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *AlterPipeStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAlterPipeStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) AlterPipeStatement() (localctx IAlterPipeStatementContext) {
 	localctx = NewAlterPipeStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 674, StarRocksParserRULE_alterPipeStatement)
@@ -90519,6 +94069,16 @@ func (s *DescPipeStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DescPipeStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDescPipeStatement(s)
+	}
+}
+
+func (s *DescPipeStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDescPipeStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -90784,6 +94344,16 @@ func (s *ShowPipeStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ShowPipeStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowPipeStatement(s)
+	}
+}
+
+func (s *ShowPipeStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowPipeStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -91063,6 +94633,16 @@ func (s *SetStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SetStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSetStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) SetStatement() (localctx ISetStatementContext) {
 	localctx = NewSetStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 680, StarRocksParserRULE_setStatement)
@@ -91243,6 +94823,16 @@ func (s *SetTransactionContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SetTransactionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSetTransaction(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type SetNamesContext struct {
 	SetVarContext
 	charset IIdentifierOrStringContext
@@ -91356,6 +94946,16 @@ func (s *SetNamesContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SetNamesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSetNames(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type SetPasswordContext struct {
 	SetVarContext
 }
@@ -91434,6 +95034,16 @@ func (s *SetPasswordContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SetPasswordContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSetPassword(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type SetUserVarContext struct {
 	SetVarContext
 }
@@ -91497,6 +95107,16 @@ func (s *SetUserVarContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SetUserVarContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitSetUserVar(s)
+	}
+}
+
+func (s *SetUserVarContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSetUserVar(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -91595,6 +95215,16 @@ func (s *SetSystemVarContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SetSystemVarContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitSetSystemVar(s)
+	}
+}
+
+func (s *SetSystemVarContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSetSystemVar(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -92152,6 +95782,16 @@ func (s *Transaction_characteristicsContext) ExitRule(listener antlr.ParseTreeLi
 	}
 }
 
+func (s *Transaction_characteristicsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitTransaction_characteristics(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) Transaction_characteristics() (localctx ITransaction_characteristicsContext) {
 	localctx = NewTransaction_characteristicsContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 684, StarRocksParserRULE_transaction_characteristics)
@@ -92308,6 +95948,16 @@ func (s *Transaction_access_modeContext) EnterRule(listener antlr.ParseTreeListe
 func (s *Transaction_access_modeContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitTransaction_access_mode(s)
+	}
+}
+
+func (s *Transaction_access_modeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitTransaction_access_mode(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -92468,6 +96118,16 @@ func (s *Isolation_levelContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *Isolation_levelContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitIsolation_level(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) Isolation_level() (localctx IIsolation_levelContext) {
 	localctx = NewIsolation_levelContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 688, StarRocksParserRULE_isolation_level)
@@ -92593,6 +96253,16 @@ func (s *Isolation_typesContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *Isolation_typesContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitIsolation_types(s)
+	}
+}
+
+func (s *Isolation_typesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitIsolation_types(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -92788,6 +96458,16 @@ func (s *SetExprOrDefaultContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SetExprOrDefaultContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSetExprOrDefault(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) SetExprOrDefault() (localctx ISetExprOrDefaultContext) {
 	localctx = NewSetExprOrDefaultContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 692, StarRocksParserRULE_setExprOrDefault)
@@ -92970,6 +96650,16 @@ func (s *SetUserPropertyStatementContext) ExitRule(listener antlr.ParseTreeListe
 	}
 }
 
+func (s *SetUserPropertyStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSetUserPropertyStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) SetUserPropertyStatement() (localctx ISetUserPropertyStatementContext) {
 	localctx = NewSetUserPropertyStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 694, StarRocksParserRULE_setUserPropertyStatement)
@@ -93140,6 +96830,16 @@ func (s *RoleListContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *RoleListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRoleList(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) RoleList() (localctx IRoleListContext) {
 	localctx = NewRoleListContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 696, StarRocksParserRULE_roleList)
@@ -93296,6 +96996,16 @@ func (s *ExecuteScriptStatementContext) EnterRule(listener antlr.ParseTreeListen
 func (s *ExecuteScriptStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitExecuteScriptStatement(s)
+	}
+}
+
+func (s *ExecuteScriptStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitExecuteScriptStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -93478,6 +97188,16 @@ func (s *UnsupportedStatementContext) EnterRule(listener antlr.ParseTreeListener
 func (s *UnsupportedStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitUnsupportedStatement(s)
+	}
+}
+
+func (s *UnsupportedStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitUnsupportedStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -93722,6 +97442,16 @@ func (s *Lock_itemContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *Lock_itemContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitLock_item(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) Lock_item() (localctx ILock_itemContext) {
 	localctx = NewLock_itemContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 702, StarRocksParserRULE_lock_item)
@@ -93865,6 +97595,16 @@ func (s *Lock_typeContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *Lock_typeContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitLock_type(s)
+	}
+}
+
+func (s *Lock_typeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitLock_type(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -94058,6 +97798,16 @@ func (s *AlterPlanAdvisorAddStatementContext) ExitRule(listener antlr.ParseTreeL
 	}
 }
 
+func (s *AlterPlanAdvisorAddStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAlterPlanAdvisorAddStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) AlterPlanAdvisorAddStatement() (localctx IAlterPlanAdvisorAddStatementContext) {
 	localctx = NewAlterPlanAdvisorAddStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 706, StarRocksParserRULE_alterPlanAdvisorAddStatement)
@@ -94189,6 +97939,16 @@ func (s *TruncatePlanAdvisorStatementContext) EnterRule(listener antlr.ParseTree
 func (s *TruncatePlanAdvisorStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitTruncatePlanAdvisorStatement(s)
+	}
+}
+
+func (s *TruncatePlanAdvisorStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitTruncatePlanAdvisorStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -94336,6 +98096,16 @@ func (s *AlterPlanAdvisorDropStatementContext) ExitRule(listener antlr.ParseTree
 	}
 }
 
+func (s *AlterPlanAdvisorDropStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAlterPlanAdvisorDropStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) AlterPlanAdvisorDropStatement() (localctx IAlterPlanAdvisorDropStatementContext) {
 	localctx = NewAlterPlanAdvisorDropStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 710, StarRocksParserRULE_alterPlanAdvisorDropStatement)
@@ -94467,6 +98237,16 @@ func (s *ShowPlanAdvisorStatementContext) EnterRule(listener antlr.ParseTreeList
 func (s *ShowPlanAdvisorStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowPlanAdvisorStatement(s)
+	}
+}
+
+func (s *ShowPlanAdvisorStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowPlanAdvisorStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -94665,6 +98445,16 @@ func (s *CreateWarehouseStatementContext) EnterRule(listener antlr.ParseTreeList
 func (s *CreateWarehouseStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitCreateWarehouseStatement(s)
+	}
+}
+
+func (s *CreateWarehouseStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCreateWarehouseStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -94892,6 +98682,16 @@ func (s *DropWarehouseStatementContext) ExitRule(listener antlr.ParseTreeListene
 	}
 }
 
+func (s *DropWarehouseStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDropWarehouseStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DropWarehouseStatement() (localctx IDropWarehouseStatementContext) {
 	localctx = NewDropWarehouseStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 716, StarRocksParserRULE_dropWarehouseStatement)
@@ -95063,6 +98863,16 @@ func (s *SuspendWarehouseStatementContext) ExitRule(listener antlr.ParseTreeList
 	}
 }
 
+func (s *SuspendWarehouseStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSuspendWarehouseStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) SuspendWarehouseStatement() (localctx ISuspendWarehouseStatementContext) {
 	localctx = NewSuspendWarehouseStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 718, StarRocksParserRULE_suspendWarehouseStatement)
@@ -95231,6 +99041,16 @@ func (s *ResumeWarehouseStatementContext) ExitRule(listener antlr.ParseTreeListe
 	}
 }
 
+func (s *ResumeWarehouseStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitResumeWarehouseStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ResumeWarehouseStatement() (localctx IResumeWarehouseStatementContext) {
 	localctx = NewResumeWarehouseStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 720, StarRocksParserRULE_resumeWarehouseStatement)
@@ -95396,6 +99216,16 @@ func (s *SetWarehouseStatementContext) EnterRule(listener antlr.ParseTreeListene
 func (s *SetWarehouseStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitSetWarehouseStatement(s)
+	}
+}
+
+func (s *SetWarehouseStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSetWarehouseStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -95583,6 +99413,16 @@ func (s *ShowWarehousesStatementContext) ExitRule(listener antlr.ParseTreeListen
 	}
 }
 
+func (s *ShowWarehousesStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowWarehousesStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ShowWarehousesStatement() (localctx IShowWarehousesStatementContext) {
 	localctx = NewShowWarehousesStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 724, StarRocksParserRULE_showWarehousesStatement)
@@ -95743,6 +99583,16 @@ func (s *ShowClustersStatementContext) EnterRule(listener antlr.ParseTreeListene
 func (s *ShowClustersStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowClustersStatement(s)
+	}
+}
+
+func (s *ShowClustersStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowClustersStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -95937,6 +99787,16 @@ func (s *ShowNodesStatementContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *ShowNodesStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitShowNodesStatement(s)
+	}
+}
+
+func (s *ShowNodesStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitShowNodesStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -96192,6 +100052,16 @@ func (s *AlterWarehouseStatementContext) ExitRule(listener antlr.ParseTreeListen
 	}
 }
 
+func (s *AlterWarehouseStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAlterWarehouseStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) AlterWarehouseStatement() (localctx IAlterWarehouseStatementContext) {
 	localctx = NewAlterWarehouseStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 730, StarRocksParserRULE_alterWarehouseStatement)
@@ -96334,6 +100204,16 @@ func (s *BeginStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *BeginStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitBeginStatement(s)
+	}
+}
+
+func (s *BeginStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitBeginStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -96546,6 +100426,16 @@ func (s *CommitStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *CommitStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitCommitStatement(s)
+	}
+}
+
+func (s *CommitStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCommitStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -96772,6 +100662,16 @@ func (s *RollbackStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *RollbackStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitRollbackStatement(s)
+	}
+}
+
+func (s *RollbackStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRollbackStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -97005,6 +100905,16 @@ func (s *TranslateStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *TranslateStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitTranslateStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) TranslateStatement() (localctx ITranslateStatementContext) {
 	localctx = NewTranslateStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 738, StarRocksParserRULE_translateStatement)
@@ -97121,6 +101031,16 @@ func (s *DialectContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DialectContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDialect(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) Dialect() (localctx IDialectContext) {
 	localctx = NewDialectContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 740, StarRocksParserRULE_dialect)
@@ -97201,6 +101121,16 @@ func (s *TranslateSQLContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *TranslateSQLContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitTranslateSQL(s)
+	}
+}
+
+func (s *TranslateSQLContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitTranslateSQL(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -97381,6 +101311,16 @@ func (s *QueryStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *QueryStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitQueryStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) QueryStatement() (localctx IQueryStatementContext) {
 	localctx = NewQueryStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 744, StarRocksParserRULE_queryStatement)
@@ -97540,6 +101480,16 @@ func (s *QueryRelationContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *QueryRelationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitQueryRelation(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) QueryRelation() (localctx IQueryRelationContext) {
 	localctx = NewQueryRelationContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 746, StarRocksParserRULE_queryRelation)
@@ -97688,6 +101638,16 @@ func (s *WithClauseContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *WithClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitWithClause(s)
+	}
+}
+
+func (s *WithClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitWithClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -97900,6 +101860,16 @@ func (s *QueryNoWithContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *QueryNoWithContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitQueryNoWith(s)
+	}
+}
+
+func (s *QueryNoWithContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitQueryNoWith(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -98172,6 +102142,16 @@ func (s *QueryPeriodContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *QueryPeriodContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitQueryPeriod(s)
+	}
+}
+
+func (s *QueryPeriodContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitQueryPeriod(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -98463,6 +102443,16 @@ func (s *PeriodTypeContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *PeriodTypeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitPeriodType(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) PeriodType() (localctx IPeriodTypeContext) {
 	localctx = NewPeriodTypeContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 754, StarRocksParserRULE_periodType)
@@ -98594,6 +102584,16 @@ func (s *QueryWithParenthesesContext) ExitRule(listener antlr.ParseTreeListener)
 	}
 }
 
+func (s *QueryWithParenthesesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitQueryWithParentheses(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type SetOperationContext struct {
 	QueryPrimaryContext
 	left     IQueryPrimaryContext
@@ -98712,6 +102712,16 @@ func (s *SetOperationContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SetOperationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSetOperation(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type QueryPrimaryDefaultContext struct {
 	QueryPrimaryContext
 }
@@ -98755,6 +102765,16 @@ func (s *QueryPrimaryDefaultContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *QueryPrimaryDefaultContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitQueryPrimaryDefault(s)
+	}
+}
+
+func (s *QueryPrimaryDefaultContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitQueryPrimaryDefault(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -99035,6 +103055,16 @@ func (s *SubqueryContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SubqueryContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSubquery(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) Subquery() (localctx ISubqueryContext) {
 	localctx = NewSubqueryContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 758, StarRocksParserRULE_subquery)
@@ -99152,6 +103182,16 @@ func (s *RowConstructorContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *RowConstructorContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitRowConstructor(s)
+	}
+}
+
+func (s *RowConstructorContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRowConstructor(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -99319,6 +103359,16 @@ func (s *SortItemContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SortItemContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitSortItem(s)
+	}
+}
+
+func (s *SortItemContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSortItem(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -99499,6 +103549,16 @@ func (s *LimitConstExprContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *LimitConstExprContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitLimitConstExpr(s)
+	}
+}
+
+func (s *LimitConstExprContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitLimitConstExpr(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -99696,6 +103756,16 @@ func (s *LimitElementContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *LimitElementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitLimitElement(s)
+	}
+}
+
+func (s *LimitElementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitLimitElement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -100102,6 +104172,16 @@ func (s *QuerySpecificationContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *QuerySpecificationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitQuerySpecification(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) QuerySpecification() (localctx IQuerySpecificationContext) {
 	localctx = NewQuerySpecificationContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 768, StarRocksParserRULE_querySpecification)
@@ -100394,6 +104474,16 @@ func (s *DualContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DualContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDual(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type FromContext struct {
 	FromClauseContext
 }
@@ -100457,6 +104547,16 @@ func (s *FromContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *FromContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitFrom(s)
+	}
+}
+
+func (s *FromContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitFrom(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -100676,6 +104776,16 @@ func (s *MultipleGroupingSetsContext) ExitRule(listener antlr.ParseTreeListener)
 	}
 }
 
+func (s *MultipleGroupingSetsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitMultipleGroupingSets(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type SingleGroupingSetContext struct {
 	GroupingElementContext
 }
@@ -100719,6 +104829,16 @@ func (s *SingleGroupingSetContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SingleGroupingSetContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitSingleGroupingSet(s)
+	}
+}
+
+func (s *SingleGroupingSetContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSingleGroupingSet(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -100772,6 +104892,16 @@ func (s *CubeContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CubeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCube(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type RollupContext struct {
 	GroupingElementContext
 }
@@ -100819,6 +104949,16 @@ func (s *RollupContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *RollupContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitRollup(s)
+	}
+}
+
+func (s *RollupContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRollup(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -101119,6 +105259,16 @@ func (s *GroupingSetContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *GroupingSetContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitGroupingSet(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) GroupingSet() (localctx IGroupingSetContext) {
 	localctx = NewGroupingSetContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 774, StarRocksParserRULE_groupingSet)
@@ -101329,6 +105479,16 @@ func (s *CommonTableExpressionContext) ExitRule(listener antlr.ParseTreeListener
 	}
 }
 
+func (s *CommonTableExpressionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCommonTableExpression(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) CommonTableExpression() (localctx ICommonTableExpressionContext) {
 	localctx = NewCommonTableExpressionContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 776, StarRocksParserRULE_commonTableExpression)
@@ -101473,6 +105633,16 @@ func (s *SetQuantifierContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SetQuantifierContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSetQuantifier(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) SetQuantifier() (localctx ISetQuantifierContext) {
 	localctx = NewSetQuantifierContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 778, StarRocksParserRULE_setQuantifier)
@@ -101608,6 +105778,16 @@ func (s *SelectAllContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SelectAllContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSelectAll(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type SelectSingleContext struct {
 	SelectItemContext
 }
@@ -101687,6 +105867,16 @@ func (s *SelectSingleContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SelectSingleContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitSelectSingle(s)
+	}
+}
+
+func (s *SelectSingleContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSelectSingle(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -101930,6 +106120,16 @@ func (s *RelationsContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *RelationsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRelations(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) Relations() (localctx IRelationsContext) {
 	localctx = NewRelationsContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 782, StarRocksParserRULE_relations)
@@ -102131,6 +106331,16 @@ func (s *RelationContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *RelationContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitRelation(s)
+	}
+}
+
+func (s *RelationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRelation(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -102383,6 +106593,16 @@ func (s *SubqueryWithAliasContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SubqueryWithAliasContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSubqueryWithAlias(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type NormalizedTableFunctionContext struct {
 	RelationPrimaryContext
 	alias IIdentifierContext
@@ -102490,6 +106710,16 @@ func (s *NormalizedTableFunctionContext) ExitRule(listener antlr.ParseTreeListen
 	}
 }
 
+func (s *NormalizedTableFunctionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitNormalizedTableFunction(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type TableFunctionContext struct {
 	RelationPrimaryContext
 	alias IIdentifierContext
@@ -102593,6 +106823,16 @@ func (s *TableFunctionContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *TableFunctionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitTableFunction(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ParenthesizedRelationContext struct {
 	RelationPrimaryContext
 }
@@ -102636,6 +106876,16 @@ func (s *ParenthesizedRelationContext) EnterRule(listener antlr.ParseTreeListene
 func (s *ParenthesizedRelationContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitParenthesizedRelation(s)
+	}
+}
+
+func (s *ParenthesizedRelationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitParenthesizedRelation(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -102727,6 +106977,16 @@ func (s *FileTableFunctionContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *FileTableFunctionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitFileTableFunction(s)
+	}
+}
+
+func (s *FileTableFunctionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitFileTableFunction(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -102922,6 +107182,16 @@ func (s *TableAtomContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *TableAtomContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitTableAtom(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type InlineTableContext struct {
 	RelationPrimaryContext
 	alias IIdentifierContext
@@ -103035,6 +107305,16 @@ func (s *InlineTableContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *InlineTableContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitInlineTable(s)
+	}
+}
+
+func (s *InlineTableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitInlineTable(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -103816,6 +108096,16 @@ func (s *PivotClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *PivotClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitPivotClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) PivotClause() (localctx IPivotClauseContext) {
 	localctx = NewPivotClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 788, StarRocksParserRULE_pivotClause)
@@ -104100,6 +108390,16 @@ func (s *PivotAggregationExpressionContext) ExitRule(listener antlr.ParseTreeLis
 	}
 }
 
+func (s *PivotAggregationExpressionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitPivotAggregationExpression(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) PivotAggregationExpression() (localctx IPivotAggregationExpressionContext) {
 	localctx = NewPivotAggregationExpressionContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 790, StarRocksParserRULE_pivotAggregationExpression)
@@ -104313,6 +108613,16 @@ func (s *PivotValueContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *PivotValueContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitPivotValue(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) PivotValue() (localctx IPivotValueContext) {
 	localctx = NewPivotValueContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 792, StarRocksParserRULE_pivotValue)
@@ -104494,6 +108804,16 @@ func (s *SampleClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SampleClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSampleClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) SampleClause() (localctx ISampleClauseContext) {
 	localctx = NewSampleClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 794, StarRocksParserRULE_sampleClause)
@@ -104628,6 +108948,16 @@ func (s *ArgumentListContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ArgumentListContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitArgumentList(s)
+	}
+}
+
+func (s *ArgumentListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitArgumentList(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -104777,6 +109107,16 @@ func (s *NamedArgumentListContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *NamedArgumentListContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitNamedArgumentList(s)
+	}
+}
+
+func (s *NamedArgumentListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitNamedArgumentList(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -104945,6 +109285,16 @@ func (s *NamedArgumentsContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *NamedArgumentsContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitNamedArguments(s)
+	}
+}
+
+func (s *NamedArgumentsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitNamedArguments(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -105146,6 +109496,16 @@ func (s *JoinRelationContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *JoinRelationContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitJoinRelation(s)
+	}
+}
+
+func (s *JoinRelationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitJoinRelation(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -105367,6 +109727,16 @@ func (s *CrossOrInnerJoinTypeContext) ExitRule(listener antlr.ParseTreeListener)
 	}
 }
 
+func (s *CrossOrInnerJoinTypeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCrossOrInnerJoinType(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) CrossOrInnerJoinType() (localctx ICrossOrInnerJoinTypeContext) {
 	localctx = NewCrossOrInnerJoinTypeContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 804, StarRocksParserRULE_crossOrInnerJoinType)
@@ -105551,6 +109921,16 @@ func (s *OuterAndSemiJoinTypeContext) EnterRule(listener antlr.ParseTreeListener
 func (s *OuterAndSemiJoinTypeContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitOuterAndSemiJoinType(s)
+	}
+}
+
+func (s *OuterAndSemiJoinTypeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitOuterAndSemiJoinType(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -105974,6 +110354,16 @@ func (s *BracketHintContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *BracketHintContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitBracketHint(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) BracketHint() (localctx IBracketHintContext) {
 	localctx = NewBracketHintContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 808, StarRocksParserRULE_bracketHint)
@@ -106219,6 +110609,16 @@ func (s *HintMapContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *HintMapContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitHintMap(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) HintMap() (localctx IHintMapContext) {
 	localctx = NewHintMapContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 810, StarRocksParserRULE_hintMap)
@@ -106391,6 +110791,16 @@ func (s *JoinCriteriaContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *JoinCriteriaContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitJoinCriteria(s)
+	}
+}
+
+func (s *JoinCriteriaContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitJoinCriteria(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -106606,6 +111016,16 @@ func (s *ColumnAliasesContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ColumnAliasesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitColumnAliases(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ColumnAliases() (localctx IColumnAliasesContext) {
 	localctx = NewColumnAliasesContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 814, StarRocksParserRULE_columnAliases)
@@ -106811,6 +111231,16 @@ func (s *PartitionNamesContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *PartitionNamesContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitPartitionNames(s)
+	}
+}
+
+func (s *PartitionNamesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitPartitionNames(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -107095,6 +111525,16 @@ func (s *KeyPartitionListContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *KeyPartitionListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitKeyPartitionList(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) KeyPartitions() (localctx IKeyPartitionsContext) {
 	localctx = NewKeyPartitionsContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 818, StarRocksParserRULE_keyPartitions)
@@ -107249,6 +111689,16 @@ func (s *TabletListContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *TabletListContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitTabletList(s)
+	}
+}
+
+func (s *TabletListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitTabletList(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -107445,6 +111895,16 @@ func (s *PrepareStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *PrepareStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitPrepareStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) PrepareStatement() (localctx IPrepareStatementContext) {
 	localctx = NewPrepareStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 822, StarRocksParserRULE_prepareStatement)
@@ -107571,6 +112031,16 @@ func (s *PrepareSqlContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *PrepareSqlContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitPrepareSql(s)
+	}
+}
+
+func (s *PrepareSqlContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitPrepareSql(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -107762,6 +112232,16 @@ func (s *ExecuteStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ExecuteStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitExecuteStatement(s)
+	}
+}
+
+func (s *ExecuteStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitExecuteStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -107960,6 +112440,16 @@ func (s *DeallocateStatementContext) ExitRule(listener antlr.ParseTreeListener) 
 	}
 }
 
+func (s *DeallocateStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDeallocateStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DeallocateStatement() (localctx IDeallocateStatementContext) {
 	localctx = NewDeallocateStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 828, StarRocksParserRULE_deallocateStatement)
@@ -108080,6 +112570,16 @@ func (s *ReplicaListContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ReplicaListContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitReplicaList(s)
+	}
+}
+
+func (s *ReplicaListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitReplicaList(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -108275,6 +112775,16 @@ func (s *ExpressionsWithDefaultContext) ExitRule(listener antlr.ParseTreeListene
 	}
 }
 
+func (s *ExpressionsWithDefaultContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitExpressionsWithDefault(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ExpressionsWithDefault() (localctx IExpressionsWithDefaultContext) {
 	localctx = NewExpressionsWithDefaultContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 832, StarRocksParserRULE_expressionsWithDefault)
@@ -108430,6 +112940,16 @@ func (s *ExpressionOrDefaultContext) ExitRule(listener antlr.ParseTreeListener) 
 	}
 }
 
+func (s *ExpressionOrDefaultContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitExpressionOrDefault(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ExpressionOrDefault() (localctx IExpressionOrDefaultContext) {
 	localctx = NewExpressionOrDefaultContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 834, StarRocksParserRULE_expressionOrDefault)
@@ -108581,6 +113101,16 @@ func (s *MapExpressionListContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *MapExpressionListContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitMapExpressionList(s)
+	}
+}
+
+func (s *MapExpressionListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitMapExpressionList(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -108766,6 +113296,16 @@ func (s *MapExpressionContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *MapExpressionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitMapExpression(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) MapExpression() (localctx IMapExpressionContext) {
 	localctx = NewMapExpressionContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 838, StarRocksParserRULE_mapExpression)
@@ -108890,6 +113430,16 @@ func (s *ExpressionSingletonContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *ExpressionSingletonContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitExpressionSingleton(s)
+	}
+}
+
+func (s *ExpressionSingletonContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitExpressionSingleton(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -109027,6 +113577,16 @@ func (s *ExpressionDefaultContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ExpressionDefaultContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitExpressionDefault(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type LogicalNotContext struct {
 	ExpressionContext
 }
@@ -109074,6 +113634,16 @@ func (s *LogicalNotContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *LogicalNotContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitLogicalNot(s)
+	}
+}
+
+func (s *LogicalNotContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitLogicalNot(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -109176,6 +113746,16 @@ func (s *LogicalBinaryContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *LogicalBinaryContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitLogicalBinary(s)
+	}
+}
+
+func (s *LogicalBinaryContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitLogicalBinary(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -109485,6 +114065,16 @@ func (s *ExpressionListContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ExpressionListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitExpressionList(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ExpressionList() (localctx IExpressionListContext) {
 	localctx = NewExpressionListContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 844, StarRocksParserRULE_expressionList)
@@ -109686,6 +114276,16 @@ func (s *ComparisonContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ComparisonContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitComparison(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type BooleanExpressionDefaultContext struct {
 	BooleanExpressionContext
 }
@@ -109729,6 +114329,16 @@ func (s *BooleanExpressionDefaultContext) EnterRule(listener antlr.ParseTreeList
 func (s *BooleanExpressionDefaultContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitBooleanExpressionDefault(s)
+	}
+}
+
+func (s *BooleanExpressionDefaultContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitBooleanExpressionDefault(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -109787,6 +114397,16 @@ func (s *IsNullContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *IsNullContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitIsNull(s)
+	}
+}
+
+func (s *IsNullContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitIsNull(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -109865,6 +114485,16 @@ func (s *ScalarSubqueryContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ScalarSubqueryContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitScalarSubquery(s)
+	}
+}
+
+func (s *ScalarSubqueryContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitScalarSubquery(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -110175,6 +114805,16 @@ func (s *PredicateContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *PredicateContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitPredicate(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) Predicate() (localctx IPredicateContext) {
 	localctx = NewPredicateContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 848, StarRocksParserRULE_predicate)
@@ -110363,6 +115003,16 @@ func (s *TupleInSubqueryContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *TupleInSubqueryContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitTupleInSubquery(s)
+	}
+}
+
+func (s *TupleInSubqueryContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitTupleInSubquery(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -110603,6 +115253,16 @@ func (s *InIntegerListContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *InIntegerListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitInIntegerList(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type LikeContext struct {
 	PredicateOperationsContext
 	pattern IValueExpressionContext
@@ -110670,6 +115330,16 @@ func (s *LikeContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *LikeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitLike(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type InSubqueryContext struct {
 	PredicateOperationsContext
 }
@@ -110721,6 +115391,16 @@ func (s *InSubqueryContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *InSubqueryContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitInSubquery(s)
+	}
+}
+
+func (s *InSubqueryContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitInSubquery(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -110778,6 +115458,16 @@ func (s *InStringListContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *InStringListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitInStringList(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type InListContext struct {
 	PredicateOperationsContext
 }
@@ -110829,6 +115519,16 @@ func (s *InListContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *InListContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitInList(s)
+	}
+}
+
+func (s *InListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitInList(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -110913,6 +115613,16 @@ func (s *BetweenContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *BetweenContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitBetween(s)
+	}
+}
+
+func (s *BetweenContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitBetween(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -111305,6 +116015,16 @@ func (s *ValueExpressionDefaultContext) ExitRule(listener antlr.ParseTreeListene
 	}
 }
 
+func (s *ValueExpressionDefaultContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitValueExpressionDefault(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ArithmeticBinaryContext struct {
 	ValueExpressionContext
 	left     IValueExpressionContext
@@ -111440,6 +116160,16 @@ func (s *ArithmeticBinaryContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ArithmeticBinaryContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitArithmeticBinary(s)
+	}
+}
+
+func (s *ArithmeticBinaryContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitArithmeticBinary(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -111906,6 +116636,16 @@ func (s *DereferenceContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DereferenceContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDereference(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type OdbcFunctionCallExpressionContext struct {
 	PrimaryExpressionContext
 }
@@ -111953,6 +116693,16 @@ func (s *OdbcFunctionCallExpressionContext) EnterRule(listener antlr.ParseTreeLi
 func (s *OdbcFunctionCallExpressionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitOdbcFunctionCallExpression(s)
+	}
+}
+
+func (s *OdbcFunctionCallExpressionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitOdbcFunctionCallExpression(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -112045,6 +116795,16 @@ func (s *MatchExprContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *MatchExprContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitMatchExpr(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ColumnRefContext struct {
 	PrimaryExpressionContext
 }
@@ -112088,6 +116848,16 @@ func (s *ColumnRefContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ColumnRefContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitColumnRef(s)
+	}
+}
+
+func (s *ColumnRefContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitColumnRef(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -112154,6 +116924,16 @@ func (s *ConvertContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ConvertContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitConvert(s)
+	}
+}
+
+func (s *ConvertContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitConvert(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -112229,6 +117009,16 @@ func (s *CollectionSubscriptContext) ExitRule(listener antlr.ParseTreeListener) 
 	}
 }
 
+func (s *CollectionSubscriptContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCollectionSubscript(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type LiteralContext struct {
 	PrimaryExpressionContext
 }
@@ -112272,6 +117062,16 @@ func (s *LiteralContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *LiteralContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitLiteral(s)
+	}
+}
+
+func (s *LiteralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitLiteral(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -112345,6 +117145,16 @@ func (s *CastContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CastContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCast(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ParenthesizedExpressionContext struct {
 	PrimaryExpressionContext
 }
@@ -112388,6 +117198,16 @@ func (s *ParenthesizedExpressionContext) EnterRule(listener antlr.ParseTreeListe
 func (s *ParenthesizedExpressionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitParenthesizedExpression(s)
+	}
+}
+
+func (s *ParenthesizedExpressionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitParenthesizedExpression(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -112437,6 +117257,16 @@ func (s *UserVariableExpressionContext) ExitRule(listener antlr.ParseTreeListene
 	}
 }
 
+func (s *UserVariableExpressionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitUserVariableExpression(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type FunctionCallExpressionContext struct {
 	PrimaryExpressionContext
 }
@@ -112480,6 +117310,16 @@ func (s *FunctionCallExpressionContext) EnterRule(listener antlr.ParseTreeListen
 func (s *FunctionCallExpressionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitFunctionCallExpression(s)
+	}
+}
+
+func (s *FunctionCallExpressionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitFunctionCallExpression(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -112617,6 +117457,16 @@ func (s *SimpleCaseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SimpleCaseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSimpleCase(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ArrowExpressionContext struct {
 	PrimaryExpressionContext
 }
@@ -112683,6 +117533,16 @@ func (s *ArrowExpressionContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ArrowExpressionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitArrowExpression(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type SystemVariableExpressionContext struct {
 	PrimaryExpressionContext
 }
@@ -112726,6 +117586,16 @@ func (s *SystemVariableExpressionContext) EnterRule(listener antlr.ParseTreeList
 func (s *SystemVariableExpressionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitSystemVariableExpression(s)
+	}
+}
+
+func (s *SystemVariableExpressionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSystemVariableExpression(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -112814,6 +117684,16 @@ func (s *ConcatContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ConcatContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitConcat(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type SubqueryExpressionContext struct {
 	PrimaryExpressionContext
 }
@@ -112857,6 +117737,16 @@ func (s *SubqueryExpressionContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *SubqueryExpressionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitSubqueryExpression(s)
+	}
+}
+
+func (s *SubqueryExpressionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSubqueryExpression(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -112958,6 +117848,16 @@ func (s *LambdaFunctionExprContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *LambdaFunctionExprContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitLambdaFunctionExpr(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type DictionaryGetExprContext struct {
 	PrimaryExpressionContext
 }
@@ -113005,6 +117905,16 @@ func (s *DictionaryGetExprContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DictionaryGetExprContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDictionaryGetExpr(s)
+	}
+}
+
+func (s *DictionaryGetExprContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDictionaryGetExpr(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -113090,6 +118000,16 @@ func (s *CollateContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CollateContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCollate(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ArrayConstructorContext struct {
 	PrimaryExpressionContext
 }
@@ -113149,6 +118069,16 @@ func (s *ArrayConstructorContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ArrayConstructorContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitArrayConstructor(s)
+	}
+}
+
+func (s *ArrayConstructorContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitArrayConstructor(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -113218,6 +118148,16 @@ func (s *MapConstructorContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *MapConstructorContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitMapConstructor(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ArraySliceContext struct {
 	PrimaryExpressionContext
 	start_ antlr.Token
@@ -113282,6 +118222,16 @@ func (s *ArraySliceContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ArraySliceContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitArraySlice(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ExistsContext struct {
 	PrimaryExpressionContext
 }
@@ -113329,6 +118279,16 @@ func (s *ExistsContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ExistsContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitExists(s)
+	}
+}
+
+func (s *ExistsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitExists(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -113436,6 +118396,16 @@ func (s *SearchedCaseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SearchedCaseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSearchedCase(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ArithmeticUnaryContext struct {
 	PrimaryExpressionContext
 	operator antlr.Token
@@ -113500,6 +118470,16 @@ func (s *ArithmeticUnaryContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ArithmeticUnaryContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitArithmeticUnary(s)
+	}
+}
+
+func (s *ArithmeticUnaryContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitArithmeticUnary(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -114652,6 +119632,16 @@ func (s *BinaryLiteralContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *BinaryLiteralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitBinaryLiteral(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type NullLiteralContext struct {
 	LiteralExpressionContext
 }
@@ -114683,6 +119673,16 @@ func (s *NullLiteralContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *NullLiteralContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitNullLiteral(s)
+	}
+}
+
+func (s *NullLiteralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitNullLiteral(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -114732,6 +119732,16 @@ func (s *StringLiteralContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *StringLiteralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitStringLiteral(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ParameterContext struct {
 	LiteralExpressionContext
 }
@@ -114763,6 +119773,16 @@ func (s *ParameterContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ParameterContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitParameter(s)
+	}
+}
+
+func (s *ParameterContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitParameter(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -114820,6 +119840,16 @@ func (s *DateLiteralContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DateLiteralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDateLiteral(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type NumericLiteralContext struct {
 	LiteralExpressionContext
 }
@@ -114863,6 +119893,16 @@ func (s *NumericLiteralContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *NumericLiteralContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitNumericLiteral(s)
+	}
+}
+
+func (s *NumericLiteralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitNumericLiteral(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -114912,6 +119952,16 @@ func (s *BooleanLiteralContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *BooleanLiteralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitBooleanLiteral(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type IntervalLiteralContext struct {
 	LiteralExpressionContext
 }
@@ -114958,6 +120008,16 @@ func (s *IntervalLiteralContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *IntervalLiteralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitIntervalLiteral(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type UnitBoundaryLiteralContext struct {
 	LiteralExpressionContext
 }
@@ -115001,6 +120061,16 @@ func (s *UnitBoundaryLiteralContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *UnitBoundaryLiteralContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitUnitBoundaryLiteral(s)
+	}
+}
+
+func (s *UnitBoundaryLiteralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitUnitBoundaryLiteral(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -115241,6 +120311,16 @@ func (s *AggregationFunctionCallContext) ExitRule(listener antlr.ParseTreeListen
 	}
 }
 
+func (s *AggregationFunctionCallContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAggregationFunctionCall(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ExtractContext struct {
 	FunctionCallContext
 }
@@ -115311,6 +120391,16 @@ func (s *ExtractContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ExtractContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitExtract(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type SpecialFunctionContext struct {
 	FunctionCallContext
 }
@@ -115354,6 +120444,16 @@ func (s *SpecialFunctionContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SpecialFunctionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitSpecialFunction(s)
+	}
+}
+
+func (s *SpecialFunctionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSpecialFunction(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -115460,6 +120560,16 @@ func (s *SimpleFunctionCallContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SimpleFunctionCallContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSimpleFunctionCall(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type SpecialDateTimeContext struct {
 	FunctionCallContext
 }
@@ -115503,6 +120613,16 @@ func (s *SpecialDateTimeContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SpecialDateTimeContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitSpecialDateTime(s)
+	}
+}
+
+func (s *SpecialDateTimeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSpecialDateTime(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -115568,6 +120688,16 @@ func (s *WindowFunctionCallContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *WindowFunctionCallContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitWindowFunctionCall(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type InformationFunctionContext struct {
 	FunctionCallContext
 }
@@ -115611,6 +120741,16 @@ func (s *InformationFunctionContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *InformationFunctionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitInformationFunction(s)
+	}
+}
+
+func (s *InformationFunctionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitInformationFunction(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -115686,6 +120826,16 @@ func (s *TranslateFunctionCallContext) EnterRule(listener antlr.ParseTreeListene
 func (s *TranslateFunctionCallContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitTranslateFunctionCall(s)
+	}
+}
+
+func (s *TranslateFunctionCallContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitTranslateFunctionCall(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -115765,6 +120915,16 @@ func (s *GroupingOperationContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *GroupingOperationContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitGroupingOperation(s)
+	}
+}
+
+func (s *GroupingOperationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitGroupingOperation(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -116427,6 +121587,16 @@ func (s *AggregationFunctionContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *AggregationFunctionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAggregationFunction(s)
+	}
+}
+
+func (s *AggregationFunctionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAggregationFunction(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -117211,6 +122381,16 @@ func (s *UserVariableContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *UserVariableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitUserVariable(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) UserVariable() (localctx IUserVariableContext) {
 	localctx = NewUserVariableContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 864, StarRocksParserRULE_userVariable)
@@ -117347,6 +122527,16 @@ func (s *SystemVariableContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SystemVariableContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitSystemVariable(s)
+	}
+}
+
+func (s *SystemVariableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSystemVariable(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -117490,6 +122680,16 @@ func (s *ColumnReferenceContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ColumnReferenceContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitColumnReference(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ColumnReference() (localctx IColumnReferenceContext) {
 	localctx = NewColumnReferenceContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 868, StarRocksParserRULE_columnReference)
@@ -117620,6 +122820,16 @@ func (s *InformationFunctionExpressionContext) EnterRule(listener antlr.ParseTre
 func (s *InformationFunctionExpressionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitInformationFunctionExpression(s)
+	}
+}
+
+func (s *InformationFunctionExpressionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitInformationFunctionExpression(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -117988,6 +123198,16 @@ func (s *SpecialDateTimeExpressionContext) EnterRule(listener antlr.ParseTreeLis
 func (s *SpecialDateTimeExpressionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitSpecialDateTimeExpression(s)
+	}
+}
+
+func (s *SpecialDateTimeExpressionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSpecialDateTimeExpression(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -118473,6 +123693,16 @@ func (s *SpecialFunctionExpressionContext) EnterRule(listener antlr.ParseTreeLis
 func (s *SpecialFunctionExpressionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitSpecialFunctionExpression(s)
+	}
+}
+
+func (s *SpecialFunctionExpressionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSpecialFunctionExpression(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -119565,6 +124795,16 @@ func (s *WindowFunctionContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *WindowFunctionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitWindowFunction(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) WindowFunction() (localctx IWindowFunctionContext) {
 	localctx = NewWindowFunctionContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 876, StarRocksParserRULE_windowFunction)
@@ -120329,6 +125569,16 @@ func (s *WhenClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *WhenClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitWhenClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) WhenClause() (localctx IWhenClauseContext) {
 	localctx = NewWhenClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 878, StarRocksParserRULE_whenClause)
@@ -120609,6 +125859,16 @@ func (s *OverContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *OverContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitOver(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) Over() (localctx IOverContext) {
 	localctx = NewOverContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 880, StarRocksParserRULE_over)
@@ -120880,6 +126140,16 @@ func (s *IgnoreNullsContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *IgnoreNullsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitIgnoreNulls(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) IgnoreNulls() (localctx IIgnoreNullsContext) {
 	localctx = NewIgnoreNullsContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 882, StarRocksParserRULE_ignoreNulls)
@@ -121072,6 +126342,16 @@ func (s *WindowFrameContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *WindowFrameContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitWindowFrame(s)
+	}
+}
+
+func (s *WindowFrameContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitWindowFrame(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -121345,6 +126625,16 @@ func (s *BoundedFrameContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *BoundedFrameContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitBoundedFrame(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type UnboundedFrameContext struct {
 	FrameBoundContext
 	boundType antlr.Token
@@ -121392,6 +126682,16 @@ func (s *UnboundedFrameContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *UnboundedFrameContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitUnboundedFrame(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type CurrentRowBoundContext struct {
 	FrameBoundContext
 }
@@ -121427,6 +126727,16 @@ func (s *CurrentRowBoundContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *CurrentRowBoundContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitCurrentRowBound(s)
+	}
+}
+
+func (s *CurrentRowBoundContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitCurrentRowBound(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -121709,6 +127019,16 @@ func (s *BackupRestoreObjectDescContext) EnterRule(listener antlr.ParseTreeListe
 func (s *BackupRestoreObjectDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitBackupRestoreObjectDesc(s)
+	}
+}
+
+func (s *BackupRestoreObjectDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitBackupRestoreObjectDesc(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -122137,6 +127457,16 @@ func (s *TableDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *TableDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitTableDesc(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) TableDesc() (localctx ITableDescContext) {
 	localctx = NewTableDescContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 890, StarRocksParserRULE_tableDesc)
@@ -122293,6 +127623,16 @@ func (s *BackupRestoreTableDescContext) EnterRule(listener antlr.ParseTreeListen
 func (s *BackupRestoreTableDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitBackupRestoreTableDesc(s)
+	}
+}
+
+func (s *BackupRestoreTableDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitBackupRestoreTableDesc(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -122461,6 +127801,16 @@ func (s *ExplainDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ExplainDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitExplainDesc(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ExplainDesc() (localctx IExplainDescContext) {
 	localctx = NewExplainDescContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 894, StarRocksParserRULE_explainDesc)
@@ -122625,6 +127975,16 @@ func (s *OptimizerTraceContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *OptimizerTraceContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitOptimizerTrace(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) OptimizerTrace() (localctx IOptimizerTraceContext) {
 	localctx = NewOptimizerTraceContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 896, StarRocksParserRULE_optimizerTrace)
@@ -122774,6 +128134,16 @@ func (s *PartitionExprContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *PartitionExprContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitPartitionExpr(s)
+	}
+}
+
+func (s *PartitionExprContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitPartitionExpr(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -123080,6 +128450,16 @@ func (s *PartitionDescContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *PartitionDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitPartitionDesc(s)
+	}
+}
+
+func (s *PartitionDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitPartitionDesc(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -123693,6 +129073,16 @@ func (s *ListPartitionDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ListPartitionDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitListPartitionDesc(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ListPartitionDesc() (localctx IListPartitionDescContext) {
 	localctx = NewListPartitionDescContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 902, StarRocksParserRULE_listPartitionDesc)
@@ -123877,6 +129267,16 @@ func (s *SingleItemListPartitionDescContext) EnterRule(listener antlr.ParseTreeL
 func (s *SingleItemListPartitionDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitSingleItemListPartitionDesc(s)
+	}
+}
+
+func (s *SingleItemListPartitionDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSingleItemListPartitionDesc(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -124126,6 +129526,16 @@ func (s *MultiItemListPartitionDescContext) ExitRule(listener antlr.ParseTreeLis
 	}
 }
 
+func (s *MultiItemListPartitionDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitMultiItemListPartitionDesc(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) MultiItemListPartitionDesc() (localctx IMultiItemListPartitionDescContext) {
 	localctx = NewMultiItemListPartitionDescContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 906, StarRocksParserRULE_multiItemListPartitionDesc)
@@ -124334,6 +129744,16 @@ func (s *MultiListPartitionValuesContext) ExitRule(listener antlr.ParseTreeListe
 	}
 }
 
+func (s *MultiListPartitionValuesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitMultiListPartitionValues(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) MultiListPartitionValues() (localctx IMultiListPartitionValuesContext) {
 	localctx = NewMultiListPartitionValuesContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 908, StarRocksParserRULE_multiListPartitionValues)
@@ -124510,6 +129930,16 @@ func (s *SingleListPartitionValuesContext) ExitRule(listener antlr.ParseTreeList
 	}
 }
 
+func (s *SingleListPartitionValuesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSingleListPartitionValues(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) SingleListPartitionValues() (localctx ISingleListPartitionValuesContext) {
 	localctx = NewSingleListPartitionValuesContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 910, StarRocksParserRULE_singleListPartitionValues)
@@ -124677,6 +130107,16 @@ func (s *ListPartitionValuesContext) ExitRule(listener antlr.ParseTreeListener) 
 	}
 }
 
+func (s *ListPartitionValuesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitListPartitionValues(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ListPartitionValues() (localctx IListPartitionValuesContext) {
 	localctx = NewListPartitionValuesContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 912, StarRocksParserRULE_listPartitionValues)
@@ -124802,6 +130242,16 @@ func (s *ListPartitionValueContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *ListPartitionValueContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitListPartitionValue(s)
+	}
+}
+
+func (s *ListPartitionValueContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitListPartitionValue(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -124959,6 +130409,16 @@ func (s *StringListContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *StringListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitStringList(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) StringList() (localctx IStringListContext) {
 	localctx = NewStringListContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 916, StarRocksParserRULE_stringList)
@@ -125099,6 +130559,16 @@ func (s *IntegerListContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *IntegerListContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitIntegerList(s)
+	}
+}
+
+func (s *IntegerListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitIntegerList(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -125286,6 +130756,16 @@ func (s *LiteralExpressionListContext) ExitRule(listener antlr.ParseTreeListener
 	}
 }
 
+func (s *LiteralExpressionListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitLiteralExpressionList(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) LiteralExpressionList() (localctx ILiteralExpressionListContext) {
 	localctx = NewLiteralExpressionListContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 920, StarRocksParserRULE_literalExpressionList)
@@ -125450,6 +130930,16 @@ func (s *RangePartitionDescContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *RangePartitionDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitRangePartitionDesc(s)
+	}
+}
+
+func (s *RangePartitionDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRangePartitionDesc(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -125633,6 +131123,16 @@ func (s *SingleRangePartitionContext) EnterRule(listener antlr.ParseTreeListener
 func (s *SingleRangePartitionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitSingleRangePartition(s)
+	}
+}
+
+func (s *SingleRangePartitionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSingleRangePartition(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -125870,6 +131370,16 @@ func (s *MultiRangePartitionContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *MultiRangePartitionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitMultiRangePartition(s)
+	}
+}
+
+func (s *MultiRangePartitionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitMultiRangePartition(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -126196,6 +131706,16 @@ func (s *PartitionRangeDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *PartitionRangeDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitPartitionRangeDesc(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) PartitionRangeDesc() (localctx IPartitionRangeDescContext) {
 	localctx = NewPartitionRangeDescContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 928, StarRocksParserRULE_partitionRangeDesc)
@@ -126390,6 +131910,16 @@ func (s *PartitionKeyDescContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *PartitionKeyDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitPartitionKeyDesc(s)
+	}
+}
+
+func (s *PartitionKeyDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitPartitionKeyDesc(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -126610,6 +132140,16 @@ func (s *PartitionValueListContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *PartitionValueListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitPartitionValueList(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) PartitionValueList() (localctx IPartitionValueListContext) {
 	localctx = NewPartitionValueListContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 932, StarRocksParserRULE_partitionValueList)
@@ -126808,6 +132348,16 @@ func (s *KeyPartitionContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *KeyPartitionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitKeyPartition(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) KeyPartition() (localctx IKeyPartitionContext) {
 	localctx = NewKeyPartitionContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 934, StarRocksParserRULE_keyPartition)
@@ -126932,6 +132482,16 @@ func (s *PartitionValueContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *PartitionValueContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitPartitionValue(s)
+	}
+}
+
+func (s *PartitionValueContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitPartitionValue(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -127085,6 +132645,16 @@ func (s *DistributionClauseContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *DistributionClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDistributionClause(s)
+	}
+}
+
+func (s *DistributionClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDistributionClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -127314,6 +132884,16 @@ func (s *DistributionDescContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DistributionDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDistributionDesc(s)
+	}
+}
+
+func (s *DistributionDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDistributionDesc(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -127599,6 +133179,16 @@ func (s *AlterModifyDefaultBucketsContext) ExitRule(listener antlr.ParseTreeList
 	}
 }
 
+func (s *AlterModifyDefaultBucketsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAlterModifyDefaultBuckets(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) AlterModifyDefaultBuckets() (localctx IAlterModifyDefaultBucketsContext) {
 	localctx = NewAlterModifyDefaultBucketsContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 942, StarRocksParserRULE_alterModifyDefaultBuckets)
@@ -127805,6 +133395,16 @@ func (s *RefreshSchemeDescContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *RefreshSchemeDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitRefreshSchemeDesc(s)
+	}
+}
+
+func (s *RefreshSchemeDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitRefreshSchemeDesc(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -128048,6 +133648,16 @@ func (s *StatusDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *StatusDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitStatusDesc(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) StatusDesc() (localctx IStatusDescContext) {
 	localctx = NewStatusDescContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 946, StarRocksParserRULE_statusDesc)
@@ -128189,6 +133799,16 @@ func (s *PropertiesContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *PropertiesContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitProperties(s)
+	}
+}
+
+func (s *PropertiesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitProperties(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -128355,6 +133975,16 @@ func (s *ExtPropertiesContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ExtPropertiesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitExtProperties(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ExtProperties() (localctx IExtPropertiesContext) {
 	localctx = NewExtPropertiesContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 950, StarRocksParserRULE_extProperties)
@@ -128490,6 +134120,16 @@ func (s *PropertyListContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *PropertyListContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitPropertyList(s)
+	}
+}
+
+func (s *PropertyListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitPropertyList(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -128666,6 +134306,16 @@ func (s *UserPropertyListContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *UserPropertyListContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitUserPropertyList(s)
+	}
+}
+
+func (s *UserPropertyListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitUserPropertyList(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -128856,6 +134506,16 @@ func (s *PropertyContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *PropertyContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitProperty(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) Property() (localctx IPropertyContext) {
 	localctx = NewPropertyContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 956, StarRocksParserRULE_property)
@@ -129001,6 +134661,16 @@ func (s *InlinePropertiesContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *InlinePropertiesContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitInlineProperties(s)
+	}
+}
+
+func (s *InlinePropertiesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitInlineProperties(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -129174,6 +134844,16 @@ func (s *InlinePropertyContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *InlinePropertyContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitInlineProperty(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) InlineProperty() (localctx IInlinePropertyContext) {
 	localctx = NewInlinePropertyContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 960, StarRocksParserRULE_inlineProperty)
@@ -129299,6 +134979,16 @@ func (s *VarTypeContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *VarTypeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitVarType(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) VarType() (localctx IVarTypeContext) {
 	localctx = NewVarTypeContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 962, StarRocksParserRULE_varType)
@@ -129414,6 +135104,16 @@ func (s *CommentContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *CommentContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitComment(s)
+	}
+}
+
+func (s *CommentContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitComment(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -129581,6 +135281,16 @@ func (s *OutfileContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *OutfileContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitOutfile(s)
+	}
+}
+
+func (s *OutfileContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitOutfile(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -129764,6 +135474,16 @@ func (s *FileFormatContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *FileFormatContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitFileFormat(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) FileFormat() (localctx IFileFormatContext) {
 	localctx = NewFileFormatContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 968, StarRocksParserRULE_fileFormat)
@@ -129896,6 +135616,16 @@ func (s *StringContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *StringContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitString(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) String_() (localctx IStringContext) {
 	localctx = NewStringContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 970, StarRocksParserRULE_string)
@@ -129999,6 +135729,16 @@ func (s *BinaryContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *BinaryContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitBinary(s)
+	}
+}
+
+func (s *BinaryContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitBinary(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -130133,6 +135873,16 @@ func (s *ComparisonOperatorContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ComparisonOperatorContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitComparisonOperator(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) ComparisonOperator() (localctx IComparisonOperatorContext) {
 	localctx = NewComparisonOperatorContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 974, StarRocksParserRULE_comparisonOperator)
@@ -130236,6 +135986,16 @@ func (s *BooleanValueContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *BooleanValueContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitBooleanValue(s)
+	}
+}
+
+func (s *BooleanValueContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitBooleanValue(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -130393,6 +136153,16 @@ func (s *IntervalContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *IntervalContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitInterval(s)
+	}
+}
+
+func (s *IntervalContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitInterval(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -130562,6 +136332,16 @@ func (s *TaskIntervalContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *TaskIntervalContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitTaskInterval(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) TaskInterval() (localctx ITaskIntervalContext) {
 	localctx = NewTaskIntervalContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 980, StarRocksParserRULE_taskInterval)
@@ -130684,6 +136464,16 @@ func (s *TaskUnitIdentifierContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *TaskUnitIdentifierContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitTaskUnitIdentifier(s)
+	}
+}
+
+func (s *TaskUnitIdentifierContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitTaskUnitIdentifier(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -130833,6 +136623,16 @@ func (s *UnitIdentifierContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *UnitIdentifierContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitUnitIdentifier(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) UnitIdentifier() (localctx IUnitIdentifierContext) {
 	localctx = NewUnitIdentifierContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 984, StarRocksParserRULE_unitIdentifier)
@@ -130936,6 +136736,16 @@ func (s *UnitBoundaryContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *UnitBoundaryContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitUnitBoundary(s)
+	}
+}
+
+func (s *UnitBoundaryContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitUnitBoundary(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -131120,6 +136930,16 @@ func (s *TypeContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *TypeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitType(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) Type_() (localctx ITypeContext) {
 	localctx = NewTypeContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 988, StarRocksParserRULE_type)
@@ -131277,6 +137097,16 @@ func (s *ArrayTypeContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ArrayTypeContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitArrayType(s)
+	}
+}
+
+func (s *ArrayTypeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitArrayType(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -131446,6 +137276,16 @@ func (s *MapTypeContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *MapTypeContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitMapType(s)
+	}
+}
+
+func (s *MapTypeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitMapType(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -131623,6 +137463,16 @@ func (s *SubfieldDescContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SubfieldDescContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSubfieldDesc(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) SubfieldDesc() (localctx ISubfieldDescContext) {
 	localctx = NewSubfieldDescContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 994, StarRocksParserRULE_subfieldDesc)
@@ -131775,6 +137625,16 @@ func (s *SubfieldDescsContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SubfieldDescsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitSubfieldDescs(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) SubfieldDescs() (localctx ISubfieldDescsContext) {
 	localctx = NewSubfieldDescsContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 996, StarRocksParserRULE_subfieldDescs)
@@ -131924,6 +137784,16 @@ func (s *StructTypeContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *StructTypeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitStructType(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) StructType() (localctx IStructTypeContext) {
 	localctx = NewStructTypeContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 998, StarRocksParserRULE_structType)
@@ -132037,6 +137907,16 @@ func (s *TypeParameterContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *TypeParameterContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitTypeParameter(s)
+	}
+}
+
+func (s *TypeParameterContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitTypeParameter(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -132281,6 +138161,16 @@ func (s *BaseTypeContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *BaseTypeContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitBaseType(s)
+	}
+}
+
+func (s *BaseTypeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitBaseType(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -132943,6 +138833,16 @@ func (s *DecimalTypeContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DecimalTypeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDecimalType(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) DecimalType() (localctx IDecimalTypeContext) {
 	localctx = NewDecimalTypeContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 1004, StarRocksParserRULE_decimalType)
@@ -133158,6 +139058,16 @@ func (s *QualifiedNameContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *QualifiedNameContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitQualifiedName(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) QualifiedName() (localctx IQualifiedNameContext) {
 	localctx = NewQualifiedNameContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 1006, StarRocksParserRULE_qualifiedName)
@@ -133322,6 +139232,16 @@ func (s *TableNameContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *TableNameContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitTableName(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) TableName() (localctx ITableNameContext) {
 	localctx = NewTableNameContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 1008, StarRocksParserRULE_tableName)
@@ -133443,6 +139363,16 @@ func (s *WriteBranchContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *WriteBranchContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitWriteBranch(s)
+	}
+}
+
+func (s *WriteBranchContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitWriteBranch(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -133600,6 +139530,16 @@ func (s *BackQuotedIdentifierContext) ExitRule(listener antlr.ParseTreeListener)
 	}
 }
 
+func (s *BackQuotedIdentifierContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitBackQuotedIdentifier(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type DigitIdentifierContext struct {
 	IdentifierContext
 }
@@ -133631,6 +139571,16 @@ func (s *DigitIdentifierContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DigitIdentifierContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDigitIdentifier(s)
+	}
+}
+
+func (s *DigitIdentifierContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDigitIdentifier(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -133681,6 +139631,16 @@ func (s *UnquotedIdentifierContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *UnquotedIdentifierContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitUnquotedIdentifier(s)
+	}
+}
+
+func (s *UnquotedIdentifierContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitUnquotedIdentifier(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -133891,6 +139851,16 @@ func (s *IdentifierWithAliasContext) ExitRule(listener antlr.ParseTreeListener) 
 	}
 }
 
+func (s *IdentifierWithAliasContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitIdentifierWithAlias(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) IdentifierWithAlias() (localctx IIdentifierWithAliasContext) {
 	localctx = NewIdentifierWithAliasContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 1014, StarRocksParserRULE_identifierWithAlias)
@@ -134048,6 +140018,16 @@ func (s *IdentifierWithAliasListContext) EnterRule(listener antlr.ParseTreeListe
 func (s *IdentifierWithAliasListContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitIdentifierWithAliasList(s)
+	}
+}
+
+func (s *IdentifierWithAliasListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitIdentifierWithAliasList(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -134227,6 +140207,16 @@ func (s *IdentifierListContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *IdentifierListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitIdentifierList(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) IdentifierList() (localctx IIdentifierListContext) {
 	localctx = NewIdentifierListContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 1018, StarRocksParserRULE_identifierList)
@@ -134394,6 +140384,16 @@ func (s *IdentifierOrStringContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *IdentifierOrStringContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitIdentifierOrString(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) IdentifierOrString() (localctx IIdentifierOrStringContext) {
 	localctx = NewIdentifierOrStringContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 1020, StarRocksParserRULE_identifierOrString)
@@ -134541,6 +140541,16 @@ func (s *IdentifierOrStringListContext) EnterRule(listener antlr.ParseTreeListen
 func (s *IdentifierOrStringListContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitIdentifierOrStringList(s)
+	}
+}
+
+func (s *IdentifierOrStringListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitIdentifierOrStringList(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -134697,6 +140707,16 @@ func (s *IdentifierOrStringOrStarContext) EnterRule(listener antlr.ParseTreeList
 func (s *IdentifierOrStringOrStarContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitIdentifierOrStringOrStar(s)
+	}
+}
+
+func (s *IdentifierOrStringOrStarContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitIdentifierOrStringOrStar(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -134882,6 +140902,16 @@ func (s *UserWithHostAndBlanketContext) ExitRule(listener antlr.ParseTreeListene
 	}
 }
 
+func (s *UserWithHostAndBlanketContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitUserWithHostAndBlanket(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type UserWithHostContext struct {
 	UserContext
 }
@@ -134957,6 +140987,16 @@ func (s *UserWithHostContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *UserWithHostContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitUserWithHost(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type UserWithoutHostContext struct {
 	UserContext
 }
@@ -135000,6 +141040,16 @@ func (s *UserWithoutHostContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *UserWithoutHostContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitUserWithoutHost(s)
+	}
+}
+
+func (s *UserWithoutHostContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitUserWithoutHost(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -135198,6 +141248,16 @@ func (s *AssignmentContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *AssignmentContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAssignment(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *StarRocksParser) Assignment() (localctx IAssignmentContext) {
 	localctx = NewAssignmentContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 1028, StarRocksParserRULE_assignment)
@@ -135337,6 +141397,16 @@ func (s *AssignmentListContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *AssignmentListContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitAssignmentList(s)
+	}
+}
+
+func (s *AssignmentListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitAssignmentList(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -135480,6 +141550,16 @@ func (s *DecimalValueContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DecimalValueContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDecimalValue(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type IntegerValueContext struct {
 	NumberContext
 }
@@ -135514,6 +141594,16 @@ func (s *IntegerValueContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *IntegerValueContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitIntegerValue(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type DoubleValueContext struct {
 	NumberContext
 }
@@ -135545,6 +141635,16 @@ func (s *DoubleValueContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DoubleValueContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitDoubleValue(s)
+	}
+}
+
+func (s *DoubleValueContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitDoubleValue(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -137299,6 +143399,16 @@ func (s *NonReservedContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *NonReservedContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(StarRocksListener); ok {
 		listenerT.ExitNonReserved(s)
+	}
+}
+
+func (s *NonReservedContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case StarRocksVisitor:
+		return t.VisitNonReserved(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 

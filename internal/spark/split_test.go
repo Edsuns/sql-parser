@@ -49,12 +49,12 @@ func TestSplitSQL(t *testing.T) {
 		{
 			name: "statements with indentation and newlines",
 			sql: `SELECT
-    col1,
-    col2
+    col20,
+    col21
 FROM
     table1
 WHERE
-    col1 > 10;
+    col20 > 10;
 
 SELECT
     col3
@@ -62,12 +62,12 @@ FROM
     table2;`,
 			expected: []string{
 				`SELECT
-    col1,
-    col2
+    col20,
+    col21
 FROM
     table1
 WHERE
-    col1 > 10;`,
+    col20 > 10;`,
 				`SELECT
     col3
 FROM
@@ -77,97 +77,97 @@ FROM
 		{
 			name: "statement with multiple CTEs",
 			sql: `WITH 
-   -- 第一个CTE：过滤出2023年的订单 
-   orders_2023 AS ( 
-     SELECT 
-       order_id, 
-       customer_id, 
-       order_date, 
-       total_amount 
-     FROM orders 
-     WHERE YEAR(order_date) = 2023 
-   ), 
- 
-   -- 第二个CTE：计算每个客户的总消费金额 
-   customer_spending AS ( 
-     SELECT 
-       customer_id, 
-       SUM(total_amount) AS total_spent, 
-       COUNT(order_id) AS order_count 
-     FROM orders_2023 
-     GROUP BY customer_id 
-   ), 
- 
-   -- 第三个CTE：标记高价值客户 
-   high_value_customers AS ( 
-     SELECT 
-       customer_id, 
-       total_spent, 
-       order_count, 
-       CASE 
-         WHEN total_spent > 10000 THEN '钻石客户' 
-         WHEN total_spent > 5000 THEN '黄金客户' 
-         ELSE '普通客户' 
-       END AS customer_segment 
-     FROM customer_spending 
-   ) 
- 
- -- 主查询：最终输出 
- SELECT 
-   hvc.customer_segment, 
-   COUNT(DISTINCT hvc.customer_id) AS customer_count, 
-   AVG(hvc.total_spent) AS avg_spent, 
-   SUM(hvc.total_spent) AS segment_total 
- FROM high_value_customers hvc 
- WHERE hvc.order_count >= 2 
- GROUP BY hvc.customer_segment 
- ORDER BY segment_total DESC;`,
+  -- 标识1：描述1 
+  cte2 AS ( 
+    SELECT 
+      col10, 
+      col11, 
+      col12, 
+      col13 
+    FROM table17 
+    WHERE YEAR(col12) = 2023 
+  ), 
+
+  -- 标识2：描述2 
+  cte3 AS ( 
+    SELECT 
+      col11, 
+      SUM(col13) AS col14, 
+      COUNT(col10) AS col15 
+    FROM cte2 
+    GROUP BY col11 
+  ), 
+
+  -- 标识3：描述3 
+  cte4 AS ( 
+    SELECT 
+      col11, 
+      col14, 
+      col15, 
+      CASE 
+        WHEN col14 > 10000 THEN '名称1' 
+        WHEN col14 > 5000 THEN '名称2' 
+        ELSE '名称3' 
+      END AS col16 
+    FROM cte3 
+  ) 
+
+-- 描述4 
+SELECT 
+  t1.col16, 
+  COUNT(DISTINCT t1.col11) AS col17, 
+  AVG(t1.col14) AS col18, 
+  SUM(t1.col14) AS col19 
+FROM cte4 t1 
+WHERE t1.col15 >= 2 
+GROUP BY t1.col16 
+ORDER BY col19 DESC;`,
 			expected: []string{`WITH 
-   -- 第一个CTE：过滤出2023年的订单 
-   orders_2023 AS ( 
-     SELECT 
-       order_id, 
-       customer_id, 
-       order_date, 
-       total_amount 
-     FROM orders 
-     WHERE YEAR(order_date) = 2023 
-   ), 
- 
-   -- 第二个CTE：计算每个客户的总消费金额 
-   customer_spending AS ( 
-     SELECT 
-       customer_id, 
-       SUM(total_amount) AS total_spent, 
-       COUNT(order_id) AS order_count 
-     FROM orders_2023 
-     GROUP BY customer_id 
-   ), 
- 
-   -- 第三个CTE：标记高价值客户 
-   high_value_customers AS ( 
-     SELECT 
-       customer_id, 
-       total_spent, 
-       order_count, 
-       CASE 
-         WHEN total_spent > 10000 THEN '钻石客户' 
-         WHEN total_spent > 5000 THEN '黄金客户' 
-         ELSE '普通客户' 
-       END AS customer_segment 
-     FROM customer_spending 
-   ) 
- 
- -- 主查询：最终输出 
- SELECT 
-   hvc.customer_segment, 
-   COUNT(DISTINCT hvc.customer_id) AS customer_count, 
-   AVG(hvc.total_spent) AS avg_spent, 
-   SUM(hvc.total_spent) AS segment_total 
- FROM high_value_customers hvc 
- WHERE hvc.order_count >= 2 
- GROUP BY hvc.customer_segment 
- ORDER BY segment_total DESC;`},
+  -- 标识1：描述1 
+  cte2 AS ( 
+    SELECT 
+      col10, 
+      col11, 
+      col12, 
+      col13 
+    FROM table17 
+    WHERE YEAR(col12) = 2023 
+  ), 
+
+  -- 标识2：描述2 
+  cte3 AS ( 
+    SELECT 
+      col11, 
+      SUM(col13) AS col14, 
+      COUNT(col10) AS col15 
+    FROM cte2 
+    GROUP BY col11 
+  ), 
+
+  -- 标识3：描述3 
+  cte4 AS ( 
+    SELECT 
+      col11, 
+      col14, 
+      col15, 
+      CASE 
+        WHEN col14 > 10000 THEN '名称1' 
+        WHEN col14 > 5000 THEN '名称2' 
+        ELSE '名称3' 
+      END AS col16 
+    FROM cte3 
+  ) 
+
+-- 描述4 
+SELECT 
+  t1.col16, 
+  COUNT(DISTINCT t1.col11) AS col17, 
+  AVG(t1.col14) AS col18, 
+  SUM(t1.col14) AS col19 
+FROM cte4 t1 
+WHERE t1.col15 >= 2 
+GROUP BY t1.col16 
+ORDER BY col19 DESC;`},
 		},
 		{
 			name:     "statement with semicolon in string",

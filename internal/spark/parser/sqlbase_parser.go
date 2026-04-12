@@ -3755,6 +3755,16 @@ func (s *CompoundOrSingleStatementContext) ExitRule(listener antlr.ParseTreeList
 	}
 }
 
+func (s *CompoundOrSingleStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCompoundOrSingleStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) CompoundOrSingleStatement() (localctx ICompoundOrSingleStatementContext) {
 	localctx = NewCompoundOrSingleStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 0, SqlBaseParserRULE_compoundOrSingleStatement)
@@ -3906,6 +3916,16 @@ func (s *SingleCompoundStatementContext) EnterRule(listener antlr.ParseTreeListe
 func (s *SingleCompoundStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSingleCompoundStatement(s)
+	}
+}
+
+func (s *SingleCompoundStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSingleCompoundStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -4140,6 +4160,16 @@ func (s *BeginEndCompoundBlockContext) EnterRule(listener antlr.ParseTreeListene
 func (s *BeginEndCompoundBlockContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitBeginEndCompoundBlock(s)
+	}
+}
+
+func (s *BeginEndCompoundBlockContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitBeginEndCompoundBlock(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -4382,6 +4412,16 @@ func (s *CompoundBodyContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *CompoundBodyContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitCompoundBody(s)
+	}
+}
+
+func (s *CompoundBodyContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCompoundBody(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -4729,6 +4769,16 @@ func (s *CompoundStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CompoundStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCompoundStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) CompoundStatement() (localctx ICompoundStatementContext) {
 	localctx = NewCompoundStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 8, SqlBaseParserRULE_compoundStatement)
@@ -5003,6 +5053,16 @@ func (s *SetVariableInsideSqlScriptContext) ExitRule(listener antlr.ParseTreeLis
 	}
 }
 
+func (s *SetVariableInsideSqlScriptContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSetVariableInsideSqlScript(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) SetStatementInsideSqlScript() (localctx ISetStatementInsideSqlScriptContext) {
 	localctx = NewSetStatementInsideSqlScriptContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 10, SqlBaseParserRULE_setStatementInsideSqlScript)
@@ -5188,6 +5248,16 @@ func (s *SqlStateValueContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SqlStateValueContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSqlStateValue(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) SqlStateValue() (localctx ISqlStateValueContext) {
 	localctx = NewSqlStateValueContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 12, SqlBaseParserRULE_sqlStateValue)
@@ -5331,6 +5401,16 @@ func (s *DeclareConditionStatementContext) EnterRule(listener antlr.ParseTreeLis
 func (s *DeclareConditionStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitDeclareConditionStatement(s)
+	}
+}
+
+func (s *DeclareConditionStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitDeclareConditionStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -5541,6 +5621,16 @@ func (s *ConditionValueContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ConditionValueContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitConditionValue(s)
+	}
+}
+
+func (s *ConditionValueContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitConditionValue(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -5781,6 +5871,16 @@ func (s *ConditionValuesContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ConditionValuesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitConditionValues(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) ConditionValues() (localctx IConditionValuesContext) {
 	localctx = NewConditionValuesContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 18, SqlBaseParserRULE_conditionValues)
@@ -6003,6 +6103,16 @@ func (s *DeclareHandlerStatementContext) EnterRule(listener antlr.ParseTreeListe
 func (s *DeclareHandlerStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitDeclareHandlerStatement(s)
+	}
+}
+
+func (s *DeclareHandlerStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitDeclareHandlerStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -6243,6 +6353,16 @@ func (s *WhileStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *WhileStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitWhileStatement(s)
+	}
+}
+
+func (s *WhileStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitWhileStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -6556,6 +6676,16 @@ func (s *IfElseStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *IfElseStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitIfElseStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) IfElseStatement() (localctx IIfElseStatementContext) {
 	localctx = NewIfElseStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 24, SqlBaseParserRULE_ifElseStatement)
@@ -6842,6 +6972,16 @@ func (s *RepeatStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *RepeatStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitRepeatStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) RepeatStatement() (localctx IRepeatStatementContext) {
 	localctx = NewRepeatStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 26, SqlBaseParserRULE_repeatStatement)
@@ -7011,6 +7151,16 @@ func (s *LeaveStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *LeaveStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitLeaveStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) LeaveStatement() (localctx ILeaveStatementContext) {
 	localctx = NewLeaveStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 28, SqlBaseParserRULE_leaveStatement)
@@ -7125,6 +7275,16 @@ func (s *IterateStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *IterateStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitIterateStatement(s)
+	}
+}
+
+func (s *IterateStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitIterateStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -7394,6 +7554,16 @@ func (s *SimpleCaseStatementContext) ExitRule(listener antlr.ParseTreeListener) 
 	}
 }
 
+func (s *SimpleCaseStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSimpleCaseStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type SearchedCaseStatementContext struct {
 	CaseStatementContext
 	_booleanExpression IBooleanExpressionContext
@@ -7572,6 +7742,16 @@ func (s *SearchedCaseStatementContext) EnterRule(listener antlr.ParseTreeListene
 func (s *SearchedCaseStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSearchedCaseStatement(s)
+	}
+}
+
+func (s *SearchedCaseStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSearchedCaseStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -7944,6 +8124,16 @@ func (s *LoopStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *LoopStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitLoopStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) LoopStatement() (localctx ILoopStatementContext) {
 	localctx = NewLoopStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 34, SqlBaseParserRULE_loopStatement)
@@ -8189,6 +8379,16 @@ func (s *ForStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ForStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitForStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) ForStatement() (localctx IForStatementContext) {
 	localctx = NewForStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 36, SqlBaseParserRULE_forStatement)
@@ -8405,6 +8605,16 @@ func (s *SingleStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SingleStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSingleStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) SingleStatement() (localctx ISingleStatementContext) {
 	localctx = NewSingleStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 38, SqlBaseParserRULE_singleStatement)
@@ -8566,6 +8776,16 @@ func (s *BeginLabelContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *BeginLabelContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitBeginLabel(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) BeginLabel() (localctx IBeginLabelContext) {
 	localctx = NewBeginLabelContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 40, SqlBaseParserRULE_beginLabel)
@@ -8678,6 +8898,16 @@ func (s *EndLabelContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *EndLabelContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitEndLabel(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) EndLabel() (localctx IEndLabelContext) {
 	localctx = NewEndLabelContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 42, SqlBaseParserRULE_endLabel)
@@ -8784,6 +9014,16 @@ func (s *SingleExpressionContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SingleExpressionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSingleExpression(s)
+	}
+}
+
+func (s *SingleExpressionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSingleExpression(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -8904,6 +9144,16 @@ func (s *SingleTableIdentifierContext) ExitRule(listener antlr.ParseTreeListener
 	}
 }
 
+func (s *SingleTableIdentifierContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSingleTableIdentifier(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) SingleTableIdentifier() (localctx ISingleTableIdentifierContext) {
 	localctx = NewSingleTableIdentifierContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 46, SqlBaseParserRULE_singleTableIdentifier)
@@ -9018,6 +9268,16 @@ func (s *SingleMultipartIdentifierContext) EnterRule(listener antlr.ParseTreeLis
 func (s *SingleMultipartIdentifierContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSingleMultipartIdentifier(s)
+	}
+}
+
+func (s *SingleMultipartIdentifierContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSingleMultipartIdentifier(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -9138,6 +9398,16 @@ func (s *SingleFunctionIdentifierContext) ExitRule(listener antlr.ParseTreeListe
 	}
 }
 
+func (s *SingleFunctionIdentifierContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSingleFunctionIdentifier(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) SingleFunctionIdentifier() (localctx ISingleFunctionIdentifierContext) {
 	localctx = NewSingleFunctionIdentifierContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 50, SqlBaseParserRULE_singleFunctionIdentifier)
@@ -9252,6 +9522,16 @@ func (s *SingleDataTypeContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SingleDataTypeContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSingleDataType(s)
+	}
+}
+
+func (s *SingleDataTypeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSingleDataType(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -9372,6 +9652,16 @@ func (s *SingleTableSchemaContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SingleTableSchemaContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSingleTableSchema(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) SingleTableSchema() (localctx ISingleTableSchemaContext) {
 	localctx = NewSingleTableSchemaContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 54, SqlBaseParserRULE_singleTableSchema)
@@ -9486,6 +9776,16 @@ func (s *SingleRoutineParamListContext) EnterRule(listener antlr.ParseTreeListen
 func (s *SingleRoutineParamListContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSingleRoutineParamList(s)
+	}
+}
+
+func (s *SingleRoutineParamListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSingleRoutineParamList(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -9659,6 +9959,16 @@ func (s *ExplainContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ExplainContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitExplain(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type SetNamespaceCollationContext struct {
 	StatementContext
 }
@@ -9741,6 +10051,16 @@ func (s *SetNamespaceCollationContext) ExitRule(listener antlr.ParseTreeListener
 	}
 }
 
+func (s *SetNamespaceCollationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSetNamespaceCollation(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type AlterViewQueryContext struct {
 	StatementContext
 }
@@ -9812,6 +10132,16 @@ func (s *AlterViewQueryContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *AlterViewQueryContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitAlterViewQuery(s)
+	}
+}
+
+func (s *AlterViewQueryContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitAlterViewQuery(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -9893,6 +10223,16 @@ func (s *CreatePipelineInsertIntoFlowContext) ExitRule(listener antlr.ParseTreeL
 	}
 }
 
+func (s *CreatePipelineInsertIntoFlowContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCreatePipelineInsertIntoFlow(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type UseContext struct {
 	StatementContext
 }
@@ -9940,6 +10280,16 @@ func (s *UseContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *UseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitUse(s)
+	}
+}
+
+func (s *UseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitUse(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -10022,6 +10372,16 @@ func (s *DropNamespaceContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DropNamespaceContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitDropNamespace(s)
+	}
+}
+
+func (s *DropNamespaceContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitDropNamespace(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -10155,6 +10515,16 @@ func (s *CreateTempViewUsingContext) ExitRule(listener antlr.ParseTreeListener) 
 	}
 }
 
+func (s *CreateTempViewUsingContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCreateTempViewUsing(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ShowProceduresContext struct {
 	StatementContext
 }
@@ -10214,6 +10584,16 @@ func (s *ShowProceduresContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ShowProceduresContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitShowProcedures(s)
+	}
+}
+
+func (s *ShowProceduresContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitShowProcedures(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -10309,6 +10689,16 @@ func (s *RenameTableContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *RenameTableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitRenameTable(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type FailNativeCommandContext struct {
 	StatementContext
 }
@@ -10352,6 +10742,16 @@ func (s *FailNativeCommandContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *FailNativeCommandContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitFailNativeCommand(s)
+	}
+}
+
+func (s *FailNativeCommandContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitFailNativeCommand(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -10409,6 +10809,16 @@ func (s *SetCatalogContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SetCatalogContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSetCatalog(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ClearCacheContext struct {
 	StatementContext
 }
@@ -10444,6 +10854,16 @@ func (s *ClearCacheContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ClearCacheContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitClearCache(s)
+	}
+}
+
+func (s *ClearCacheContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitClearCache(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -10506,6 +10926,16 @@ func (s *DropViewContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DropViewContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitDropView(s)
+	}
+}
+
+func (s *DropViewContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitDropView(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -10596,6 +11026,16 @@ func (s *ShowTablesContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ShowTablesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitShowTables(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type RecoverPartitionsContext struct {
 	StatementContext
 }
@@ -10655,6 +11095,16 @@ func (s *RecoverPartitionsContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *RecoverPartitionsContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitRecoverPartitions(s)
+	}
+}
+
+func (s *RecoverPartitionsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitRecoverPartitions(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -10757,6 +11207,16 @@ func (s *DropTableConstraintContext) ExitRule(listener antlr.ParseTreeListener) 
 	}
 }
 
+func (s *DropTableConstraintContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitDropTableConstraint(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type DropIndexContext struct {
 	StatementContext
 }
@@ -10843,6 +11303,16 @@ func (s *DropIndexContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DropIndexContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitDropIndex(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ShowCatalogsContext struct {
 	StatementContext
 	pattern IStringLitContext
@@ -10906,6 +11376,16 @@ func (s *ShowCatalogsContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ShowCatalogsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitShowCatalogs(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ShowCurrentNamespaceContext struct {
 	StatementContext
 }
@@ -10957,6 +11437,16 @@ func (s *ShowCurrentNamespaceContext) EnterRule(listener antlr.ParseTreeListener
 func (s *ShowCurrentNamespaceContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitShowCurrentNamespace(s)
+	}
+}
+
+func (s *ShowCurrentNamespaceContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitShowCurrentNamespace(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -11073,6 +11563,16 @@ func (s *RenameTablePartitionContext) ExitRule(listener antlr.ParseTreeListener)
 	}
 }
 
+func (s *RenameTablePartitionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitRenameTablePartition(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type RepairTableContext struct {
 	StatementContext
 	option antlr.Token
@@ -11152,6 +11652,16 @@ func (s *RepairTableContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *RepairTableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitRepairTable(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type AddTableConstraintContext struct {
 	StatementContext
 }
@@ -11226,6 +11736,16 @@ func (s *AddTableConstraintContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *AddTableConstraintContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitAddTableConstraint(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type RefreshResourceContext struct {
 	StatementContext
 }
@@ -11273,6 +11793,16 @@ func (s *RefreshResourceContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *RefreshResourceContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitRefreshResource(s)
+	}
+}
+
+func (s *RefreshResourceContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitRefreshResource(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -11343,6 +11873,16 @@ func (s *AlterViewSchemaBindingContext) EnterRule(listener antlr.ParseTreeListen
 func (s *AlterViewSchemaBindingContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitAlterViewSchemaBinding(s)
+	}
+}
+
+func (s *AlterViewSchemaBindingContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitAlterViewSchemaBinding(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -11503,6 +12043,16 @@ func (s *CreateVariableContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CreateVariableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCreateVariable(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type CreatePipelineDatasetContext struct {
 	StatementContext
 }
@@ -11625,6 +12175,16 @@ func (s *CreatePipelineDatasetContext) ExitRule(listener antlr.ParseTreeListener
 	}
 }
 
+func (s *CreatePipelineDatasetContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCreatePipelineDataset(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ShowCreateTableContext struct {
 	StatementContext
 }
@@ -11688,6 +12248,16 @@ func (s *ShowCreateTableContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ShowCreateTableContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitShowCreateTable(s)
+	}
+}
+
+func (s *ShowCreateTableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitShowCreateTable(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -11790,6 +12360,16 @@ func (s *ShowNamespacesContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ShowNamespacesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitShowNamespaces(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ShowColumnsContext struct {
 	StatementContext
 	table IIdentifierReferenceContext
@@ -11883,6 +12463,16 @@ func (s *ShowColumnsContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ShowColumnsContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitShowColumns(s)
+	}
+}
+
+func (s *ShowColumnsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitShowColumns(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -12008,6 +12598,16 @@ func (s *ReplaceTableContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ReplaceTableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitReplaceTable(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type AnalyzeTablesContext struct {
 	StatementContext
 }
@@ -12091,6 +12691,16 @@ func (s *AnalyzeTablesContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *AnalyzeTablesContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitAnalyzeTables(s)
+	}
+}
+
+func (s *AnalyzeTablesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitAnalyzeTables(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -12185,6 +12795,16 @@ func (s *UnsetNamespacePropertiesContext) EnterRule(listener antlr.ParseTreeList
 func (s *UnsetNamespacePropertiesContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitUnsetNamespaceProperties(s)
+	}
+}
+
+func (s *UnsetNamespacePropertiesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitUnsetNamespaceProperties(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -12315,6 +12935,16 @@ func (s *AddTablePartitionContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *AddTablePartitionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitAddTablePartition(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type SetNamespaceLocationContext struct {
 	StatementContext
 }
@@ -12401,6 +13031,16 @@ func (s *SetNamespaceLocationContext) ExitRule(listener antlr.ParseTreeListener)
 	}
 }
 
+func (s *SetNamespaceLocationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSetNamespaceLocation(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type RefreshTableContext struct {
 	StatementContext
 }
@@ -12452,6 +13092,16 @@ func (s *RefreshTableContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *RefreshTableContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitRefreshTable(s)
+	}
+}
+
+func (s *RefreshTableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitRefreshTable(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -12522,6 +13172,16 @@ func (s *AlterTableCollationContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *AlterTableCollationContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitAlterTableCollation(s)
+	}
+}
+
+func (s *AlterTableCollationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitAlterTableCollation(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -12619,6 +13279,16 @@ func (s *SetNamespacePropertiesContext) ExitRule(listener antlr.ParseTreeListene
 	}
 }
 
+func (s *SetNamespacePropertiesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSetNamespaceProperties(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ManageResourceContext struct {
 	StatementContext
 	op antlr.Token
@@ -12675,6 +13345,16 @@ func (s *ManageResourceContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ManageResourceContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitManageResource(s)
+	}
+}
+
+func (s *ManageResourceContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitManageResource(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -12797,6 +13477,16 @@ func (s *AnalyzeContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *AnalyzeContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitAnalyze(s)
+	}
+}
+
+func (s *AnalyzeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitAnalyze(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -12968,6 +13658,16 @@ func (s *CreateFunctionContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CreateFunctionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCreateFunction(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type HiveReplaceColumnsContext struct {
 	StatementContext
 	table   IIdentifierReferenceContext
@@ -13084,6 +13784,16 @@ func (s *HiveReplaceColumnsContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *HiveReplaceColumnsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitHiveReplaceColumns(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type CommentNamespaceContext struct {
 	StatementContext
 }
@@ -13171,6 +13881,16 @@ func (s *CommentNamespaceContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *CommentNamespaceContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitCommentNamespace(s)
+	}
+}
+
+func (s *CommentNamespaceContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCommentNamespace(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -13296,6 +14016,16 @@ func (s *CreateTableContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CreateTableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCreateTable(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type DmlStatementContext struct {
 	StatementContext
 }
@@ -13355,6 +14085,16 @@ func (s *DmlStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DmlStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitDmlStatement(s)
+	}
+}
+
+func (s *DmlStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitDmlStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -13693,6 +14433,16 @@ func (s *CreateTableLikeContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CreateTableLikeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCreateTableLike(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type UncacheTableContext struct {
 	StatementContext
 }
@@ -13752,6 +14502,16 @@ func (s *UncacheTableContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *UncacheTableContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitUncacheTable(s)
+	}
+}
+
+func (s *UncacheTableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitUncacheTable(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -13818,6 +14578,16 @@ func (s *DropFunctionContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DropFunctionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitDropFunction(s)
+	}
+}
+
+func (s *DropFunctionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitDropFunction(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -13932,6 +14702,16 @@ func (s *DescribeRelationContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DescribeRelationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitDescribeRelation(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type LoadDataContext struct {
 	StatementContext
 	path IStringLitContext
@@ -14043,6 +14823,16 @@ func (s *LoadDataContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *LoadDataContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitLoadData(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ShowPartitionsContext struct {
 	StatementContext
 }
@@ -14113,6 +14903,16 @@ func (s *ShowPartitionsContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ShowPartitionsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitShowPartitions(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type DescribeFunctionContext struct {
 	StatementContext
 }
@@ -14172,6 +14972,16 @@ func (s *DescribeFunctionContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DescribeFunctionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitDescribeFunction(s)
+	}
+}
+
+func (s *DescribeFunctionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitDescribeFunction(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -14285,6 +15095,16 @@ func (s *RenameTableColumnContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *RenameTableColumnContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitRenameTableColumn(s)
+	}
+}
+
+func (s *RenameTableColumnContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitRenameTableColumn(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -14518,6 +15338,16 @@ func (s *CreateUserDefinedFunctionContext) ExitRule(listener antlr.ParseTreeList
 	}
 }
 
+func (s *CreateUserDefinedFunctionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCreateUserDefinedFunction(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type StatementDefaultContext struct {
 	StatementContext
 }
@@ -14561,6 +15391,16 @@ func (s *StatementDefaultContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *StatementDefaultContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitStatementDefault(s)
+	}
+}
+
+func (s *StatementDefaultContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitStatementDefault(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -14643,6 +15483,16 @@ func (s *AlterClusterByContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *AlterClusterByContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitAlterClusterBy(s)
+	}
+}
+
+func (s *AlterClusterByContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitAlterClusterBy(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -14782,6 +15632,16 @@ func (s *HiveChangeColumnContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *HiveChangeColumnContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitHiveChangeColumn(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type DescribeQueryContext struct {
 	StatementContext
 }
@@ -14837,6 +15697,16 @@ func (s *DescribeQueryContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DescribeQueryContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitDescribeQuery(s)
+	}
+}
+
+func (s *DescribeQueryContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitDescribeQuery(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -14907,6 +15777,16 @@ func (s *TruncateTableContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *TruncateTableContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitTruncateTable(s)
+	}
+}
+
+func (s *TruncateTableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitTruncateTable(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -15025,6 +15905,16 @@ func (s *SetTableSerDeContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SetTableSerDeContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSetTableSerDe(s)
+	}
+}
+
+func (s *SetTableSerDeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSetTableSerDe(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -15387,6 +16277,16 @@ func (s *CreateViewContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CreateViewContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCreateView(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type DropTablePartitionsContext struct {
 	StatementContext
 }
@@ -15510,6 +16410,16 @@ func (s *DropTablePartitionsContext) ExitRule(listener antlr.ParseTreeListener) 
 	}
 }
 
+func (s *DropTablePartitionsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitDropTablePartitions(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type DropTableContext struct {
 	StatementContext
 }
@@ -15573,6 +16483,16 @@ func (s *DropTableContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DropTableContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitDropTable(s)
+	}
+}
+
+func (s *DropTableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitDropTable(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -15688,6 +16608,16 @@ func (s *ShowTableExtendedContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ShowTableExtendedContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitShowTableExtended(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type DescribeNamespaceContext struct {
 	StatementContext
 }
@@ -15759,6 +16689,16 @@ func (s *DescribeNamespaceContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DescribeNamespaceContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitDescribeNamespace(s)
+	}
+}
+
+func (s *DescribeNamespaceContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitDescribeNamespace(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -15854,6 +16794,16 @@ func (s *AlterTableAlterColumnContext) ExitRule(listener antlr.ParseTreeListener
 	}
 }
 
+func (s *AlterTableAlterColumnContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitAlterTableAlterColumn(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type RefreshFunctionContext struct {
 	StatementContext
 }
@@ -15905,6 +16855,16 @@ func (s *RefreshFunctionContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *RefreshFunctionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitRefreshFunction(s)
+	}
+}
+
+func (s *RefreshFunctionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitRefreshFunction(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -15986,6 +16946,16 @@ func (s *CommentTableContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CommentTableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCommentTable(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type DescribeProcedureContext struct {
 	StatementContext
 }
@@ -16041,6 +17011,16 @@ func (s *DescribeProcedureContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DescribeProcedureContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitDescribeProcedure(s)
+	}
+}
+
+func (s *DescribeProcedureContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitDescribeProcedure(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -16234,6 +17214,16 @@ func (s *CreateIndexContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CreateIndexContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCreateIndex(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type UseNamespaceContext struct {
 	StatementContext
 }
@@ -16297,6 +17287,16 @@ func (s *UseNamespaceContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *UseNamespaceContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitUseNamespace(s)
+	}
+}
+
+func (s *UseNamespaceContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitUseNamespace(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -16375,6 +17375,16 @@ func (s *DropVariableContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DropVariableContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitDropVariable(s)
+	}
+}
+
+func (s *DropVariableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitDropVariable(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -16656,6 +17666,16 @@ func (s *CreateNamespaceContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CreateNamespaceContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCreateNamespace(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type CallContext struct {
 	StatementContext
 }
@@ -16763,6 +17783,16 @@ func (s *CallContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CallContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCall(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ShowTblPropertiesContext struct {
 	StatementContext
 	table IIdentifierReferenceContext
@@ -16851,6 +17881,16 @@ func (s *ShowTblPropertiesContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ShowTblPropertiesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitShowTblProperties(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type VisitExecuteImmediateContext struct {
 	StatementContext
 }
@@ -16894,6 +17934,16 @@ func (s *VisitExecuteImmediateContext) EnterRule(listener antlr.ParseTreeListene
 func (s *VisitExecuteImmediateContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitVisitExecuteImmediate(s)
+	}
+}
+
+func (s *VisitExecuteImmediateContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitVisitExecuteImmediate(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -16987,6 +18037,16 @@ func (s *UnsetTablePropertiesContext) ExitRule(listener antlr.ParseTreeListener)
 	}
 }
 
+func (s *UnsetTablePropertiesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitUnsetTableProperties(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type SetTableLocationContext struct {
 	StatementContext
 }
@@ -17074,6 +18134,16 @@ func (s *SetTableLocationContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SetTableLocationContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSetTableLocation(s)
+	}
+}
+
+func (s *SetTableLocationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSetTableLocation(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -17180,6 +18250,16 @@ func (s *DropTableColumnsContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DropTableColumnsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitDropTableColumns(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ShowViewsContext struct {
 	StatementContext
 	pattern IStringLitContext
@@ -17264,6 +18344,16 @@ func (s *ShowViewsContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ShowViewsContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitShowViews(s)
+	}
+}
+
+func (s *ShowViewsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitShowViews(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -17401,6 +18491,16 @@ func (s *ShowFunctionsContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ShowFunctionsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitShowFunctions(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type CacheTableContext struct {
 	StatementContext
 	options IPropertyListContext
@@ -17504,6 +18604,16 @@ func (s *CacheTableContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CacheTableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCacheTable(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type AddTableColumnsContext struct {
 	StatementContext
 	columns IQualifiedColTypeWithPositionListContext
@@ -17603,6 +18713,16 @@ func (s *AddTableColumnsContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *AddTableColumnsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitAddTableColumns(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type SetTablePropertiesContext struct {
 	StatementContext
 }
@@ -17682,6 +18802,16 @@ func (s *SetTablePropertiesContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *SetTablePropertiesContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSetTableProperties(s)
+	}
+}
+
+func (s *SetTablePropertiesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSetTableProperties(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -23473,6 +24603,16 @@ func (s *MaterializedViewContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *MaterializedViewContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitMaterializedView(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) MaterializedView() (localctx IMaterializedViewContext) {
 	localctx = NewMaterializedViewContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 60, SqlBaseParserRULE_materializedView)
@@ -23579,6 +24719,16 @@ func (s *StreamingTableContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *StreamingTableContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitStreamingTable(s)
+	}
+}
+
+func (s *StreamingTableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitStreamingTable(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -23761,6 +24911,16 @@ func (s *CreatePipelineDatasetHeaderContext) EnterRule(listener antlr.ParseTreeL
 func (s *CreatePipelineDatasetHeaderContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitCreatePipelineDatasetHeader(s)
+	}
+}
+
+func (s *CreatePipelineDatasetHeaderContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCreatePipelineDatasetHeader(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -24002,6 +25162,16 @@ func (s *StreamTableNameContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *StreamTableNameContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitStreamTableName(s)
+	}
+}
+
+func (s *StreamTableNameContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitStreamTableName(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -24260,6 +25430,16 @@ func (s *SetQuotedConfigurationContext) ExitRule(listener antlr.ParseTreeListene
 	}
 }
 
+func (s *SetQuotedConfigurationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSetQuotedConfiguration(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ResetQuotedConfigurationContext struct {
 	SetResetStatementContext
 }
@@ -24310,6 +25490,16 @@ func (s *ResetQuotedConfigurationContext) ExitRule(listener antlr.ParseTreeListe
 	}
 }
 
+func (s *ResetQuotedConfigurationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitResetQuotedConfiguration(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type FailSetRoleContext struct {
 	SetResetStatementContext
 }
@@ -24348,6 +25538,16 @@ func (s *FailSetRoleContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *FailSetRoleContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitFailSetRole(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ResetConfigurationContext struct {
 	SetResetStatementContext
 }
@@ -24379,6 +25579,16 @@ func (s *ResetConfigurationContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *ResetConfigurationContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitResetConfiguration(s)
+	}
+}
+
+func (s *ResetConfigurationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitResetConfiguration(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -24453,6 +25663,16 @@ func (s *SetTimeZoneContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SetTimeZoneContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSetTimeZone(s)
+	}
+}
+
+func (s *SetTimeZoneContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSetTimeZone(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -24574,6 +25794,16 @@ func (s *SetVariableContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SetVariableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSetVariable(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type SetConfigurationContext struct {
 	SetResetStatementContext
 }
@@ -24625,6 +25855,16 @@ func (s *SetConfigurationContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SetConfigurationContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSetConfiguration(s)
+	}
+}
+
+func (s *SetConfigurationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSetConfiguration(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -25288,6 +26528,16 @@ func (s *ExecuteImmediateContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ExecuteImmediateContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitExecuteImmediate(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) ExecuteImmediate() (localctx IExecuteImmediateContext) {
 	localctx = NewExecuteImmediateContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 70, SqlBaseParserRULE_executeImmediate)
@@ -25478,6 +26728,16 @@ func (s *ExecuteImmediateUsingContext) ExitRule(listener antlr.ParseTreeListener
 	}
 }
 
+func (s *ExecuteImmediateUsingContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitExecuteImmediateUsing(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) ExecuteImmediateUsing() (localctx IExecuteImmediateUsingContext) {
 	localctx = NewExecuteImmediateUsingContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 72, SqlBaseParserRULE_executeImmediateUsing)
@@ -25644,6 +26904,16 @@ func (s *TimezoneContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *TimezoneContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitTimezone(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) Timezone() (localctx ITimezoneContext) {
 	localctx = NewTimezoneContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 74, SqlBaseParserRULE_timezone)
@@ -25771,6 +27041,16 @@ func (s *ConfigKeyContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ConfigKeyContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitConfigKey(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) ConfigKey() (localctx IConfigKeyContext) {
 	localctx = NewConfigKeyContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 76, SqlBaseParserRULE_configKey)
@@ -25872,6 +27152,16 @@ func (s *ConfigValueContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ConfigValueContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitConfigValue(s)
+	}
+}
+
+func (s *ConfigValueContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitConfigValue(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -26299,6 +27589,16 @@ func (s *UnsupportedHiveNativeCommandsContext) EnterRule(listener antlr.ParseTre
 func (s *UnsupportedHiveNativeCommandsContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitUnsupportedHiveNativeCommands(s)
+	}
+}
+
+func (s *UnsupportedHiveNativeCommandsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitUnsupportedHiveNativeCommands(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -28052,6 +29352,16 @@ func (s *CreateTableHeaderContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CreateTableHeaderContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCreateTableHeader(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) CreateTableHeader() (localctx ICreateTableHeaderContext) {
 	localctx = NewCreateTableHeaderContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 82, SqlBaseParserRULE_createTableHeader)
@@ -28258,6 +29568,16 @@ func (s *ReplaceTableHeaderContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ReplaceTableHeaderContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitReplaceTableHeader(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) ReplaceTableHeader() (localctx IReplaceTableHeaderContext) {
 	localctx = NewReplaceTableHeaderContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 84, SqlBaseParserRULE_replaceTableHeader)
@@ -28423,6 +29743,16 @@ func (s *ClusterBySpecContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ClusterBySpecContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitClusterBySpec(s)
+	}
+}
+
+func (s *ClusterBySpecContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitClusterBySpec(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -28623,6 +29953,16 @@ func (s *BucketSpecContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *BucketSpecContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitBucketSpec(s)
+	}
+}
+
+func (s *BucketSpecContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitBucketSpec(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -28862,6 +30202,16 @@ func (s *SkewSpecContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SkewSpecContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSkewSpec(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) SkewSpec() (localctx ISkewSpecContext) {
 	localctx = NewSkewSpecContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 90, SqlBaseParserRULE_skewSpec)
@@ -29049,6 +30399,16 @@ func (s *LocationSpecContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *LocationSpecContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitLocationSpec(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) LocationSpec() (localctx ILocationSpecContext) {
 	localctx = NewLocationSpecContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 92, SqlBaseParserRULE_locationSpec)
@@ -29171,6 +30531,16 @@ func (s *SchemaBindingContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SchemaBindingContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSchemaBinding(s)
+	}
+}
+
+func (s *SchemaBindingContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSchemaBinding(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -29354,6 +30724,16 @@ func (s *CommentSpecContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CommentSpecContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCommentSpec(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) CommentSpec() (localctx ICommentSpecContext) {
 	localctx = NewCommentSpecContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 96, SqlBaseParserRULE_commentSpec)
@@ -29468,6 +30848,16 @@ func (s *SingleQueryContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SingleQueryContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSingleQuery(s)
+	}
+}
+
+func (s *SingleQueryContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSingleQuery(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -29614,6 +31004,16 @@ func (s *QueryContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *QueryContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitQuery(s)
+	}
+}
+
+func (s *QueryContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitQuery(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -29807,6 +31207,16 @@ func (s *InsertIntoReplaceWhereContext) ExitRule(listener antlr.ParseTreeListene
 	}
 }
 
+func (s *InsertIntoReplaceWhereContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitInsertIntoReplaceWhere(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type InsertOverwriteHiveDirContext struct {
 	InsertIntoContext
 	path IStringLitContext
@@ -29903,6 +31313,16 @@ func (s *InsertOverwriteHiveDirContext) EnterRule(listener antlr.ParseTreeListen
 func (s *InsertOverwriteHiveDirContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitInsertOverwriteHiveDir(s)
+	}
+}
+
+func (s *InsertOverwriteHiveDirContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitInsertOverwriteHiveDir(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -30011,6 +31431,16 @@ func (s *InsertOverwriteDirContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *InsertOverwriteDirContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitInsertOverwriteDir(s)
+	}
+}
+
+func (s *InsertOverwriteDirContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitInsertOverwriteDir(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -30152,6 +31582,16 @@ func (s *InsertOverwriteTableContext) ExitRule(listener antlr.ParseTreeListener)
 	}
 }
 
+func (s *InsertOverwriteTableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitInsertOverwriteTable(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type InsertIntoTableContext struct {
 	InsertIntoContext
 }
@@ -30287,6 +31727,16 @@ func (s *InsertIntoTableContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *InsertIntoTableContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitInsertIntoTable(s)
+	}
+}
+
+func (s *InsertIntoTableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitInsertIntoTable(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -30911,6 +32361,16 @@ func (s *PartitionSpecLocationContext) ExitRule(listener antlr.ParseTreeListener
 	}
 }
 
+func (s *PartitionSpecLocationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitPartitionSpecLocation(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) PartitionSpecLocation() (localctx IPartitionSpecLocationContext) {
 	localctx = NewPartitionSpecLocationContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 104, SqlBaseParserRULE_partitionSpecLocation)
@@ -31079,6 +32539,16 @@ func (s *PartitionSpecContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *PartitionSpecContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitPartitionSpec(s)
+	}
+}
+
+func (s *PartitionSpecContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitPartitionSpec(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -31264,6 +32734,16 @@ func (s *PartitionValContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *PartitionValContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitPartitionVal(s)
+	}
+}
+
+func (s *PartitionValContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitPartitionVal(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -31475,6 +32955,16 @@ func (s *CreatePipelineFlowHeaderContext) ExitRule(listener antlr.ParseTreeListe
 	}
 }
 
+func (s *CreatePipelineFlowHeaderContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCreatePipelineFlowHeader(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) CreatePipelineFlowHeader() (localctx ICreatePipelineFlowHeaderContext) {
 	localctx = NewCreatePipelineFlowHeaderContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 110, SqlBaseParserRULE_createPipelineFlowHeader)
@@ -31620,6 +33110,16 @@ func (s *NamespaceContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *NamespaceContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitNamespace(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) Namespace() (localctx INamespaceContext) {
 	localctx = NewNamespaceContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 112, SqlBaseParserRULE_namespace)
@@ -31731,6 +33231,16 @@ func (s *NamespacesContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *NamespacesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitNamespaces(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) Namespaces() (localctx INamespacesContext) {
 	localctx = NewNamespacesContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 114, SqlBaseParserRULE_namespaces)
@@ -31834,6 +33344,16 @@ func (s *VariableContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *VariableContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitVariable(s)
+	}
+}
+
+func (s *VariableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitVariable(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -32037,6 +33557,16 @@ func (s *DescribeFuncNameContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DescribeFuncNameContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitDescribeFuncName(s)
+	}
+}
+
+func (s *DescribeFuncNameContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitDescribeFuncName(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -32266,6 +33796,16 @@ func (s *DescribeColNameContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DescribeColNameContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitDescribeColName(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) DescribeColName() (localctx IDescribeColNameContext) {
 	localctx = NewDescribeColNameContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 120, SqlBaseParserRULE_describeColName)
@@ -32451,6 +33991,16 @@ func (s *CtesContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *CtesContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitCtes(s)
+	}
+}
+
+func (s *CtesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCtes(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -32715,6 +34265,16 @@ func (s *NamedQueryContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *NamedQueryContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitNamedQuery(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) NamedQuery() (localctx INamedQueryContext) {
 	localctx = NewNamedQueryContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 124, SqlBaseParserRULE_namedQuery)
@@ -32917,6 +34477,16 @@ func (s *TableProviderContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *TableProviderContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitTableProvider(s)
+	}
+}
+
+func (s *TableProviderContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitTableProvider(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -33563,6 +35133,16 @@ func (s *CreateTableClausesContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CreateTableClausesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCreateTableClauses(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) CreateTableClauses() (localctx ICreateTableClausesContext) {
 	localctx = NewCreateTableClausesContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 128, SqlBaseParserRULE_createTableClauses)
@@ -33845,6 +35425,16 @@ func (s *PropertyListContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *PropertyListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitPropertyList(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) PropertyList() (localctx IPropertyListContext) {
 	localctx = NewPropertyListContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 130, SqlBaseParserRULE_propertyList)
@@ -34043,6 +35633,16 @@ func (s *PropertyWithKeyNoEqualsContext) ExitRule(listener antlr.ParseTreeListen
 	}
 }
 
+func (s *PropertyWithKeyNoEqualsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitPropertyWithKeyNoEquals(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type PropertyWithKeyAndEqualsContext struct {
 	PropertyContext
 	key   IPropertyKeyOrStringLitContext
@@ -34116,6 +35716,16 @@ func (s *PropertyWithKeyAndEqualsContext) EnterRule(listener antlr.ParseTreeList
 func (s *PropertyWithKeyAndEqualsContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitPropertyWithKeyAndEquals(s)
+	}
+}
+
+func (s *PropertyWithKeyAndEqualsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitPropertyWithKeyAndEquals(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -34316,6 +35926,16 @@ func (s *PropertyKeyContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *PropertyKeyContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitPropertyKey(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) PropertyKey() (localctx IPropertyKeyContext) {
 	localctx = NewPropertyKeyContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 134, SqlBaseParserRULE_propertyKey)
@@ -34474,6 +36094,16 @@ func (s *PropertyKeyOrStringLitContext) ExitRule(listener antlr.ParseTreeListene
 	}
 }
 
+func (s *PropertyKeyOrStringLitContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitPropertyKeyOrStringLit(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) PropertyKeyOrStringLit() (localctx IPropertyKeyOrStringLitContext) {
 	localctx = NewPropertyKeyOrStringLitContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 136, SqlBaseParserRULE_propertyKeyOrStringLit)
@@ -34611,6 +36241,16 @@ func (s *PropertyKeyOrStringLitNoCoalesceContext) EnterRule(listener antlr.Parse
 func (s *PropertyKeyOrStringLitNoCoalesceContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitPropertyKeyOrStringLitNoCoalesce(s)
+	}
+}
+
+func (s *PropertyKeyOrStringLitNoCoalesceContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitPropertyKeyOrStringLitNoCoalesce(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -34761,6 +36401,16 @@ func (s *PropertyValueContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *PropertyValueContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitPropertyValue(s)
+	}
+}
+
+func (s *PropertyValueContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitPropertyValue(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -34952,6 +36602,16 @@ func (s *ExpressionPropertyListContext) EnterRule(listener antlr.ParseTreeListen
 func (s *ExpressionPropertyListContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitExpressionPropertyList(s)
+	}
+}
+
+func (s *ExpressionPropertyListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitExpressionPropertyList(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -35157,6 +36817,16 @@ func (s *ExpressionPropertyWithKeyAndEqualsContext) ExitRule(listener antlr.Pars
 	}
 }
 
+func (s *ExpressionPropertyWithKeyAndEqualsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitExpressionPropertyWithKeyAndEquals(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ExpressionPropertyWithKeyNoEqualsContext struct {
 	ExpressionPropertyContext
 	key   IPropertyKeyOrStringLitNoCoalesceContext
@@ -35230,6 +36900,16 @@ func (s *ExpressionPropertyWithKeyNoEqualsContext) EnterRule(listener antlr.Pars
 func (s *ExpressionPropertyWithKeyNoEqualsContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitExpressionPropertyWithKeyNoEquals(s)
+	}
+}
+
+func (s *ExpressionPropertyWithKeyNoEqualsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitExpressionPropertyWithKeyNoEquals(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -35440,6 +37120,16 @@ func (s *ConstantListContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ConstantListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitConstantList(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) ConstantList() (localctx IConstantListContext) {
 	localctx = NewConstantListContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 146, SqlBaseParserRULE_constantList)
@@ -35636,6 +37326,16 @@ func (s *NestedConstantListContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *NestedConstantListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitNestedConstantList(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) NestedConstantList() (localctx INestedConstantListContext) {
 	localctx = NewNestedConstantListContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 148, SqlBaseParserRULE_nestedConstantList)
@@ -35815,6 +37515,16 @@ func (s *CreateFileFormatContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *CreateFileFormatContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitCreateFileFormat(s)
+	}
+}
+
+func (s *CreateFileFormatContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCreateFileFormat(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -36034,6 +37744,16 @@ func (s *TableFileFormatContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *TableFileFormatContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitTableFileFormat(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type GenericFileFormatContext struct {
 	FileFormatContext
 }
@@ -36077,6 +37797,16 @@ func (s *GenericFileFormatContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *GenericFileFormatContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitGenericFileFormat(s)
+	}
+}
+
+func (s *GenericFileFormatContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitGenericFileFormat(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -36258,6 +37988,16 @@ func (s *StorageHandlerContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *StorageHandlerContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitStorageHandler(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) StorageHandler() (localctx IStorageHandlerContext) {
 	localctx = NewStorageHandlerContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 154, SqlBaseParserRULE_storageHandler)
@@ -36404,6 +38144,16 @@ func (s *ResourceContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ResourceContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitResource(s)
+	}
+}
+
+func (s *ResourceContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitResource(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -36573,6 +38323,16 @@ func (s *DeleteFromTableContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DeleteFromTableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitDeleteFromTable(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type SingleInsertQueryContext struct {
 	DmlStatementNoWithContext
 }
@@ -36632,6 +38392,16 @@ func (s *SingleInsertQueryContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SingleInsertQueryContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSingleInsertQuery(s)
+	}
+}
+
+func (s *SingleInsertQueryContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSingleInsertQuery(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -36719,6 +38489,16 @@ func (s *MultiInsertQueryContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *MultiInsertQueryContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitMultiInsertQuery(s)
+	}
+}
+
+func (s *MultiInsertQueryContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitMultiInsertQuery(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -36817,6 +38597,16 @@ func (s *UpdateTableContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *UpdateTableContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitUpdateTable(s)
+	}
+}
+
+func (s *UpdateTableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitUpdateTable(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -37152,6 +38942,16 @@ func (s *MergeIntoTableContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *MergeIntoTableContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitMergeIntoTable(s)
+	}
+}
+
+func (s *MergeIntoTableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitMergeIntoTable(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -37637,6 +39437,16 @@ func (s *IdentifierReferenceContext) ExitRule(listener antlr.ParseTreeListener) 
 	}
 }
 
+func (s *IdentifierReferenceContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitIdentifierReference(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) IdentifierReference() (localctx IIdentifierReferenceContext) {
 	localctx = NewIdentifierReferenceContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 160, SqlBaseParserRULE_identifierReference)
@@ -37830,6 +39640,16 @@ func (s *CatalogIdentifierReferenceContext) EnterRule(listener antlr.ParseTreeLi
 func (s *CatalogIdentifierReferenceContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitCatalogIdentifierReference(s)
+	}
+}
+
+func (s *CatalogIdentifierReferenceContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCatalogIdentifierReference(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -38213,6 +40033,16 @@ func (s *QueryOrganizationContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *QueryOrganizationContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitQueryOrganization(s)
+	}
+}
+
+func (s *QueryOrganizationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitQueryOrganization(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -38699,6 +40529,16 @@ func (s *MultiInsertQueryBodyContext) ExitRule(listener antlr.ParseTreeListener)
 	}
 }
 
+func (s *MultiInsertQueryBodyContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitMultiInsertQueryBody(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) MultiInsertQueryBody() (localctx IMultiInsertQueryBodyContext) {
 	localctx = NewMultiInsertQueryBodyContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 166, SqlBaseParserRULE_multiInsertQueryBody)
@@ -38850,6 +40690,16 @@ func (s *OperatorPipeStatementContext) ExitRule(listener antlr.ParseTreeListener
 	}
 }
 
+func (s *OperatorPipeStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitOperatorPipeStatement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type QueryTermDefaultContext struct {
 	QueryTermContext
 }
@@ -38893,6 +40743,16 @@ func (s *QueryTermDefaultContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *QueryTermDefaultContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitQueryTermDefault(s)
+	}
+}
+
+func (s *QueryTermDefaultContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitQueryTermDefault(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -39011,6 +40871,16 @@ func (s *SetOperationContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SetOperationContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSetOperation(s)
+	}
+}
+
+func (s *SetOperationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSetOperation(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -39389,6 +41259,16 @@ func (s *SubqueryContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SubqueryContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSubquery(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type QueryPrimaryDefaultContext struct {
 	QueryPrimaryContext
 }
@@ -39432,6 +41312,16 @@ func (s *QueryPrimaryDefaultContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *QueryPrimaryDefaultContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitQueryPrimaryDefault(s)
+	}
+}
+
+func (s *QueryPrimaryDefaultContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitQueryPrimaryDefault(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -39481,6 +41371,16 @@ func (s *InlineTableDefault1Context) ExitRule(listener antlr.ParseTreeListener) 
 	}
 }
 
+func (s *InlineTableDefault1Context) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitInlineTableDefault1(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type FromStmtContext struct {
 	QueryPrimaryContext
 }
@@ -39524,6 +41424,16 @@ func (s *FromStmtContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *FromStmtContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitFromStmt(s)
+	}
+}
+
+func (s *FromStmtContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitFromStmt(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -39574,6 +41484,16 @@ func (s *TableContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *TableContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitTable(s)
+	}
+}
+
+func (s *TableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitTable(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -39798,6 +41718,16 @@ func (s *SortItemContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SortItemContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSortItem(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) SortItem() (localctx ISortItemContext) {
 	localctx = NewSortItemContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 172, SqlBaseParserRULE_sortItem)
@@ -40004,6 +41934,16 @@ func (s *FromStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *FromStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitFromStatement(s)
+	}
+}
+
+func (s *FromStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitFromStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -40282,6 +42222,16 @@ func (s *FromStatementBodyContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *FromStatementBodyContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitFromStatementBody(s)
+	}
+}
+
+func (s *FromStatementBodyContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitFromStatementBody(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -40644,6 +42594,16 @@ func (s *RegularQuerySpecificationContext) ExitRule(listener antlr.ParseTreeList
 	}
 }
 
+func (s *RegularQuerySpecificationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitRegularQuerySpecification(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type TransformQuerySpecificationContext struct {
 	QuerySpecificationContext
 }
@@ -40808,6 +42768,16 @@ func (s *TransformQuerySpecificationContext) EnterRule(listener antlr.ParseTreeL
 func (s *TransformQuerySpecificationContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitTransformQuerySpecification(s)
+	}
+}
+
+func (s *TransformQuerySpecificationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitTransformQuerySpecification(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -41375,6 +43345,16 @@ func (s *TransformClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *TransformClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitTransformClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) TransformClause() (localctx ITransformClauseContext) {
 	localctx = NewTransformClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 180, SqlBaseParserRULE_transformClause)
@@ -41859,6 +43839,16 @@ func (s *SelectClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SelectClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSelectClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) SelectClause() (localctx ISelectClauseContext) {
 	localctx = NewSelectClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 182, SqlBaseParserRULE_selectClause)
@@ -42021,6 +44011,16 @@ func (s *SetClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SetClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSetClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) SetClause() (localctx ISetClauseContext) {
 	localctx = NewSetClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 184, SqlBaseParserRULE_setClause)
@@ -42178,6 +44178,16 @@ func (s *MatchedClauseContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *MatchedClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitMatchedClause(s)
+	}
+}
+
+func (s *MatchedClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitMatchedClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -42412,6 +44422,16 @@ func (s *NotMatchedClauseContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *NotMatchedClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitNotMatchedClause(s)
+	}
+}
+
+func (s *NotMatchedClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitNotMatchedClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -42679,6 +44699,16 @@ func (s *NotMatchedBySourceClauseContext) ExitRule(listener antlr.ParseTreeListe
 	}
 }
 
+func (s *NotMatchedBySourceClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitNotMatchedBySourceClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) NotMatchedBySourceClause() (localctx INotMatchedBySourceClauseContext) {
 	localctx = NewNotMatchedBySourceClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 190, SqlBaseParserRULE_notMatchedBySourceClause)
@@ -42871,6 +44901,16 @@ func (s *MatchedActionContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *MatchedActionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitMatchedAction(s)
+	}
+}
+
+func (s *MatchedActionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitMatchedAction(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -43143,6 +45183,16 @@ func (s *NotMatchedActionContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *NotMatchedActionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitNotMatchedAction(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) NotMatchedAction() (localctx INotMatchedActionContext) {
 	localctx = NewNotMatchedActionContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 194, SqlBaseParserRULE_notMatchedAction)
@@ -43378,6 +45428,16 @@ func (s *NotMatchedBySourceActionContext) ExitRule(listener antlr.ParseTreeListe
 	}
 }
 
+func (s *NotMatchedBySourceActionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitNotMatchedBySourceAction(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) NotMatchedBySourceAction() (localctx INotMatchedBySourceActionContext) {
 	localctx = NewNotMatchedBySourceActionContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 196, SqlBaseParserRULE_notMatchedBySourceAction)
@@ -43548,6 +45608,16 @@ func (s *ExceptClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ExceptClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitExceptClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) ExceptClause() (localctx IExceptClauseContext) {
 	localctx = NewExceptClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 198, SqlBaseParserRULE_exceptClause)
@@ -43712,6 +45782,16 @@ func (s *AssignmentListContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *AssignmentListContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitAssignmentList(s)
+	}
+}
+
+func (s *AssignmentListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitAssignmentList(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -43893,6 +45973,16 @@ func (s *AssignmentContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *AssignmentContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitAssignment(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) Assignment() (localctx IAssignmentContext) {
 	localctx = NewAssignmentContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 202, SqlBaseParserRULE_assignment)
@@ -44020,6 +46110,16 @@ func (s *WhereClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *WhereClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitWhereClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) WhereClause() (localctx IWhereClauseContext) {
 	localctx = NewWhereClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 204, SqlBaseParserRULE_whereClause)
@@ -44134,6 +46234,16 @@ func (s *HavingClauseContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *HavingClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitHavingClause(s)
+	}
+}
+
+func (s *HavingClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitHavingClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -44314,6 +46424,16 @@ func (s *HintContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *HintContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitHint(s)
+	}
+}
+
+func (s *HintContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitHint(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -44587,6 +46707,16 @@ func (s *HintStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *HintStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitHintStatement(s)
+	}
+}
+
+func (s *HintStatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitHintStatement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -44895,6 +47025,16 @@ func (s *FromClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *FromClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitFromClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) FromClause() (localctx IFromClauseContext) {
 	localctx = NewFromClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 212, SqlBaseParserRULE_fromClause)
@@ -45155,6 +47295,16 @@ func (s *TemporalClauseContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *TemporalClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitTemporalClause(s)
+	}
+}
+
+func (s *TemporalClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitTemporalClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -45610,6 +47760,16 @@ func (s *AggregationClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *AggregationClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitAggregationClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) AggregationClause() (localctx IAggregationClauseContext) {
 	localctx = NewAggregationClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 216, SqlBaseParserRULE_aggregationClause)
@@ -45993,6 +48153,16 @@ func (s *GroupByClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *GroupByClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitGroupByClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) GroupByClause() (localctx IGroupByClauseContext) {
 	localctx = NewGroupByClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 218, SqlBaseParserRULE_groupByClause)
@@ -46222,6 +48392,16 @@ func (s *GroupingAnalyticsContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *GroupingAnalyticsContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitGroupingAnalytics(s)
+	}
+}
+
+func (s *GroupingAnalyticsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitGroupingAnalytics(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -46483,6 +48663,16 @@ func (s *GroupingElementContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *GroupingElementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitGroupingElement(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) GroupingElement() (localctx IGroupingElementContext) {
 	localctx = NewGroupingElementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 222, SqlBaseParserRULE_groupingElement)
@@ -46649,6 +48839,16 @@ func (s *GroupingSetContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *GroupingSetContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitGroupingSet(s)
+	}
+}
+
+func (s *GroupingSetContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitGroupingSet(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -46967,6 +49167,16 @@ func (s *PivotClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *PivotClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitPivotClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) PivotClause() (localctx IPivotClauseContext) {
 	localctx = NewPivotClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 226, SqlBaseParserRULE_pivotClause)
@@ -47250,6 +49460,16 @@ func (s *PivotColumnContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *PivotColumnContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitPivotColumn(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) PivotColumn() (localctx IPivotColumnContext) {
 	localctx = NewPivotColumnContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 228, SqlBaseParserRULE_pivotColumn)
@@ -47450,6 +49670,16 @@ func (s *PivotValueContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *PivotValueContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitPivotValue(s)
+	}
+}
+
+func (s *PivotValueContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitPivotValue(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -47661,6 +49891,16 @@ func (s *UnpivotClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *UnpivotClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitUnpivotClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) UnpivotClause() (localctx IUnpivotClauseContext) {
 	localctx = NewUnpivotClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 232, SqlBaseParserRULE_unpivotClause)
@@ -47837,6 +50077,16 @@ func (s *UnpivotNullClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *UnpivotNullClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitUnpivotNullClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) UnpivotNullClause() (localctx IUnpivotNullClauseContext) {
 	localctx = NewUnpivotNullClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 234, SqlBaseParserRULE_unpivotNullClause)
@@ -47972,6 +50222,16 @@ func (s *UnpivotOperatorContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *UnpivotOperatorContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitUnpivotOperator(s)
+	}
+}
+
+func (s *UnpivotOperatorContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitUnpivotOperator(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -48214,6 +50474,16 @@ func (s *UnpivotSingleValueColumnClauseContext) EnterRule(listener antlr.ParseTr
 func (s *UnpivotSingleValueColumnClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitUnpivotSingleValueColumnClause(s)
+	}
+}
+
+func (s *UnpivotSingleValueColumnClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitUnpivotSingleValueColumnClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -48585,6 +50855,16 @@ func (s *UnpivotMultiValueColumnClauseContext) ExitRule(listener antlr.ParseTree
 	}
 }
 
+func (s *UnpivotMultiValueColumnClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitUnpivotMultiValueColumnClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) UnpivotMultiValueColumnClause() (localctx IUnpivotMultiValueColumnClauseContext) {
 	localctx = NewUnpivotMultiValueColumnClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 240, SqlBaseParserRULE_unpivotMultiValueColumnClause)
@@ -48906,6 +51186,16 @@ func (s *UnpivotColumnSetContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *UnpivotColumnSetContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitUnpivotColumnSet(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) UnpivotColumnSet() (localctx IUnpivotColumnSetContext) {
 	localctx = NewUnpivotColumnSetContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 242, SqlBaseParserRULE_unpivotColumnSet)
@@ -49076,6 +51366,16 @@ func (s *UnpivotValueColumnContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *UnpivotValueColumnContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitUnpivotValueColumn(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) UnpivotValueColumn() (localctx IUnpivotValueColumnContext) {
 	localctx = NewUnpivotValueColumnContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 244, SqlBaseParserRULE_unpivotValueColumn)
@@ -49177,6 +51477,16 @@ func (s *UnpivotNameColumnContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *UnpivotNameColumnContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitUnpivotNameColumn(s)
+	}
+}
+
+func (s *UnpivotNameColumnContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitUnpivotNameColumn(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -49301,6 +51611,16 @@ func (s *UnpivotColumnAndAliasContext) ExitRule(listener antlr.ParseTreeListener
 	}
 }
 
+func (s *UnpivotColumnAndAliasContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitUnpivotColumnAndAlias(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) UnpivotColumnAndAlias() (localctx IUnpivotColumnAndAliasContext) {
 	localctx = NewUnpivotColumnAndAliasContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 248, SqlBaseParserRULE_unpivotColumnAndAlias)
@@ -49417,6 +51737,16 @@ func (s *UnpivotColumnContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *UnpivotColumnContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitUnpivotColumn(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) UnpivotColumn() (localctx IUnpivotColumnContext) {
 	localctx = NewUnpivotColumnContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 250, SqlBaseParserRULE_unpivotColumn)
@@ -49523,6 +51853,16 @@ func (s *UnpivotAliasContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *UnpivotAliasContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitUnpivotAlias(s)
+	}
+}
+
+func (s *UnpivotAliasContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitUnpivotAlias(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -49802,6 +52142,16 @@ func (s *LateralViewContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *LateralViewContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitLateralView(s)
+	}
+}
+
+func (s *LateralViewContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitLateralView(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -50133,6 +52483,16 @@ func (s *WatermarkClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *WatermarkClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitWatermarkClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) WatermarkClause() (localctx IWatermarkClauseContext) {
 	localctx = NewWatermarkClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 256, SqlBaseParserRULE_watermarkClause)
@@ -50261,6 +52621,16 @@ func (s *SetQuantifierContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SetQuantifierContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSetQuantifier(s)
+	}
+}
+
+func (s *SetQuantifierContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSetQuantifier(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -50422,6 +52792,16 @@ func (s *RelationContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *RelationContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitRelation(s)
+	}
+}
+
+func (s *RelationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitRelation(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -50605,6 +52985,16 @@ func (s *RelationExtensionContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *RelationExtensionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitRelationExtension(s)
+	}
+}
+
+func (s *RelationExtensionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitRelationExtension(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -50796,6 +53186,16 @@ func (s *JoinRelationContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *JoinRelationContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitJoinRelation(s)
+	}
+}
+
+func (s *JoinRelationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitJoinRelation(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -51026,6 +53426,16 @@ func (s *JoinTypeContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *JoinTypeContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitJoinType(s)
+	}
+}
+
+func (s *JoinTypeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitJoinType(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -51344,6 +53754,16 @@ func (s *JoinCriteriaContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *JoinCriteriaContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitJoinCriteria(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) JoinCriteria() (localctx IJoinCriteriaContext) {
 	localctx = NewJoinCriteriaContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 268, SqlBaseParserRULE_joinCriteria)
@@ -51539,6 +53959,16 @@ func (s *SampleContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SampleContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSample(s)
+	}
+}
+
+func (s *SampleContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSample(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -51739,6 +54169,16 @@ func (s *SampleByRowsContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SampleByRowsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSampleByRows(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type SampleByPercentileContext struct {
 	SampleMethodContext
 	negativeSign antlr.Token
@@ -51799,6 +54239,16 @@ func (s *SampleByPercentileContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *SampleByPercentileContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSampleByPercentile(s)
+	}
+}
+
+func (s *SampleByPercentileContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSampleByPercentile(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -51944,6 +54394,16 @@ func (s *SampleByBucketContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SampleByBucketContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSampleByBucket(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type SampleByBytesContext struct {
 	SampleMethodContext
 	bytes IExpressionContext
@@ -51992,6 +54452,16 @@ func (s *SampleByBytesContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SampleByBytesContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSampleByBytes(s)
+	}
+}
+
+func (s *SampleByBytesContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSampleByBytes(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -52301,6 +54771,16 @@ func (s *IdentifierListContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *IdentifierListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitIdentifierList(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) IdentifierList() (localctx IIdentifierListContext) {
 	localctx = NewIdentifierListContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 274, SqlBaseParserRULE_identifierList)
@@ -52480,6 +54960,16 @@ func (s *IdentifierSeqContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *IdentifierSeqContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitIdentifierSeq(s)
+	}
+}
+
+func (s *IdentifierSeqContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitIdentifierSeq(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -52678,6 +55168,16 @@ func (s *OrderedIdentifierListContext) ExitRule(listener antlr.ParseTreeListener
 	}
 }
 
+func (s *OrderedIdentifierListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitOrderedIdentifierList(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) OrderedIdentifierList() (localctx IOrderedIdentifierListContext) {
 	localctx = NewOrderedIdentifierListContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 278, SqlBaseParserRULE_orderedIdentifierList)
@@ -52857,6 +55357,16 @@ func (s *OrderedIdentifierContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *OrderedIdentifierContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitOrderedIdentifier(s)
+	}
+}
+
+func (s *OrderedIdentifierContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitOrderedIdentifier(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -53043,6 +55553,16 @@ func (s *IdentifierCommentListContext) ExitRule(listener antlr.ParseTreeListener
 	}
 }
 
+func (s *IdentifierCommentListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitIdentifierCommentList(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) IdentifierCommentList() (localctx IIdentifierCommentListContext) {
 	localctx = NewIdentifierCommentListContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 282, SqlBaseParserRULE_identifierCommentList)
@@ -53210,6 +55730,16 @@ func (s *IdentifierCommentContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *IdentifierCommentContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitIdentifierComment(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) IdentifierComment() (localctx IIdentifierCommentContext) {
 	localctx = NewIdentifierCommentContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 284, SqlBaseParserRULE_identifierComment)
@@ -53348,6 +55878,16 @@ func (s *StreamRelationContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *StreamRelationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitStreamRelation(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type TableValuedFunctionContext struct {
 	RelationPrimaryContext
 }
@@ -53394,6 +55934,16 @@ func (s *TableValuedFunctionContext) ExitRule(listener antlr.ParseTreeListener) 
 	}
 }
 
+func (s *TableValuedFunctionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitTableValuedFunction(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type InlineTableDefault2Context struct {
 	RelationPrimaryContext
 }
@@ -53437,6 +55987,16 @@ func (s *InlineTableDefault2Context) EnterRule(listener antlr.ParseTreeListener)
 func (s *InlineTableDefault2Context) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitInlineTableDefault2(s)
+	}
+}
+
+func (s *InlineTableDefault2Context) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitInlineTableDefault2(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -53542,6 +56102,16 @@ func (s *AliasedRelationContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *AliasedRelationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitAliasedRelation(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type AliasedQueryContext struct {
 	RelationPrimaryContext
 }
@@ -53641,6 +56211,16 @@ func (s *AliasedQueryContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *AliasedQueryContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitAliasedQuery(s)
+	}
+}
+
+func (s *AliasedQueryContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitAliasedQuery(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -53767,6 +56347,16 @@ func (s *TableNameContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *TableNameContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitTableName(s)
+	}
+}
+
+func (s *TableNameContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitTableName(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -54083,6 +56673,16 @@ func (s *OptionsClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *OptionsClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitOptionsClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) OptionsClause() (localctx IOptionsClauseContext) {
 	localctx = NewOptionsClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 288, SqlBaseParserRULE_optionsClause)
@@ -54253,6 +56853,16 @@ func (s *InlineTableContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *InlineTableContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitInlineTable(s)
+	}
+}
+
+func (s *InlineTableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitInlineTable(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -54455,6 +57065,16 @@ func (s *FunctionTableSubqueryArgumentContext) EnterRule(listener antlr.ParseTre
 func (s *FunctionTableSubqueryArgumentContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitFunctionTableSubqueryArgument(s)
+	}
+}
+
+func (s *FunctionTableSubqueryArgumentContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitFunctionTableSubqueryArgument(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -54876,6 +57496,16 @@ func (s *TableArgumentPartitioningContext) EnterRule(listener antlr.ParseTreeLis
 func (s *TableArgumentPartitioningContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitTableArgumentPartitioning(s)
+	}
+}
+
+func (s *TableArgumentPartitioningContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitTableArgumentPartitioning(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -55349,6 +57979,16 @@ func (s *FunctionTableNamedArgumentExpressionContext) ExitRule(listener antlr.Pa
 	}
 }
 
+func (s *FunctionTableNamedArgumentExpressionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitFunctionTableNamedArgumentExpression(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) FunctionTableNamedArgumentExpression() (localctx IFunctionTableNamedArgumentExpressionContext) {
 	localctx = NewFunctionTableNamedArgumentExpressionContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 296, SqlBaseParserRULE_functionTableNamedArgumentExpression)
@@ -55485,6 +58125,16 @@ func (s *FunctionTableReferenceArgumentContext) EnterRule(listener antlr.ParseTr
 func (s *FunctionTableReferenceArgumentContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitFunctionTableReferenceArgument(s)
+	}
+}
+
+func (s *FunctionTableReferenceArgumentContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitFunctionTableReferenceArgument(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -55625,6 +58275,16 @@ func (s *FunctionTableArgumentContext) EnterRule(listener antlr.ParseTreeListene
 func (s *FunctionTableArgumentContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitFunctionTableArgument(s)
+	}
+}
+
+func (s *FunctionTableArgumentContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitFunctionTableArgument(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -55859,6 +58519,16 @@ func (s *FunctionTableContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *FunctionTableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitFunctionTable(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) FunctionTable() (localctx IFunctionTableContext) {
 	localctx = NewFunctionTableContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 302, SqlBaseParserRULE_functionTable)
@@ -56059,6 +58729,16 @@ func (s *TableAliasContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *TableAliasContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitTableAlias(s)
+	}
+}
+
+func (s *TableAliasContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitTableAlias(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -56266,6 +58946,16 @@ func (s *RowFormatSerdeContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *RowFormatSerdeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitRowFormatSerde(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type RowFormatDelimitedContext struct {
 	RowFormatContext
 	fieldsTerminatedBy          IStringLitContext
@@ -56444,6 +59134,16 @@ func (s *RowFormatDelimitedContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *RowFormatDelimitedContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitRowFormatDelimited(s)
+	}
+}
+
+func (s *RowFormatDelimitedContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitRowFormatDelimited(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -56928,6 +59628,16 @@ func (s *MultipartIdentifierListContext) ExitRule(listener antlr.ParseTreeListen
 	}
 }
 
+func (s *MultipartIdentifierListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitMultipartIdentifierList(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) MultipartIdentifierList() (localctx IMultipartIdentifierListContext) {
 	localctx = NewMultipartIdentifierListContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 308, SqlBaseParserRULE_multipartIdentifierList)
@@ -57124,6 +59834,16 @@ func (s *MultipartIdentifierContext) ExitRule(listener antlr.ParseTreeListener) 
 	}
 }
 
+func (s *MultipartIdentifierContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitMultipartIdentifier(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) MultipartIdentifier() (localctx IMultipartIdentifierContext) {
 	localctx = NewMultipartIdentifierContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 310, SqlBaseParserRULE_multipartIdentifier)
@@ -57309,6 +60029,16 @@ func (s *MultipartIdentifierPropertyListContext) ExitRule(listener antlr.ParseTr
 	}
 }
 
+func (s *MultipartIdentifierPropertyListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitMultipartIdentifierPropertyList(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) MultipartIdentifierPropertyList() (localctx IMultipartIdentifierPropertyListContext) {
 	localctx = NewMultipartIdentifierPropertyListContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 312, SqlBaseParserRULE_multipartIdentifierPropertyList)
@@ -57473,6 +60203,16 @@ func (s *MultipartIdentifierPropertyContext) EnterRule(listener antlr.ParseTreeL
 func (s *MultipartIdentifierPropertyContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitMultipartIdentifierProperty(s)
+	}
+}
+
+func (s *MultipartIdentifierPropertyContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitMultipartIdentifierProperty(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -57660,6 +60400,16 @@ func (s *TableIdentifierContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *TableIdentifierContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitTableIdentifier(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) TableIdentifier() (localctx ITableIdentifierContext) {
 	localctx = NewTableIdentifierContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 316, SqlBaseParserRULE_tableIdentifier)
@@ -57843,6 +60593,16 @@ func (s *FunctionIdentifierContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *FunctionIdentifierContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitFunctionIdentifier(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) FunctionIdentifier() (localctx IFunctionIdentifierContext) {
 	localctx = NewFunctionIdentifierContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 318, SqlBaseParserRULE_functionIdentifier)
@@ -58020,6 +60780,16 @@ func (s *NamedExpressionContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *NamedExpressionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitNamedExpression(s)
+	}
+}
+
+func (s *NamedExpressionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitNamedExpression(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -58209,6 +60979,16 @@ func (s *NamedExpressionSeqContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *NamedExpressionSeqContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitNamedExpressionSeq(s)
+	}
+}
+
+func (s *NamedExpressionSeqContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitNamedExpressionSeq(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -58425,6 +61205,16 @@ func (s *PartitionFieldListContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *PartitionFieldListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitPartitionFieldList(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) PartitionFieldList() (localctx IPartitionFieldListContext) {
 	localctx = NewPartitionFieldListContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 324, SqlBaseParserRULE_partitionFieldList)
@@ -58601,6 +61391,16 @@ func (s *PartitionColumnContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *PartitionColumnContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitPartitionColumn(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type PartitionTransformContext struct {
 	PartitionFieldContext
 }
@@ -58644,6 +61444,16 @@ func (s *PartitionTransformContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *PartitionTransformContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitPartitionTransform(s)
+	}
+}
+
+func (s *PartitionTransformContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitPartitionTransform(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -58790,6 +61600,16 @@ func (s *IdentityTransformContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *IdentityTransformContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitIdentityTransform(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ApplyTransformContext struct {
 	TransformContext
 	transformName      IIdentifierContext
@@ -58909,6 +61729,16 @@ func (s *ApplyTransformContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ApplyTransformContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitApplyTransform(s)
+	}
+}
+
+func (s *ApplyTransformContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitApplyTransform(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -59115,6 +61945,16 @@ func (s *TransformArgumentContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *TransformArgumentContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitTransformArgument(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) TransformArgument() (localctx ITransformArgumentContext) {
 	localctx = NewTransformArgumentContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 330, SqlBaseParserRULE_transformArgument)
@@ -59235,6 +62075,16 @@ func (s *ExpressionContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ExpressionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitExpression(s)
+	}
+}
+
+func (s *ExpressionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitExpression(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -59386,6 +62236,16 @@ func (s *NamedArgumentExpressionContext) ExitRule(listener antlr.ParseTreeListen
 	}
 }
 
+func (s *NamedArgumentExpressionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitNamedArgumentExpression(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) NamedArgumentExpression() (localctx INamedArgumentExpressionContext) {
 	localctx = NewNamedArgumentExpressionContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 334, SqlBaseParserRULE_namedArgumentExpression)
@@ -59522,6 +62382,16 @@ func (s *FunctionArgumentContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *FunctionArgumentContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitFunctionArgument(s)
+	}
+}
+
+func (s *FunctionArgumentContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitFunctionArgument(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -59681,6 +62551,16 @@ func (s *ExpressionSeqContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ExpressionSeqContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitExpressionSeq(s)
+	}
+}
+
+func (s *ExpressionSeqContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitExpressionSeq(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -59844,6 +62724,16 @@ func (s *LogicalNotContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *LogicalNotContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitLogicalNot(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type PredicatedContext struct {
 	BooleanExpressionContext
 }
@@ -59906,6 +62796,16 @@ func (s *PredicatedContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *PredicatedContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitPredicated(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ExistsContext struct {
 	BooleanExpressionContext
 }
@@ -59961,6 +62861,16 @@ func (s *ExistsContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ExistsContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitExists(s)
+	}
+}
+
+func (s *ExistsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitExists(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -60055,6 +62965,16 @@ func (s *LogicalBinaryContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *LogicalBinaryContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitLogicalBinary(s)
+	}
+}
+
+func (s *LogicalBinaryContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitLogicalBinary(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -60654,6 +63574,16 @@ func (s *PredicateContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *PredicateContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitPredicate(s)
+	}
+}
+
+func (s *PredicateContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitPredicate(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -61296,6 +64226,16 @@ func (s *ErrorCapturingNotContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ErrorCapturingNotContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitErrorCapturingNot(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) ErrorCapturingNot() (localctx IErrorCapturingNotContext) {
 	localctx = NewErrorCapturingNotContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 344, SqlBaseParserRULE_errorCapturingNot)
@@ -61427,6 +64367,16 @@ func (s *ValueExpressionDefaultContext) ExitRule(listener antlr.ParseTreeListene
 	}
 }
 
+func (s *ValueExpressionDefaultContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitValueExpressionDefault(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ComparisonContext struct {
 	ValueExpressionContext
 	left  IValueExpressionContext
@@ -61524,6 +64474,16 @@ func (s *ComparisonContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ComparisonContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitComparison(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ShiftExpressionContext struct {
 	ValueExpressionContext
 	left  IValueExpressionContext
@@ -61618,6 +64578,16 @@ func (s *ShiftExpressionContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ShiftExpressionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitShiftExpression(s)
+	}
+}
+
+func (s *ShiftExpressionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitShiftExpression(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -61747,6 +64717,16 @@ func (s *ArithmeticBinaryContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ArithmeticBinaryContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitArithmeticBinary(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ArithmeticUnaryContext struct {
 	ValueExpressionContext
 	operator antlr.Token
@@ -61807,6 +64787,16 @@ func (s *ArithmeticUnaryContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ArithmeticUnaryContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitArithmeticUnary(s)
+	}
+}
+
+func (s *ArithmeticUnaryContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitArithmeticUnary(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -62217,6 +65207,16 @@ func (s *ShiftOperatorContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ShiftOperatorContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitShiftOperator(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) ShiftOperator() (localctx IShiftOperatorContext) {
 	localctx = NewShiftOperatorContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 348, SqlBaseParserRULE_shiftOperator)
@@ -62365,6 +65365,16 @@ func (s *DatetimeUnitContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DatetimeUnitContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitDatetimeUnit(s)
+	}
+}
+
+func (s *DatetimeUnitContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitDatetimeUnit(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -62554,6 +65564,16 @@ func (s *StructContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *StructContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitStruct(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type DereferenceContext struct {
 	PrimaryExpressionContext
 	base      IPrimaryExpressionContext
@@ -62630,6 +65650,16 @@ func (s *DereferenceContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DereferenceContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitDereference(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type CastByColonContext struct {
 	PrimaryExpressionContext
 }
@@ -62693,6 +65723,16 @@ func (s *CastByColonContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *CastByColonContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitCastByColon(s)
+	}
+}
+
+func (s *CastByColonContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCastByColon(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -62852,6 +65892,16 @@ func (s *TimestampaddContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *TimestampaddContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitTimestampadd(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type SubstringContext struct {
 	PrimaryExpressionContext
 	str  IValueExpressionContext
@@ -62970,6 +66020,16 @@ func (s *SubstringContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SubstringContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSubstring(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type CastContext struct {
 	PrimaryExpressionContext
 	name antlr.Token
@@ -63054,6 +66114,16 @@ func (s *CastContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *CastContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitCast(s)
+	}
+}
+
+func (s *CastContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCast(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -63164,6 +66234,16 @@ func (s *LambdaContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *LambdaContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitLambda(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ParenthesizedExpressionContext struct {
 	PrimaryExpressionContext
 }
@@ -63215,6 +66295,16 @@ func (s *ParenthesizedExpressionContext) EnterRule(listener antlr.ParseTreeListe
 func (s *ParenthesizedExpressionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitParenthesizedExpression(s)
+	}
+}
+
+func (s *ParenthesizedExpressionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitParenthesizedExpression(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -63281,6 +66371,16 @@ func (s *Any_valueContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *Any_valueContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitAny_value(s)
+	}
+}
+
+func (s *Any_valueContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitAny_value(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -63398,6 +66498,16 @@ func (s *TrimContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *TrimContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitTrim(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type SemiStructuredExtractContext struct {
 	PrimaryExpressionContext
 	col  IPrimaryExpressionContext
@@ -63471,6 +66581,16 @@ func (s *SemiStructuredExtractContext) EnterRule(listener antlr.ParseTreeListene
 func (s *SemiStructuredExtractContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSemiStructuredExtract(s)
+	}
+}
+
+func (s *SemiStructuredExtractContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSemiStructuredExtract(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -63608,6 +66728,16 @@ func (s *SimpleCaseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SimpleCaseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSimpleCase(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type CurrentLikeContext struct {
 	PrimaryExpressionContext
 	name antlr.Token
@@ -63667,6 +66797,16 @@ func (s *CurrentLikeContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CurrentLikeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCurrentLike(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ColumnReferenceContext struct {
 	PrimaryExpressionContext
 }
@@ -63710,6 +66850,16 @@ func (s *ColumnReferenceContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ColumnReferenceContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitColumnReference(s)
+	}
+}
+
+func (s *ColumnReferenceContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitColumnReference(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -63800,6 +66950,16 @@ func (s *RowConstructorContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *RowConstructorContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitRowConstructor(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type LastContext struct {
 	PrimaryExpressionContext
 }
@@ -63863,6 +67023,16 @@ func (s *LastContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *LastContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitLast(s)
+	}
+}
+
+func (s *LastContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitLast(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -63933,6 +67103,16 @@ func (s *StarContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *StarContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitStar(s)
+	}
+}
+
+func (s *StarContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitStar(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -64051,6 +67231,16 @@ func (s *OverlayContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *OverlayContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitOverlay(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type SubscriptContext struct {
 	PrimaryExpressionContext
 	value IPrimaryExpressionContext
@@ -64128,6 +67318,16 @@ func (s *SubscriptContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SubscriptContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSubscript(s)
+	}
+}
+
+func (s *SubscriptContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSubscript(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -64291,6 +67491,16 @@ func (s *TimestampdiffContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *TimestampdiffContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitTimestampdiff(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type SubqueryExpressionContext struct {
 	PrimaryExpressionContext
 }
@@ -64342,6 +67552,16 @@ func (s *SubqueryExpressionContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *SubqueryExpressionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSubqueryExpression(s)
+	}
+}
+
+func (s *SubqueryExpressionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSubqueryExpression(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -64407,6 +67627,16 @@ func (s *CollateContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CollateContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCollate(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type ConstantDefaultContext struct {
 	PrimaryExpressionContext
 }
@@ -64450,6 +67680,16 @@ func (s *ConstantDefaultContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ConstantDefaultContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitConstantDefault(s)
+	}
+}
+
+func (s *ConstantDefaultContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitConstantDefault(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -64538,6 +67778,16 @@ func (s *ExtractContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ExtractContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitExtract(s)
+	}
+}
+
+func (s *ExtractContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitExtract(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -64805,6 +68055,16 @@ func (s *FunctionCallContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *FunctionCallContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitFunctionCall(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type SearchedCaseContext struct {
 	PrimaryExpressionContext
 	elseExpression IExpressionContext
@@ -64909,6 +68169,16 @@ func (s *SearchedCaseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SearchedCaseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSearchedCase(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type PositionContext struct {
 	PrimaryExpressionContext
 	substr IValueExpressionContext
@@ -65006,6 +68276,16 @@ func (s *PositionContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *PositionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitPosition(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type FirstContext struct {
 	PrimaryExpressionContext
 }
@@ -65069,6 +68349,16 @@ func (s *FirstContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *FirstContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitFirst(s)
+	}
+}
+
+func (s *FirstContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitFirst(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -66974,6 +70264,16 @@ func (s *SemiStructuredExtractionPathContext) ExitRule(listener antlr.ParseTreeL
 	}
 }
 
+func (s *SemiStructuredExtractionPathContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSemiStructuredExtractionPath(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) SemiStructuredExtractionPath() (localctx ISemiStructuredExtractionPathContext) {
 	localctx = NewSemiStructuredExtractionPathContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 354, SqlBaseParserRULE_semiStructuredExtractionPath)
@@ -67112,6 +70412,16 @@ func (s *JsonPathIdentifierContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *JsonPathIdentifierContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitJsonPathIdentifier(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) JsonPathIdentifier() (localctx IJsonPathIdentifierContext) {
 	localctx = NewJsonPathIdentifierContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 356, SqlBaseParserRULE_jsonPathIdentifier)
@@ -67246,6 +70556,16 @@ func (s *JsonPathBracketedIdentifierContext) EnterRule(listener antlr.ParseTreeL
 func (s *JsonPathBracketedIdentifierContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitJsonPathBracketedIdentifier(s)
+	}
+}
+
+func (s *JsonPathBracketedIdentifierContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitJsonPathBracketedIdentifier(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -67410,6 +70730,16 @@ func (s *JsonPathFirstPartContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *JsonPathFirstPartContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitJsonPathFirstPart(s)
+	}
+}
+
+func (s *JsonPathFirstPartContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitJsonPathFirstPart(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -67622,6 +70952,16 @@ func (s *JsonPathPartsContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *JsonPathPartsContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitJsonPathParts(s)
+	}
+}
+
+func (s *JsonPathPartsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitJsonPathParts(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -67848,6 +71188,16 @@ func (s *LiteralTypeContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *LiteralTypeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitLiteralType(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) LiteralType() (localctx ILiteralTypeContext) {
 	localctx = NewLiteralTypeContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 364, SqlBaseParserRULE_literalType)
@@ -68050,6 +71400,16 @@ func (s *NullLiteralContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *NullLiteralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitNullLiteral(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type StringLiteralContext struct {
 	ConstantContext
 }
@@ -68093,6 +71453,16 @@ func (s *StringLiteralContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *StringLiteralContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitStringLiteral(s)
+	}
+}
+
+func (s *StringLiteralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitStringLiteral(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -68158,6 +71528,16 @@ func (s *TypeConstructorContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *TypeConstructorContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitTypeConstructor(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type PosParameterLiteralContext struct {
 	ConstantContext
 }
@@ -68189,6 +71569,16 @@ func (s *PosParameterLiteralContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *PosParameterLiteralContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitPosParameterLiteral(s)
+	}
+}
+
+func (s *PosParameterLiteralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitPosParameterLiteral(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -68238,6 +71628,16 @@ func (s *NamedParameterLiteralContext) ExitRule(listener antlr.ParseTreeListener
 	}
 }
 
+func (s *NamedParameterLiteralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitNamedParameterLiteral(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type IntervalLiteralContext struct {
 	ConstantContext
 }
@@ -68281,6 +71681,16 @@ func (s *IntervalLiteralContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *IntervalLiteralContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitIntervalLiteral(s)
+	}
+}
+
+func (s *IntervalLiteralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitIntervalLiteral(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -68330,6 +71740,16 @@ func (s *NumericLiteralContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *NumericLiteralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitNumericLiteral(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type BooleanLiteralContext struct {
 	ConstantContext
 }
@@ -68373,6 +71793,16 @@ func (s *BooleanLiteralContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *BooleanLiteralContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitBooleanLiteral(s)
+	}
+}
+
+func (s *BooleanLiteralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitBooleanLiteral(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -68566,6 +71996,16 @@ func (s *NamedParameterMarkerContext) ExitRule(listener antlr.ParseTreeListener)
 	}
 }
 
+func (s *NamedParameterMarkerContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitNamedParameterMarker(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) NamedParameterMarker() (localctx INamedParameterMarkerContext) {
 	localctx = NewNamedParameterMarkerContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 368, SqlBaseParserRULE_namedParameterMarker)
@@ -68698,6 +72138,16 @@ func (s *ComparisonOperatorContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *ComparisonOperatorContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitComparisonOperator(s)
+	}
+}
+
+func (s *ComparisonOperatorContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitComparisonOperator(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -68852,6 +72302,16 @@ func (s *ArithmeticOperatorContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ArithmeticOperatorContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitArithmeticOperator(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) ArithmeticOperator() (localctx IArithmeticOperatorContext) {
 	localctx = NewArithmeticOperatorContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 372, SqlBaseParserRULE_arithmeticOperator)
@@ -68968,6 +72428,16 @@ func (s *PredicateOperatorContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *PredicateOperatorContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitPredicateOperator(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) PredicateOperator() (localctx IPredicateOperatorContext) {
 	localctx = NewPredicateOperatorContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 374, SqlBaseParserRULE_predicateOperator)
@@ -69071,6 +72541,16 @@ func (s *BooleanValueContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *BooleanValueContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitBooleanValue(s)
+	}
+}
+
+func (s *BooleanValueContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitBooleanValue(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -69206,6 +72686,16 @@ func (s *IntervalContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *IntervalContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitInterval(s)
+	}
+}
+
+func (s *IntervalContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitInterval(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -69364,6 +72854,16 @@ func (s *ErrorCapturingMultiUnitsIntervalContext) EnterRule(listener antlr.Parse
 func (s *ErrorCapturingMultiUnitsIntervalContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitErrorCapturingMultiUnitsInterval(s)
+	}
+}
+
+func (s *ErrorCapturingMultiUnitsIntervalContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitErrorCapturingMultiUnitsInterval(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -69578,6 +73078,16 @@ func (s *MultiUnitsIntervalContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *MultiUnitsIntervalContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitMultiUnitsInterval(s)
+	}
+}
+
+func (s *MultiUnitsIntervalContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitMultiUnitsInterval(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -69801,6 +73311,16 @@ func (s *ErrorCapturingUnitToUnitIntervalContext) ExitRule(listener antlr.ParseT
 	}
 }
 
+func (s *ErrorCapturingUnitToUnitIntervalContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitErrorCapturingUnitToUnitInterval(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) ErrorCapturingUnitToUnitInterval() (localctx IErrorCapturingUnitToUnitIntervalContext) {
 	localctx = NewErrorCapturingUnitToUnitIntervalContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 384, SqlBaseParserRULE_errorCapturingUnitToUnitInterval)
@@ -70015,6 +73535,16 @@ func (s *UnitToUnitIntervalContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *UnitToUnitIntervalContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitUnitToUnitInterval(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) UnitToUnitInterval() (localctx IUnitToUnitIntervalContext) {
 	localctx = NewUnitToUnitIntervalContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 386, SqlBaseParserRULE_unitToUnitInterval)
@@ -70161,6 +73691,16 @@ func (s *IntervalValueContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *IntervalValueContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitIntervalValue(s)
+	}
+}
+
+func (s *IntervalValueContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitIntervalValue(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -70404,6 +73944,16 @@ func (s *UnitInMultiUnitsContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *UnitInMultiUnitsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitUnitInMultiUnits(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) UnitInMultiUnits() (localctx IUnitInMultiUnitsContext) {
 	localctx = NewUnitInMultiUnitsContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 390, SqlBaseParserRULE_unitInMultiUnits)
@@ -70527,6 +74077,16 @@ func (s *UnitInUnitToUnitContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *UnitInUnitToUnitContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitUnitInUnitToUnit(s)
+	}
+}
+
+func (s *UnitInUnitToUnitContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitUnitInUnitToUnit(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -70672,6 +74232,16 @@ func (s *ColPositionContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ColPositionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitColPosition(s)
+	}
+}
+
+func (s *ColPositionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitColPosition(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -70841,6 +74411,16 @@ func (s *CollationSpecContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CollationSpecContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCollationSpec(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) CollationSpec() (localctx ICollationSpecContext) {
 	localctx = NewCollationSpecContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 396, SqlBaseParserRULE_collationSpec)
@@ -70977,6 +74557,16 @@ func (s *CollateClauseContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *CollateClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitCollateClause(s)
+	}
+}
+
+func (s *CollateClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCollateClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -71373,6 +74963,16 @@ func (s *NonTrivialPrimitiveTypeContext) EnterRule(listener antlr.ParseTreeListe
 func (s *NonTrivialPrimitiveTypeContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitNonTrivialPrimitiveType(s)
+	}
+}
+
+func (s *NonTrivialPrimitiveTypeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitNonTrivialPrimitiveType(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -72096,6 +75696,16 @@ func (s *TrivialPrimitiveTypeContext) ExitRule(listener antlr.ParseTreeListener)
 	}
 }
 
+func (s *TrivialPrimitiveTypeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitTrivialPrimitiveType(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) TrivialPrimitiveType() (localctx ITrivialPrimitiveTypeContext) {
 	localctx = NewTrivialPrimitiveTypeContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 402, SqlBaseParserRULE_trivialPrimitiveType)
@@ -72314,6 +75924,16 @@ func (s *PrimitiveTypeContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *PrimitiveTypeContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitPrimitiveType(s)
+	}
+}
+
+func (s *PrimitiveTypeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitPrimitiveType(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -72600,6 +76220,16 @@ func (s *ComplexDataTypeContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ComplexDataTypeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitComplexDataType(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type PrimitiveDataTypeContext struct {
 	DataTypeContext
 }
@@ -72643,6 +76273,16 @@ func (s *PrimitiveDataTypeContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *PrimitiveDataTypeContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitPrimitiveDataType(s)
+	}
+}
+
+func (s *PrimitiveDataTypeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitPrimitiveDataType(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -72960,6 +76600,16 @@ func (s *QualifiedColTypeWithPositionListContext) ExitRule(listener antlr.ParseT
 	}
 }
 
+func (s *QualifiedColTypeWithPositionListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitQualifiedColTypeWithPositionList(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) QualifiedColTypeWithPositionList() (localctx IQualifiedColTypeWithPositionListContext) {
 	localctx = NewQualifiedColTypeWithPositionListContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 408, SqlBaseParserRULE_qualifiedColTypeWithPositionList)
@@ -73165,6 +76815,16 @@ func (s *QualifiedColTypeWithPositionContext) ExitRule(listener antlr.ParseTreeL
 	}
 }
 
+func (s *QualifiedColTypeWithPositionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitQualifiedColTypeWithPosition(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) QualifiedColTypeWithPosition() (localctx IQualifiedColTypeWithPositionContext) {
 	localctx = NewQualifiedColTypeWithPositionContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 410, SqlBaseParserRULE_qualifiedColTypeWithPosition)
@@ -73354,6 +77014,16 @@ func (s *ColDefinitionDescriptorWithPositionContext) ExitRule(listener antlr.Par
 	}
 }
 
+func (s *ColDefinitionDescriptorWithPositionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitColDefinitionDescriptorWithPosition(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) ColDefinitionDescriptorWithPosition() (localctx IColDefinitionDescriptorWithPositionContext) {
 	localctx = NewColDefinitionDescriptorWithPositionContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 412, SqlBaseParserRULE_colDefinitionDescriptorWithPosition)
@@ -73505,6 +77175,16 @@ func (s *DefaultExpressionContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DefaultExpressionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitDefaultExpression(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) DefaultExpression() (localctx IDefaultExpressionContext) {
 	localctx = NewDefaultExpressionContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 414, SqlBaseParserRULE_defaultExpression)
@@ -73624,6 +77304,16 @@ func (s *VariableDefaultExpressionContext) EnterRule(listener antlr.ParseTreeLis
 func (s *VariableDefaultExpressionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitVariableDefaultExpression(s)
+	}
+}
+
+func (s *VariableDefaultExpressionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitVariableDefaultExpression(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -73777,6 +77467,16 @@ func (s *ColTypeListContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ColTypeListContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitColTypeList(s)
+	}
+}
+
+func (s *ColTypeListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitColTypeList(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -73988,6 +77688,16 @@ func (s *ColTypeContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ColTypeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitColType(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) ColType() (localctx IColTypeContext) {
 	localctx = NewColTypeContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 420, SqlBaseParserRULE_colType)
@@ -74167,6 +77877,16 @@ func (s *TableElementListContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *TableElementListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitTableElementList(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) TableElementList() (localctx ITableElementListContext) {
 	localctx = NewTableElementListContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 422, SqlBaseParserRULE_tableElementList)
@@ -74315,6 +78035,16 @@ func (s *TableElementContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *TableElementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitTableElement(s)
+	}
+}
+
+func (s *TableElementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitTableElement(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -74474,6 +78204,16 @@ func (s *ColDefinitionListContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ColDefinitionListContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitColDefinitionList(s)
+	}
+}
+
+func (s *ColDefinitionListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitColDefinitionList(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -74679,6 +78419,16 @@ func (s *ColDefinitionContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ColDefinitionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitColDefinition(s)
+	}
+}
+
+func (s *ColDefinitionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitColDefinition(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -74888,6 +78638,16 @@ func (s *ColDefinitionOptionContext) ExitRule(listener antlr.ParseTreeListener) 
 	}
 }
 
+func (s *ColDefinitionOptionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitColDefinitionOption(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) ColDefinitionOption() (localctx IColDefinitionOptionContext) {
 	localctx = NewColDefinitionOptionContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 430, SqlBaseParserRULE_colDefinitionOption)
@@ -75079,6 +78839,16 @@ func (s *GeneratedColumnContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *GeneratedColumnContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitGeneratedColumn(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type IdentityColumnContext struct {
 	GenerationExpressionContext
 }
@@ -75146,6 +78916,16 @@ func (s *IdentityColumnContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *IdentityColumnContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitIdentityColumn(s)
+	}
+}
+
+func (s *IdentityColumnContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitIdentityColumn(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -75425,6 +79205,16 @@ func (s *IdentityColSpecContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *IdentityColSpecContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitIdentityColSpec(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) IdentityColSpec() (localctx IIdentityColSpecContext) {
 	localctx = NewIdentityColSpecContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 434, SqlBaseParserRULE_identityColSpec)
@@ -75611,6 +79401,16 @@ func (s *SequenceGeneratorOptionContext) ExitRule(listener antlr.ParseTreeListen
 	}
 }
 
+func (s *SequenceGeneratorOptionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSequenceGeneratorOption(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) SequenceGeneratorOption() (localctx ISequenceGeneratorOptionContext) {
 	localctx = NewSequenceGeneratorOptionContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 436, SqlBaseParserRULE_sequenceGeneratorOption)
@@ -75780,6 +79580,16 @@ func (s *SequenceGeneratorStartOrStepContext) EnterRule(listener antlr.ParseTree
 func (s *SequenceGeneratorStartOrStepContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSequenceGeneratorStartOrStep(s)
+	}
+}
+
+func (s *SequenceGeneratorStartOrStepContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSequenceGeneratorStartOrStep(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -75982,6 +79792,16 @@ func (s *ComplexColTypeListContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ComplexColTypeListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitComplexColTypeList(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) ComplexColTypeList() (localctx IComplexColTypeListContext) {
 	localctx = NewComplexColTypeListContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 440, SqlBaseParserRULE_complexColTypeList)
@@ -76174,6 +79994,16 @@ func (s *ComplexColTypeContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ComplexColTypeContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitComplexColType(s)
+	}
+}
+
+func (s *ComplexColTypeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitComplexColType(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -76623,6 +80453,16 @@ func (s *RoutineCharacteristicsContext) ExitRule(listener antlr.ParseTreeListene
 	}
 }
 
+func (s *RoutineCharacteristicsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitRoutineCharacteristics(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) RoutineCharacteristics() (localctx IRoutineCharacteristicsContext) {
 	localctx = NewRoutineCharacteristicsContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 444, SqlBaseParserRULE_routineCharacteristics)
@@ -76792,6 +80632,16 @@ func (s *RoutineLanguageContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *RoutineLanguageContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitRoutineLanguage(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) RoutineLanguage() (localctx IRoutineLanguageContext) {
 	localctx = NewRoutineLanguageContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 446, SqlBaseParserRULE_routineLanguage)
@@ -76929,6 +80779,16 @@ func (s *SpecificNameContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SpecificNameContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSpecificName(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) SpecificName() (localctx ISpecificNameContext) {
 	localctx = NewSpecificNameContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 448, SqlBaseParserRULE_specificName)
@@ -77046,6 +80906,16 @@ func (s *DeterministicContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DeterministicContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitDeterministic(s)
+	}
+}
+
+func (s *DeterministicContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitDeterministic(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -77206,6 +81076,16 @@ func (s *SqlDataAccessContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SqlDataAccessContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSqlDataAccess(s)
+	}
+}
+
+func (s *SqlDataAccessContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSqlDataAccess(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -77436,6 +81316,16 @@ func (s *NullCallContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *NullCallContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitNullCall(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) NullCall() (localctx INullCallContext) {
 	localctx = NewNullCallContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 454, SqlBaseParserRULE_nullCall)
@@ -77624,6 +81514,16 @@ func (s *RightsClauseContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *RightsClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitRightsClause(s)
+	}
+}
+
+func (s *RightsClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitRightsClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -77848,6 +81748,16 @@ func (s *WhenClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *WhenClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitWhenClause(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) WhenClause() (localctx IWhenClauseContext) {
 	localctx = NewWhenClauseContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 458, SqlBaseParserRULE_whenClause)
@@ -78016,6 +81926,16 @@ func (s *WindowClauseContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *WindowClauseContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitWindowClause(s)
+	}
+}
+
+func (s *WindowClauseContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitWindowClause(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -78201,6 +82121,16 @@ func (s *NamedWindowContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *NamedWindowContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitNamedWindow(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) NamedWindow() (localctx INamedWindowContext) {
 	localctx = NewNamedWindowContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 462, SqlBaseParserRULE_namedWindow)
@@ -78348,6 +82278,16 @@ func (s *WindowRefContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *WindowRefContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitWindowRef(s)
+	}
+}
+
+func (s *WindowRefContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitWindowRef(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -78530,6 +82470,16 @@ func (s *WindowDefContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *WindowDefContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitWindowDef(s)
+	}
+}
+
+func (s *WindowDefContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitWindowDef(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -78996,6 +82946,16 @@ func (s *WindowFrameContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *WindowFrameContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitWindowFrame(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) WindowFrame() (localctx IWindowFrameContext) {
 	localctx = NewWindowFrameContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 466, SqlBaseParserRULE_windowFrame)
@@ -79271,6 +83231,16 @@ func (s *FrameBoundContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *FrameBoundContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitFrameBound(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) FrameBound() (localctx IFrameBoundContext) {
 	localctx = NewFrameBoundContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 468, SqlBaseParserRULE_frameBound)
@@ -79494,6 +83464,16 @@ func (s *QualifiedNameListContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *QualifiedNameListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitQualifiedNameList(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) QualifiedNameList() (localctx IQualifiedNameListContext) {
 	localctx = NewQualifiedNameListContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 470, SqlBaseParserRULE_qualifiedNameList)
@@ -79683,6 +83663,16 @@ func (s *FunctionNameContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *FunctionNameContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitFunctionName(s)
+	}
+}
+
+func (s *FunctionNameContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitFunctionName(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -79916,6 +83906,16 @@ func (s *QualifiedNameContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *QualifiedNameContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitQualifiedName(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) QualifiedName() (localctx IQualifiedNameContext) {
 	localctx = NewQualifiedNameContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 474, SqlBaseParserRULE_qualifiedName)
@@ -80071,6 +84071,16 @@ func (s *ErrorCapturingIdentifierContext) EnterRule(listener antlr.ParseTreeList
 func (s *ErrorCapturingIdentifierContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitErrorCapturingIdentifier(s)
+	}
+}
+
+func (s *ErrorCapturingIdentifierContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitErrorCapturingIdentifier(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -80233,6 +84243,16 @@ func (s *ErrorIdentContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ErrorIdentContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitErrorIdent(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type RealIdentContext struct {
 	ErrorCapturingIdentifierExtraContext
 }
@@ -80260,6 +84280,16 @@ func (s *RealIdentContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *RealIdentContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitRealIdent(s)
+	}
+}
+
+func (s *RealIdentContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitRealIdent(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -80433,6 +84463,16 @@ func (s *IdentifierContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *IdentifierContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitIdentifier(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) Identifier() (localctx IIdentifierContext) {
 	localctx = NewIdentifierContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 480, SqlBaseParserRULE_identifier)
@@ -80576,6 +84616,16 @@ func (s *SimpleIdentifierContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SimpleIdentifierContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSimpleIdentifier(s)
+	}
+}
+
+func (s *SimpleIdentifierContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSimpleIdentifier(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -80726,6 +84776,16 @@ func (s *QuotedIdentifierAlternativeContext) ExitRule(listener antlr.ParseTreeLi
 	}
 }
 
+func (s *QuotedIdentifierAlternativeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitQuotedIdentifierAlternative(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type IdentifierLiteralContext struct {
 	StrictIdentifierContext
 }
@@ -80781,6 +84841,16 @@ func (s *IdentifierLiteralContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *IdentifierLiteralContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitIdentifierLiteral(s)
+	}
+}
+
+func (s *IdentifierLiteralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitIdentifierLiteral(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -80847,6 +84917,16 @@ func (s *UnquotedIdentifierContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *UnquotedIdentifierContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitUnquotedIdentifier(s)
+	}
+}
+
+func (s *UnquotedIdentifierContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitUnquotedIdentifier(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -81083,6 +85163,16 @@ func (s *SimpleUnquotedIdentifierContext) ExitRule(listener antlr.ParseTreeListe
 	}
 }
 
+func (s *SimpleUnquotedIdentifierContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSimpleUnquotedIdentifier(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type SimpleQuotedIdentifierAlternativeContext struct {
 	SimpleStrictIdentifierContext
 }
@@ -81126,6 +85216,16 @@ func (s *SimpleQuotedIdentifierAlternativeContext) EnterRule(listener antlr.Pars
 func (s *SimpleQuotedIdentifierAlternativeContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSimpleQuotedIdentifierAlternative(s)
+	}
+}
+
+func (s *SimpleQuotedIdentifierAlternativeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSimpleQuotedIdentifierAlternative(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -81279,6 +85379,16 @@ func (s *QuotedIdentifierContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *QuotedIdentifierContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitQuotedIdentifier(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) QuotedIdentifier() (localctx IQuotedIdentifierContext) {
 	localctx = NewQuotedIdentifierContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 488, SqlBaseParserRULE_quotedIdentifier)
@@ -81404,6 +85514,16 @@ func (s *BackQuotedIdentifierContext) ExitRule(listener antlr.ParseTreeListener)
 	}
 }
 
+func (s *BackQuotedIdentifierContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitBackQuotedIdentifier(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) BackQuotedIdentifier() (localctx IBackQuotedIdentifierContext) {
 	localctx = NewBackQuotedIdentifierContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 490, SqlBaseParserRULE_backQuotedIdentifier)
@@ -81522,6 +85642,16 @@ func (s *DecimalLiteralContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DecimalLiteralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitDecimalLiteral(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type BigIntLiteralContext struct {
 	NumberContext
 }
@@ -81560,6 +85690,16 @@ func (s *BigIntLiteralContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *BigIntLiteralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitBigIntLiteral(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type TinyIntLiteralContext struct {
 	NumberContext
 }
@@ -81595,6 +85735,16 @@ func (s *TinyIntLiteralContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *TinyIntLiteralContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitTinyIntLiteral(s)
+	}
+}
+
+func (s *TinyIntLiteralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitTinyIntLiteral(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -81640,6 +85790,16 @@ func (s *LegacyDecimalLiteralContext) ExitRule(listener antlr.ParseTreeListener)
 	}
 }
 
+func (s *LegacyDecimalLiteralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitLegacyDecimalLiteral(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type BigDecimalLiteralContext struct {
 	NumberContext
 }
@@ -81675,6 +85835,16 @@ func (s *BigDecimalLiteralContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *BigDecimalLiteralContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitBigDecimalLiteral(s)
+	}
+}
+
+func (s *BigDecimalLiteralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitBigDecimalLiteral(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -81716,6 +85886,16 @@ func (s *ExponentLiteralContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ExponentLiteralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitExponentLiteral(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type DoubleLiteralContext struct {
 	NumberContext
 }
@@ -81751,6 +85931,16 @@ func (s *DoubleLiteralContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DoubleLiteralContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitDoubleLiteral(s)
+	}
+}
+
+func (s *DoubleLiteralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitDoubleLiteral(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -81792,6 +85982,16 @@ func (s *IntegerLiteralContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *IntegerLiteralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitIntegerLiteral(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type FloatLiteralContext struct {
 	NumberContext
 }
@@ -81830,6 +86030,16 @@ func (s *FloatLiteralContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *FloatLiteralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitFloatLiteral(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type SmallIntLiteralContext struct {
 	NumberContext
 }
@@ -81865,6 +86075,16 @@ func (s *SmallIntLiteralContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *SmallIntLiteralContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSmallIntLiteral(s)
+	}
+}
+
+func (s *SmallIntLiteralContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSmallIntLiteral(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -82318,6 +86538,16 @@ func (s *ParameterIntegerValueContext) ExitRule(listener antlr.ParseTreeListener
 	}
 }
 
+func (s *ParameterIntegerValueContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitParameterIntegerValue(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type IntegerValContext struct {
 	IntegerValueContext
 }
@@ -82349,6 +86579,16 @@ func (s *IntegerValContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *IntegerValContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitIntegerVal(s)
+	}
+}
+
+func (s *IntegerValContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitIntegerVal(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -82557,6 +86797,16 @@ func (s *ColumnConstraintDefinitionContext) ExitRule(listener antlr.ParseTreeLis
 	}
 }
 
+func (s *ColumnConstraintDefinitionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitColumnConstraintDefinition(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) ColumnConstraintDefinition() (localctx IColumnConstraintDefinitionContext) {
 	localctx = NewColumnConstraintDefinitionContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 496, SqlBaseParserRULE_columnConstraintDefinition)
@@ -82748,6 +86998,16 @@ func (s *ColumnConstraintContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ColumnConstraintContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitColumnConstraint(s)
+	}
+}
+
+func (s *ColumnConstraintContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitColumnConstraint(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -82958,6 +87218,16 @@ func (s *TableConstraintDefinitionContext) ExitRule(listener antlr.ParseTreeList
 	}
 }
 
+func (s *TableConstraintDefinitionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitTableConstraintDefinition(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) TableConstraintDefinition() (localctx ITableConstraintDefinitionContext) {
 	localctx = NewTableConstraintDefinitionContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 500, SqlBaseParserRULE_tableConstraintDefinition)
@@ -83143,6 +87413,16 @@ func (s *TableConstraintContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *TableConstraintContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitTableConstraint(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) TableConstraint() (localctx ITableConstraintContext) {
 	localctx = NewTableConstraintContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 502, SqlBaseParserRULE_tableConstraint)
@@ -83300,6 +87580,16 @@ func (s *CheckConstraintContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CheckConstraintContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitCheckConstraint(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) CheckConstraint() (localctx ICheckConstraintContext) {
 	localctx = NewCheckConstraintContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 504, SqlBaseParserRULE_checkConstraint)
@@ -83428,6 +87718,16 @@ func (s *UniqueSpecContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *UniqueSpecContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitUniqueSpec(s)
+	}
+}
+
+func (s *UniqueSpecContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitUniqueSpec(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -83588,6 +87888,16 @@ func (s *UniqueConstraintContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *UniqueConstraintContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitUniqueConstraint(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) UniqueConstraint() (localctx IUniqueConstraintContext) {
 	localctx = NewUniqueConstraintContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 508, SqlBaseParserRULE_uniqueConstraint)
@@ -83726,6 +88036,16 @@ func (s *ReferenceSpecContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *ReferenceSpecContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitReferenceSpec(s)
+	}
+}
+
+func (s *ReferenceSpecContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitReferenceSpec(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -83887,6 +88207,16 @@ func (s *ForeignKeyConstraintContext) ExitRule(listener antlr.ParseTreeListener)
 	}
 }
 
+func (s *ForeignKeyConstraintContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitForeignKeyConstraint(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) ForeignKeyConstraint() (localctx IForeignKeyConstraintContext) {
 	localctx = NewForeignKeyConstraintContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 512, SqlBaseParserRULE_foreignKeyConstraint)
@@ -84028,6 +88358,16 @@ func (s *ConstraintCharacteristicContext) ExitRule(listener antlr.ParseTreeListe
 	}
 }
 
+func (s *ConstraintCharacteristicContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitConstraintCharacteristic(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) ConstraintCharacteristic() (localctx IConstraintCharacteristicContext) {
 	localctx = NewConstraintCharacteristicContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 514, SqlBaseParserRULE_constraintCharacteristic)
@@ -84142,6 +88482,16 @@ func (s *EnforcedCharacteristicContext) EnterRule(listener antlr.ParseTreeListen
 func (s *EnforcedCharacteristicContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitEnforcedCharacteristic(s)
+	}
+}
+
+func (s *EnforcedCharacteristicContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitEnforcedCharacteristic(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -84275,6 +88625,16 @@ func (s *RelyCharacteristicContext) EnterRule(listener antlr.ParseTreeListener) 
 func (s *RelyCharacteristicContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitRelyCharacteristic(s)
+	}
+}
+
+func (s *RelyCharacteristicContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitRelyCharacteristic(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -84424,6 +88784,16 @@ func (s *AlterColumnSpecListContext) EnterRule(listener antlr.ParseTreeListener)
 func (s *AlterColumnSpecListContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitAlterColumnSpecList(s)
+	}
+}
+
+func (s *AlterColumnSpecListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitAlterColumnSpecList(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -84586,6 +88956,16 @@ func (s *AlterColumnSpecContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *AlterColumnSpecContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitAlterColumnSpec(s)
+	}
+}
+
+func (s *AlterColumnSpecContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitAlterColumnSpec(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -84827,6 +89207,16 @@ func (s *AlterColumnActionContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *AlterColumnActionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitAlterColumnAction(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) AlterColumnAction() (localctx IAlterColumnActionContext) {
 	localctx = NewAlterColumnActionContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 524, SqlBaseParserRULE_alterColumnAction)
@@ -85043,6 +89433,16 @@ func (s *SingleDoubleQuotedStringLiteralValueContext) ExitRule(listener antlr.Pa
 	}
 }
 
+func (s *SingleDoubleQuotedStringLiteralValueContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSingleDoubleQuotedStringLiteralValue(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type SingleStringLiteralValueContext struct {
 	SingleStringLitWithoutMarkerContext
 }
@@ -85074,6 +89474,16 @@ func (s *SingleStringLiteralValueContext) EnterRule(listener antlr.ParseTreeList
 func (s *SingleStringLiteralValueContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitSingleStringLiteralValue(s)
+	}
+}
+
+func (s *SingleStringLiteralValueContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSingleStringLiteralValue(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -85233,6 +89643,16 @@ func (s *SingleStringLitContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *SingleStringLitContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitSingleStringLit(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) SingleStringLit() (localctx ISingleStringLitContext) {
 	localctx = NewSingleStringLitContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 528, SqlBaseParserRULE_singleStringLit)
@@ -85362,6 +89782,16 @@ func (s *PositionalParameterMarkerRuleContext) ExitRule(listener antlr.ParseTree
 	}
 }
 
+func (s *PositionalParameterMarkerRuleContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitPositionalParameterMarkerRule(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type NamedParameterMarkerRuleContext struct {
 	ParameterMarkerContext
 }
@@ -85405,6 +89835,16 @@ func (s *NamedParameterMarkerRuleContext) EnterRule(listener antlr.ParseTreeList
 func (s *NamedParameterMarkerRuleContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitNamedParameterMarkerRule(s)
+	}
+}
+
+func (s *NamedParameterMarkerRuleContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitNamedParameterMarkerRule(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -85575,6 +90015,16 @@ func (s *StringLitContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *StringLitContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitStringLit(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) StringLit() (localctx IStringLitContext) {
 	localctx = NewStringLitContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 532, SqlBaseParserRULE_stringLit)
@@ -85708,6 +90158,16 @@ func (s *CommentContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *CommentContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitComment(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) Comment() (localctx ICommentContext) {
 	localctx = NewCommentContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 534, SqlBaseParserRULE_comment)
@@ -85837,6 +90297,16 @@ func (s *VersionContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *VersionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitVersion(s)
+	}
+}
+
+func (s *VersionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitVersion(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -86282,6 +90752,16 @@ func (s *OperatorPipeRightSideContext) EnterRule(listener antlr.ParseTreeListene
 func (s *OperatorPipeRightSideContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitOperatorPipeRightSide(s)
+	}
+}
+
+func (s *OperatorPipeRightSideContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitOperatorPipeRightSide(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -86759,6 +91239,16 @@ func (s *OperatorPipeSetAssignmentSeqContext) EnterRule(listener antlr.ParseTree
 func (s *OperatorPipeSetAssignmentSeqContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitOperatorPipeSetAssignmentSeq(s)
+	}
+}
+
+func (s *OperatorPipeSetAssignmentSeqContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitOperatorPipeSetAssignmentSeq(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -88576,6 +93066,16 @@ func (s *AnsiNonReservedContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *AnsiNonReservedContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitAnsiNonReserved(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *SqlBaseParser) AnsiNonReserved() (localctx IAnsiNonReservedContext) {
 	localctx = NewAnsiNonReservedContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 542, SqlBaseParserRULE_ansiNonReserved)
@@ -88749,6 +93249,16 @@ func (s *StrictNonReservedContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *StrictNonReservedContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitStrictNonReserved(s)
+	}
+}
+
+func (s *StrictNonReservedContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitStrictNonReserved(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -90750,6 +95260,16 @@ func (s *NonReservedContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *NonReservedContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SqlBaseParserListener); ok {
 		listenerT.ExitNonReserved(s)
+	}
+}
+
+func (s *NonReservedContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case SqlBaseParserVisitor:
+		return t.VisitNonReserved(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 

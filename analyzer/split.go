@@ -17,6 +17,7 @@ func SplitSQL[T antlr.Lexer](lexer T) []string {
 		if token.GetTokenType() == antlr.TokenEOF {
 			break
 		}
+		// 添加token到当前语句
 		s.WriteString(token.GetText())
 		// 分号则是语句结束
 		if token.GetText() == ";" {

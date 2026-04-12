@@ -2,12 +2,14 @@
 
 # 显示帮助信息
 show_help() {
-    echo "用法: $0 <parser_dir> [--fix-starrocks-parser]"
+    echo "用法: $0 <parser_dir> [--fix-starrocks-parser] [--visitor]"
     echo "  <parser_dir>  - parser目录的路径，包含.g4文件"
     echo "  --fix-starrocks-parser  - 可选参数，修复生成的starrocks_parser.go文件"
+    echo "  --visitor  - 可选参数，生成visitor代码（默认不生成）"
     echo ""
     echo "示例: $0 ../internal/spark/parser"
     echo "示例: $0 ../internal/starrocks/parser StarRocks.g4 --fix-starrocks-parser"
+    echo "示例: $0 ../internal/mysql/parser --visitor"
 }
 
 # 检查是否提供了第一个参数
@@ -19,6 +21,7 @@ fi
 # 解析参数
 fix_starrocks=false
 fix_mysql=false
+no_visitor=true
 parser_dir=""
 g4_files=""
 
@@ -30,6 +33,10 @@ while [ $# -gt 0 ]; do
             ;;
         --fix-mysql-parser)
             fix_mysql=true
+            shift
+            ;;
+        --visitor)
+            no_visitor=false
             shift
             ;;
         *)
@@ -132,7 +139,11 @@ if [ "$fix_mysql" = true ]; then
 fi
 
 # 直接使用java命令执行antlr工具，传入所有g4文件（使用相对路径）
-java -Xmx500M -cp "$antlr_path:$CLASSPATH" org.antlr.v4.Tool -Dlanguage=Go -no-visitor -package parser $g4_files
+if [ "$no_visitor" = true ]; then
+    java -Xmx500M -cp "$antlr_path:$CLASSPATH" org.antlr.v4.Tool -Dlanguage=Go -no-visitor -package parser $g4_files
+else
+    java -Xmx500M -cp "$antlr_path:$CLASSPATH" org.antlr.v4.Tool -Dlanguage=Go -visitor -package parser $g4_files
+fi
 
 echo "Generate $parser_dir success!"
 

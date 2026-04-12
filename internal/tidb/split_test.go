@@ -57,7 +57,7 @@ func TestSplit(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			req := &analyzer.DependencyAnalyzeReq{
+			req := &analyzer.AnalyzeReq{
 				DefaultCluster:  "default_cluster",
 				DefaultDatabase: "default_db",
 				SQL:             tc.sql,
